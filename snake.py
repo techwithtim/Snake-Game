@@ -191,8 +191,8 @@ def main():
                 break
                     
         redrawWindow()
-
-main()
+if __name__ == "__main__":
+    main()
     
 
     
