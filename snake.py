@@ -5,13 +5,15 @@ import random
 import tkinter as tk
 from tkinter import messagebox
 
+---------------------------------------
+
 width = 500
 height = 500
 
 cols = 25
 rows = 20
 
-
+#--------------------------------------
 class cube():
     rows = 20
     w = 500
@@ -42,7 +44,7 @@ class cube():
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
         
 
-
+#--------------------------------------
 class snake():
     body = []
     turns = {}
@@ -120,7 +122,7 @@ class snake():
                 c.draw(surface, True)
             else:
                 c.draw(surface)
-
+#----------------------------------------------
 
 
 def redrawWindow():
@@ -160,7 +162,7 @@ def randomSnack(rows, item):
                break
 
     return (x,y)
-
+#-----------------------------------------------
 
 def main():
     global s, snack, win
