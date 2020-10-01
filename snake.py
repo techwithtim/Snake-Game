@@ -78,6 +78,15 @@ class snake():
                     self.dirny = 1
                     self.dirnx = 0
                     self.turns[self.head.pos[:]] = [self.dirnx,self.dirny]
+               elif keys[pygame.K_s]:
+                        velocity_y = init_velocity
+                        velocity_x = 0
+               elif keys[pygame.K_e]:
+                        score += 10
+               elif keys[pygame.K_g]:
+                        size += 1
+               elif keys[pygame.K_f]:
+                        init_velocity -= 1
         
         for i, c in enumerate(self.body):
             p = c.pos[:]
