@@ -1,12 +1,14 @@
 # Snake-Game
 The classic snake game. Made with pygame.
 
-You can check out my video tutorial series on how to create this game: https://www.youtube.com/watch?v=5tvER0MT14s&t=2s
+You can check out my amazing video tutorial series on how to create this game: https://www.youtube.com/watch?v=5tvER0MT14s&t=2s 
 
 # Requirements
 - Python 3.x
 - pygame
+Current Python version 3.7.5
 
+You can run this game in online Python interpreters.
 # Run in Gitpod
 
 You can also run Snake-Game in Gitpod, a free online dev environment for GitHub:
