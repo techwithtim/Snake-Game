@@ -12,6 +12,10 @@ cols = 25
 rows = 20
 
 clock = pygame.time.Clock()
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 class cube():
     rows = 20
@@ -91,7 +95,11 @@ class snake():
                 c.move(c.dirnx,c.dirny)
 
         level = int(len(self.body) / 5)
+<<<<<<< HEAD
         fps = 5 + (2*level) 
+=======
+        fps = 6 + (2*level) 
+>>>>>>> master
         clock.tick(fps)
         
         
