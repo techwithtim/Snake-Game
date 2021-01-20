@@ -194,7 +194,7 @@ def main():
                 s.reset((10,10))
                 break
         
-         if len(s.body) > 25:
+        if len(s.body) > 25:
             end_game()
 
         redrawWindow()
