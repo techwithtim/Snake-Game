@@ -19,7 +19,7 @@ win=Tk()
 win.title("NEW Snake Game")
 win.resizable(500,500)
 
-label1=Label(win, text="Game Start",width=30,height=5,fg="blue",relief="solid")
+label1=Label(win, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
 label1.pack()
 
 win.mainloop()
