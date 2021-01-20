@@ -4,6 +4,7 @@ import pygame
 import random
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import *
 
 width = 500
 height = 500
@@ -14,6 +15,14 @@ rows = 20
 
 clock = pygame.time.Clock()
 
+win=Tk()
+win.title("NEW Snake Game")
+win.resizable(500,500)
+
+label1=Label(win, text="Game Start",width=30,height=5,fg="blue",relief="solid")
+label1.pack()
+
+win.mainloop()
 
 class cube():
     rows = 20
