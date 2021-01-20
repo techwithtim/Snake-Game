@@ -120,6 +120,10 @@ class snake():
                 c.draw(surface, True)
             else:
                 c.draw(surface)
+    
+    def end_game():
+        print("Score:", len(self.body))
+        sys.exit(0)
 
 
 
@@ -189,7 +193,10 @@ def main():
                 print("Score:", len(s.body))
                 s.reset((10,10))
                 break
-                    
+        
+         if len(s.body) > 25:
+            end_game()
+
         redrawWindow()
 
 main()
