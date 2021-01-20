@@ -11,6 +11,8 @@ height = 500
 cols = 25
 rows = 20
 
+clock = pygame.time.Clock()
+
 
 class cube():
     rows = 20
@@ -88,6 +90,10 @@ class snake():
                     self.turns.pop(p)
             else:
                 c.move(c.dirnx,c.dirny)
+
+        level = int(len(self.body) / 5)
+        fps = 6 + (2*level) 
+        clock.tick(fps)
         
         
     def reset(self,pos):
