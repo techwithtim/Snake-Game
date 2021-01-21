@@ -18,13 +18,13 @@ background = pygame.display.set_mode((width, height))
 
 window=Tk()
 window.title("NEW Snake Game")
-window.geometry('300x100+470+200')
+window.geometry('300x120+470+200')
 
-label1=Label(window, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
+label1=Label(window, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="sunken")
 label1.pack()
 
-b1=Button(window,text="시작하기",width=10,height=5,bg='yellow',command = window.destroy)
-b1.pack()
+b1=Button(window,text="시작하기",width=10,bg='yellow',command = window.destroy)
+b1.pack(padx = 10, pady = 5)
 
 window.mainloop()
 
@@ -35,7 +35,7 @@ class cube():
     def __init__(self, start, dirnx=1, dirny=0, color=(255,0,0)):
         self.pos = start
         self.dirnx = dirnx
-        self.dirny = dirny 
+        self.dirny = dirny # "L", "R", "U", "D"
         self.color = color
 
     def move(self, dirnx, dirny):
@@ -66,6 +66,7 @@ class snake():
     turns = {}
     
     def __init__(self, color, pos):
+        #pos is given as coordinates on the grid ex (1,5)
         self.color = color
         self.head = cube(pos)
         self.body.append(self.head)
@@ -144,7 +145,6 @@ class snake():
     def end_game():
         print("Score:", len(self.body))
         sys.exit(0)
-        
 
     def show_info(self):
         font = pygame.font.SysFont('malgungothic',30,bold=5)
@@ -155,16 +155,16 @@ class snake():
         background.blit(image, pos)
 
 
-def finish_game(seconds):
+def finish_game():
         fin=Tk()
         fin.title("Full Level")
-        fin.geometry('300x100+500+200')
-        b=int(seconds)
-        print ("Total Time :", b)
-        label2=Label(fin, text="SUCCESS\nTotal Time :"+str(b),width=30,height=5,fg="red",relief="solid")
+        fin.geometry('400x200+500+200')
+        label2=Label(fin, text="!! SUCCESS !!",width=30,height=5,fg="red",bd=5,font=10,relief="raised")
         label2.pack()
-    
         
+        b2=Button(fin, text="끝내기",width=20,bg='yellow',command = fin.destroy)
+        b2.pack(padx = 10, pady = 20)
+
         fin.mainloop()
 
 
@@ -207,22 +207,19 @@ def randomSnack(rows, item):
 
 
 def main():
-    global s, snack, win, b
+    global s, snack, win
     win = pygame.display.set_mode((width,height))
     s = snake((255,0,0), (10,10))
     s.addCube()
     snack = cube(randomSnack(rows,s), color=(0,255,0))
     flag = True
     clock = pygame.time.Clock()
-    start_ticks=pygame.time.get_ticks()
-
 
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         s.move()
         headPos = s.head.pos
-        seconds=(pygame.time.get_ticks()-start_ticks)/1000
 
         if headPos[0] >= 25 or headPos[0] < 0 or headPos[1] >= 25 or headPos[1] < 0:
             print("Score:", len(s.body))
@@ -237,9 +234,9 @@ def main():
                 print("Score:", len(s.body))
                 s.reset((10,10))
                 break
-
+        
         if len(s.body) > 25:
-            finish_game(seconds)
+            finish_game()
             end_game()
             
         redrawWindow()
