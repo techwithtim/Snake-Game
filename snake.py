@@ -3,7 +3,6 @@ import random
 import pygame
 import random
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import *
 
 pygame.init()
@@ -26,14 +25,17 @@ screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 
 
-win=Tk()
-win.title("NEW Snake Game")
-win.resizable(500,500)
+window=Tk()
+window.title("NEW Snake Game")
+window.geometry('300x100+470+200')
 
-label1=Label(win, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
+label1=Label(window, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
 label1.pack()
 
-win.mainloop()
+b1=Button(window,text="시작하기",width=10,height=5,bg='yellow',command = window.destroy)
+b1.pack()
+
+window.mainloop()
 
 class cube():
     rows = 20
@@ -169,6 +171,16 @@ class snake():
         surface.blit(image, pos)
 
 
+def finish_game():
+        fin=Tk()
+        fin.title("Full Levell")
+        fin.geometry('300x100+500+200')
+        label2=Label(fin, text="SUCCESS",width=30,height=5,fg="red",relief="solid")
+        label2.pack()
+        
+        fin.mainloop()
+
+
 def redrawWindow():
     global win
     win.fill((0,0,0))
@@ -236,9 +248,10 @@ def main():
                 s.reset((10,10))
                 break
         
-        if len(s.body) > 25:
+        if len(s.body) > 5:
+            finish_game()
             end_game()
-
+            
         redrawWindow()
 
 main()
