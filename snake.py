@@ -6,10 +6,10 @@ import tkinter as tk
 from tkinter import *
 
 
-width = 500
-height = 500
+width = 700
+height = 700
 cols = 25
-rows = 20
+rows = 25
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -30,12 +30,12 @@ window.mainloop()
 
 
 class cube():
-    rows = 20
-    w = 500
+    rows = 25
+    w = 700
     def __init__(self, start, dirnx=1, dirny=0, color=(255,0,0)):
         self.pos = start
         self.dirnx = dirnx
-        self.dirny = dirny # "L", "R", "U", "D"
+        self.dirny = dirny 
         self.color = color
 
     def move(self, dirnx, dirny):
@@ -49,7 +49,7 @@ class cube():
         i = self.pos[0]
         j = self.pos[1]
 
-        screen = pygame.draw.rect(surface, self.color, (i*dis+1,j*dis+1,dis-2,dis-2))
+        pygame.draw.rect(surface, self.color, (i*dis+1,j*dis+1,dis-2,dis-2))
 
         if eyes:
             centre = dis//2
@@ -66,7 +66,6 @@ class snake():
     turns = {}
     
     def __init__(self, color, pos):
-        #pos is given as coordinates on the grid ex (1,5)
         self.color = color
         self.head = cube(pos)
         self.body.append(self.head)
@@ -145,22 +144,26 @@ class snake():
     def end_game():
         print("Score:", len(self.body))
         sys.exit(0)
+        
 
     def show_info(self):
-        font = pygame.font.SysFont('malgungothic',30)
-        image = font.render(f' Lv.: {len(self.body)} ', True, (0,0,0))
+        font = pygame.font.SysFont('malgungothic',30,bold=5)
+        image = font.render(f'  {len(self.body)} .Lv  ', True, (0,0,0))
         pos = image.get_rect()
         pos.move_ip(20,20)
-        pygame.draw.rect(image, (0,0,0),(pos.x-20, pos.y-20, pos.width, pos.height), 2)
+        pygame.draw.rect(image, (0,0,0),(pos.x-15, pos.y-15, pos.width, pos.height), 2)
         background.blit(image, pos)
 
 
-def finish_game():
+def finish_game(seconds):
         fin=Tk()
-        fin.title("Full Levell")
+        fin.title("Full Level")
         fin.geometry('300x100+500+200')
-        label2=Label(fin, text="SUCCESS",width=30,height=5,fg="red",relief="solid")
+        b=int(seconds)
+        print ("Total Time :", b)
+        label2=Label(fin, text="SUCCESS\nTotal Time :"+str(b),width=30,height=5,fg="red",relief="solid")
         label2.pack()
+    
         
         fin.mainloop()
 
@@ -204,21 +207,24 @@ def randomSnack(rows, item):
 
 
 def main():
-    global s, snack, win
+    global s, snack, win, b
     win = pygame.display.set_mode((width,height))
     s = snake((255,0,0), (10,10))
     s.addCube()
     snack = cube(randomSnack(rows,s), color=(0,255,0))
     flag = True
     clock = pygame.time.Clock()
+    start_ticks=pygame.time.get_ticks()
+
 
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         s.move()
         headPos = s.head.pos
+        seconds=(pygame.time.get_ticks()-start_ticks)/1000
 
-        if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
+        if headPos[0] >= 25 or headPos[0] < 0 or headPos[1] >= 25 or headPos[1] < 0:
             print("Score:", len(s.body))
             s.reset((10, 10))
 
@@ -231,9 +237,10 @@ def main():
                 print("Score:", len(s.body))
                 s.reset((10,10))
                 break
-        
-        if len(s.body) > 5:
-            finish_game()
+
+
+        if len(s.body) > 25:
+            finish_game(seconds)
             end_game()
             
         redrawWindow()
