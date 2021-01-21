@@ -140,15 +140,15 @@ class snake():
                 c.draw(surface, True)
             else:
                 c.draw(surface)
-    
+
     def end_game():
         print("Score:", len(self.body))
         sys.exit(0)
         
 
-    def show_info(self):
+    def show_info(self,score):
         font = pygame.font.SysFont('malgungothic',30,bold=5)
-        image = font.render(f'  {len(self.body)} .Lv  ', True, (0,0,0))
+        image = font.render(f'  {len(self.body)} .Lv  점수 : {score}', True, (0,0,0))
         pos = image.get_rect()
         pos.move_ip(20,20)
         pygame.draw.rect(image, (0,0,0),(pos.x-15, pos.y-15, pos.width, pos.height), 2)
@@ -176,7 +176,8 @@ def redrawWindow():
     drawGrid(width, rows, win)
     s.draw(win)
     snack.draw(win)
-    s.show_info()
+    bug.draw(win)
+    s.show_info(score)
     pygame.display.update()
     pass
 
@@ -209,14 +210,20 @@ def randomSnack(rows, item):
 
 
 def main():
-    global s, snack, win, b
+
+    global s, snack,bug, win, b, score
+
     win = pygame.display.set_mode((width,height))
     s = snake((255,0,0), (10,10))
     s.addCube()
     snack = cube(randomSnack(rows,s), color=(0,255,0))
+    bug = cube(randomSnack(rows,s), color=(0,0,255))
     flag = True
     clock = pygame.time.Clock()
     start_ticks=pygame.time.get_ticks()
+
+    score=0
+
 
 
     while flag:
@@ -233,7 +240,18 @@ def main():
         if s.body[0].pos == snack.pos:
             s.addCube()
             snack = cube(randomSnack(rows,s), color=(0,255,0))
+            bug = cube(randomSnack(rows,s), color=(0,0,255))
+            score +=10
+            redrawWindow()
+        
+        if s.body[0].pos == bug.pos:
+            snack = cube(randomSnack(rows,s), color=(0,255,0))
+            bug = cube(randomSnack(rows,s), color=(0,0,255))
+            score -= 10
+            redrawWindow()
             
+
+                
         for x in range(len(s.body)):
             if s.body[x].pos in list(map(lambda z:z.pos,s.body[x+1:])):
                 print("Score:", len(s.body))
