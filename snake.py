@@ -224,6 +224,12 @@ def main():
 
     score=0
 
+    eatsnack = pygame.mixer.Sound('grow.wav')   
+    eatsnack.set_volume(0.8)
+    eatbug = pygame.mixer.Sound('shrink.wav')
+    eatbug.set_volume(0.8)
+    gameoversound = pygame.mixer.Sound('gameover.wav')
+    gameoversound.set_volume(0.8)
 
 
     while flag:
@@ -234,10 +240,12 @@ def main():
         seconds=(pygame.time.get_ticks()-start_ticks)/1000
 
         if headPos[0] >= 25 or headPos[0] < 0 or headPos[1] >= 25 or headPos[1] < 0:
+            gameoversound.play()
             print("Score:", len(s.body))
             s.reset((10, 10))
 
         if s.body[0].pos == snack.pos:
+            eatsnack.play()
             s.addCube()
             snack = cube(randomSnack(rows,s), color=(0,255,0))
             bug = cube(randomSnack(rows,s), color=(0,0,255))
@@ -245,6 +253,7 @@ def main():
             redrawWindow()
         
         if s.body[0].pos == bug.pos:
+            eatbug.play()
             snack = cube(randomSnack(rows,s), color=(0,255,0))
             bug = cube(randomSnack(rows,s), color=(0,0,255))
             score -= 10
