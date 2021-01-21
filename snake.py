@@ -3,36 +3,54 @@ import random
 import pygame
 import random
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import *
 
-width = 500
-height = 500
 
+width = 700
+height = 700
 cols = 25
-rows = 20
+rows = 25
+
+pygame.init()
+clock = pygame.time.Clock()
+background = pygame.display.set_mode((width, height))
+
+
+window=Tk()
+window.title("NEW Snake Game")
+window.geometry('300x100+470+200')
+
+label1=Label(window, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
+label1.pack()
+
+b1=Button(window,text="시작하기",width=10,height=5,bg='yellow',command = window.destroy)
+b1.pack()
+
+window.mainloop()
 
 
 class cube():
-    rows = 20
-    w = 500
+    rows = 25
+    w = 700
     def __init__(self, start, dirnx=1, dirny=0, color=(255,0,0)):
         self.pos = start
         self.dirnx = dirnx
-        self.dirny = dirny # "L", "R", "U", "D"
+        self.dirny = dirny 
         self.color = color
 
     def move(self, dirnx, dirny):
         self.dirnx = dirnx
         self.dirny = dirny
         self.pos  = (self.pos[0] + self.dirnx, self.pos[1] + self.dirny)
-            
+
 
     def draw(self, surface, eyes=False):
         dis = self.w // self.rows
         i = self.pos[0]
         j = self.pos[1]
-        
+
         pygame.draw.rect(surface, self.color, (i*dis+1,j*dis+1,dis-2,dis-2))
+
         if eyes:
             centre = dis//2
             radius = 3
@@ -40,15 +58,14 @@ class cube():
             circleMiddle2 = (i*dis + dis -radius*2, j*dis+8)
             pygame.draw.circle(surface, (0,0,0), circleMiddle, radius)
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
-        
 
+            
 
 class snake():
     body = []
     turns = {}
     
     def __init__(self, color, pos):
-        #pos is given as coordinates on the grid ex (1,5)
         self.color = color
         self.head = cube(pos)
         self.body.append(self.head)
@@ -88,7 +105,10 @@ class snake():
                     self.turns.pop(p)
             else:
                 c.move(c.dirnx,c.dirny)
-        
+
+        level = int(len(self.body) / 5)
+        fps = 6 + (1.5*level)
+        clock.tick(fps)
         
     def reset(self,pos):
         self.head = cube(pos)
@@ -120,32 +140,56 @@ class snake():
                 c.draw(surface, True)
             else:
                 c.draw(surface)
+    
+    def end_game():
+        print("Score:", len(self.body))
+        sys.exit(0)
+        
 
+    def show_info(self):
+        font = pygame.font.SysFont('malgungothic',30,bold=5)
+        image = font.render(f'  {len(self.body)} .Lv  ', True, (0,0,0))
+        pos = image.get_rect()
+        pos.move_ip(20,20)
+        pygame.draw.rect(image, (0,0,0),(pos.x-15, pos.y-15, pos.width, pos.height), 2)
+        background.blit(image, pos)
+
+
+def finish_game(seconds):
+        fin=Tk()
+        fin.title("Full Level")
+        fin.geometry('300x100+500+200')
+        b=int(seconds)
+        print ("Total Time :", b)
+        label2=Label(fin, text="SUCCESS\nTotal Time :"+str(b),width=30,height=5,fg="red",relief="solid")
+        label2.pack()
+    
+        
+        fin.mainloop()
 
 
 def redrawWindow():
     global win
-    win.fill((0,0,0))
+    win.fill((176,224,230))
     drawGrid(width, rows, win)
     s.draw(win)
     snack.draw(win)
+    s.show_info()
     pygame.display.update()
     pass
 
-
-
 def drawGrid(w, rows, surface):
-    sizeBtwn = w // rows
 
+    sizeBtwn = w // rows
     x = 0
     y = 0
+
     for l in range(rows):
         x = x + sizeBtwn
         y = y +sizeBtwn
 
-        pygame.draw.line(surface, (255,255,255), (x, 0),(x,w))
-        pygame.draw.line(surface, (255,255,255), (0, y),(w,y))
-    
+        pygame.draw.line(surface, (150,150,150), (x, 0),(x,w))
+        pygame.draw.line(surface, (150,150,150), (0, y),(w,y))
 
 
 def randomSnack(rows, item):
@@ -163,20 +207,24 @@ def randomSnack(rows, item):
 
 
 def main():
-    global s, snack, win
+    global s, snack, win, b
     win = pygame.display.set_mode((width,height))
     s = snake((255,0,0), (10,10))
     s.addCube()
     snack = cube(randomSnack(rows,s), color=(0,255,0))
     flag = True
     clock = pygame.time.Clock()
-    
+    start_ticks=pygame.time.get_ticks()
+
+
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
         s.move()
         headPos = s.head.pos
-        if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
+        seconds=(pygame.time.get_ticks()-start_ticks)/1000
+
+        if headPos[0] >= 25 or headPos[0] < 0 or headPos[1] >= 25 or headPos[1] < 0:
             print("Score:", len(s.body))
             s.reset((10, 10))
 
@@ -189,10 +237,13 @@ def main():
                 print("Score:", len(s.body))
                 s.reset((10,10))
                 break
-                    
+
+
+        if len(s.body) > 25:
+            finish_game(seconds)
+            end_game()
+            
         redrawWindow()
 
 main()
-    
-
     
