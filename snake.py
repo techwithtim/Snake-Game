@@ -4,6 +4,9 @@ import pygame
 import random
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import *
+
+pygame.init()
 
 width = 500
 height = 500
@@ -11,9 +14,25 @@ height = 500
 cols = 25
 rows = 20
 
+WINDOW_WIDTH = 500
+WINDOW_HEIGHT = 500
+GRID = 30
+GRID_WIDTH = int(WINDOW_WIDTH/GRID)
+GRID_HEIGHT = int(WINDOW_HEIGHT/GRID)
 
 clock = pygame.time.Clock()
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
+
+
+win=Tk()
+win.title("NEW Snake Game")
+win.resizable(500,500)
+
+label1=Label(win, text="Game Start\nLet's go",width=30,height=5,fg="blue",relief="solid")
+label1.pack()
+
+win.mainloop()
 
 class cube():
     rows = 20
@@ -28,14 +47,23 @@ class cube():
         self.dirnx = dirnx
         self.dirny = dirny
         self.pos  = (self.pos[0] + self.dirnx, self.pos[1] + self.dirny)
-            
+        
+
 
     def draw(self, surface, eyes=False):
         dis = self.w // self.rows
         i = self.pos[0]
         j = self.pos[1]
-        
-        pygame.draw.rect(surface, self.color, (i*dis+1,j*dis+1,dis-2,dis-2))
+
+        screen = pygame.draw.rect(surface, self.color, (i*dis+1,j*dis+1,dis-2,dis-2))
+
+        font = pygame.font.SysFont('malgungothic',35)
+        image = font.render(f' 점수: {111} ', True, (255,255,255))
+        pos = image.get_rect()
+        pos.move_ip(20,20)
+        pygame.draw.rect(image, (255,255,255),(pos.x-20, pos.y-20, pos.width, pos.height), 2)
+        surface.blit(image, pos)
+
         if eyes:
             centre = dis//2
             radius = 3
@@ -43,8 +71,8 @@ class cube():
             circleMiddle2 = (i*dis + dis -radius*2, j*dis+8)
             pygame.draw.circle(surface, (0,0,0), circleMiddle, radius)
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
-        
 
+            
 
 class snake():
     body = []
@@ -131,6 +159,13 @@ class snake():
         print("Score:", len(self.body))
         sys.exit(0)
 
+    def show_info(self, surface):
+        font = pygame.font.SysFont('malgungothic',35)
+        image = font.render(f' 점수: {len(self.body)} ', True, (255,255,255))
+        pos = image.get_rect()
+        pos.move_ip(20,20)
+        pygame.draw.rect(image, (255,255,255),(pos.x-20, pos.y-20, pos.width, pos.height), 2)
+        surface.blit(image, pos)
 
 
 def redrawWindow():
@@ -141,7 +176,6 @@ def redrawWindow():
     snack.draw(win)
     pygame.display.update()
     pass
-
 
 
 def drawGrid(w, rows, surface):
@@ -155,7 +189,6 @@ def drawGrid(w, rows, surface):
 
         pygame.draw.line(surface, (255,255,255), (x, 0),(x,w))
         pygame.draw.line(surface, (255,255,255), (0, y),(w,y))
-    
 
 
 def randomSnack(rows, item):
@@ -181,6 +214,8 @@ def main():
     flag = True
     clock = pygame.time.Clock()
     
+    s.show_info(screen)
+    
     while flag:
         pygame.time.delay(50)
         clock.tick(10)
@@ -200,12 +235,10 @@ def main():
                 s.reset((10,10))
                 break
         
-         if len(s.body) > 25:
+        if len(s.body) > 25:
             end_game()
 
         redrawWindow()
 
 main()
-    
-
     
