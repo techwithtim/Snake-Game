@@ -1,0 +1,81 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Ren'Py: Set .renpy-sdk path",
+            "type": "shell",
+            "command": "echo \"${input:RenPySh}\" > .renpy-sdk",
+        },
+        {
+            "label": "Renpy: Run",
+            "type": "shell",
+            "command": "bin/renpy run",
+            "group": "build"
+        },
+        {
+            "label": "Renpy: Delete Persistent",
+            "type": "shell",
+            "command": "bin/renpy rmpersistent"
+        },
+        {
+            "label": "Renpy: Force Recompile",
+            "type": "shell",
+            "command": "bin/renpy compile"
+        },
+        {
+            "label": "Renpy: Lint",
+            "type": "shell",
+            "command": "bin/renpy lint"
+        },
+        {
+            "label": "Renpy: Distribute",
+            "type": "shell",
+            "command": "bin/renpy distribute",
+            "group": "build",
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Renpy Windows: Run",
+            "type": "shell",
+            "command": "bin/renpy.ps1 -Command run",
+            "group": "build"
+        },
+        {
+            "label": "Renpy Windows: Delete Persistent",
+            "type": "shell",
+            "command": "bin/renpy.ps1 -Command rmpersistent"
+        },
+        {
+            "label": "Renpy Windows: Force Recompile",
+            "type": "shell",
+            "command": "bin/renpy.ps1 -Command compile"
+        },
+        {
+            "label": "Renpy Windows: Lint",
+            "type": "shell",
+            "command": "bin/renpy.ps1 -Command lint"
+        },
+        {
+            "label": "Renpy Windows: Distribute",
+            "type": "shell",
+            "command": "bin/renpy.ps1 -Command distribute",
+            "group": "build",
+            "problemMatcher": []
+        },
+    ],
+    "inputs": [
+        {
+            "id": "RenPySh",
+            "description": "Paste the path to your Ren'Py SDK `renpy.sh`",
+            "type": "promptString"
+        },
+        {
+            "id": "RenPyExe",
+            "description": "Paste the path to your Ren'Py SDK `renpy.exe`",
+            "type": "promptString"
+        }
+    ]
+}

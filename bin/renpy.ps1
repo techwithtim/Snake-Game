@@ -1,0 +1,8 @@
+param(
+    [string] $Command = "run"
+)
+$RenPy = Get-Content (Resolve-Path ".renpy-sdk") -Raw
+$RenPy = [string]::join("",($RenPy.Split("`n")))
+
+Write-Output "Using Ren'Py SDK: $RenPy"
+Start-Process -FilePath "$RenPy" -ArgumentList ". $Command"
