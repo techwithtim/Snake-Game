@@ -9,28 +9,28 @@
             "command": "echo \"${input:RenPySh}\" > .renpy-sdk",
         },
         {
-            "label": "Renpy: Run",
+            "label": "Ren'Py: Run",
             "type": "shell",
             "command": "bin/renpy run",
             "group": "build"
         },
         {
-            "label": "Renpy: Delete Persistent",
+            "label": "Ren'Py: Delete Persistent",
             "type": "shell",
             "command": "bin/renpy rmpersistent"
         },
         {
-            "label": "Renpy: Force Recompile",
+            "label": "Ren'Py: Force Recompile",
             "type": "shell",
             "command": "bin/renpy compile"
         },
         {
-            "label": "Renpy: Lint",
+            "label": "Ren'Py: Lint",
             "type": "shell",
             "command": "bin/renpy lint"
         },
         {
-            "label": "Renpy: Distribute",
+            "label": "Ren'Py: Distribute",
             "type": "shell",
             "command": "bin/renpy distribute",
             "group": "build",
@@ -38,28 +38,28 @@
         },
 
         {
-            "label": "Renpy Windows: Run",
+            "label": "Ren'Py Windows: Run",
             "type": "shell",
             "command": "bin/renpy.ps1 -Command run",
             "group": "build"
         },
         {
-            "label": "Renpy Windows: Delete Persistent",
+            "label": "Ren'Py Windows: Delete Persistent",
             "type": "shell",
             "command": "bin/renpy.ps1 -Command rmpersistent"
         },
         {
-            "label": "Renpy Windows: Force Recompile",
+            "label": "Ren'Py Windows: Force Recompile",
             "type": "shell",
             "command": "bin/renpy.ps1 -Command compile"
         },
         {
-            "label": "Renpy Windows: Lint",
+            "label": "Ren'Py Windows: Lint",
             "type": "shell",
             "command": "bin/renpy.ps1 -Command lint"
         },
         {
-            "label": "Renpy Windows: Distribute",
+            "label": "Ren'Py Windows: Distribute",
             "type": "shell",
             "command": "bin/renpy.ps1 -Command distribute",
             "group": "build",
