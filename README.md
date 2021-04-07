@@ -58,3 +58,5 @@ Before you can use the included Ren'Py tasks, run the task `Ren'Py Setup: Set .r
 - If I keep my SDK in `C:\Program Files\`, then the path would be `C:\Program Files\renpy-7.4.4-sdk`
 
 A file will be created in the root of your workspace called `.renpy-sdk` with the path you entered inside it.  You can re-run the setup task whenever you want to update this file, or modify the file directly.
+
+You may mark relevant tasks as favorites.  The Windows-specific tasks will call on the `bin/renpy.ps1` helper script, while the non-Windows version will call on `bin/renpy`.
