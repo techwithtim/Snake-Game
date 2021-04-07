@@ -46,6 +46,7 @@ git push
 # Instructions for use
 
 Locate the Task Explorer panel to run your project-specific tasks.
+
 <img width="536" alt="Screen Shot 2021-04-07 at 4 52 54 PM" src="https://user-images.githubusercontent.com/618184/113932541-bb318880-97c1-11eb-9e94-d678eb4c665f.png">
 
 To see the tasks without the Task Explorer extension, open VSCode's [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and search for `Tasks: Run Task`:
