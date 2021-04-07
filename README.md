@@ -1,15 +1,28 @@
 # Ren'Py VSCode Project Template
 
 This repository is a template for VSCode tasks and extensions for developing Ren'Py projects.
+- `.vscode/tasks.json`: Tasks for launching Ren'Py SDK commands without opening the Ren'Py launcher.
+  - Set .renpy-sdk file (custom file for remembering your project's SDK path for commands to work)
+  - Run
+  - Lint
+  - Force Recompile
+  - Delete Persistent data
+  - Distribute
+- `.vscode/extensions.json`: Optional extensions that VSCode will offer to install for you
+  - [Ren'Py Language](https://marketplace.visualstudio.com/items?itemName=LuqueDaniel.languague-renpy) for syntax highlighting
+  - [Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer) for an easy clickable list of tasks from `.vscode/tasks.json`
+- `.gitignore`: Git configuration file for ignoring certain file paths and types.
+  - \*.rpyc/rpymc
+  - log.txt, error.txt, traceback.txt
 
-# Using files directly (no repository of your own)
+## Using files directly (no repository of your own)
 1. [Download the template files to your computer](https://github.com/tiliv/renpy-vscode-template/archive/refs/heads/main.zip).
 2. Extract the zip file into an existing Ren'Py **Project**.
 
-NOTE: The zip archive will contain a hidden `.vscode` folder.  If you are struggling to move `.vscode` into your project, open the unzipped folder in VSCode and use the VSCode UI to cut/paste the `.vscode` folder into your Ren'Py **Project** folder
+NOTE: The zip archive will contain a hidden files like the `.vscode` folder.  If you are struggling to move `.vscode` into your project, open the unzipped folder in VSCode and use the VSCode UI to cut/paste the `.vscode` folder into your Ren'Py **Project** folder
 
 
-# Making your own GitHub repository
+## Making your own GitHub repository
 
 Alternatively, if you want to copy this template and also track your Ren'Py project files on GitHub, you may use the following steps instead.  Your Ren'Py project must already exist before you begin.
 
@@ -28,3 +41,9 @@ git checkout -b main --track origin/main
 git add -A
 git push
 ```
+
+# VSCode Tasks
+
+This template includes `.vscode/tasks.json`, which can run Ren'Py SDK commands without having to use the Ren'Py launcher.
+
+Open VSCode's [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and search for `Ren'Py`
