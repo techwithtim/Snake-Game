@@ -34,7 +34,7 @@ Alternatively, if you want to copy this template and also track your Ren'Py proj
 5. Connect your **Repository** to your **Project** folder by running or pasting these commands in a command line.  You may run them one at a time if you prefer.
 ```shell
 # This works the same for macOS, linux, and Windows
-# Run this from a command prompt in /Your/RenPy/Project folder.
+# Run this from a command prompt in your `/Your/RenPy/Project` folder.
 git init
 git remote add origin https://github.com/YOUR-ACCOUNT/YOUR-NEW-REPOSITORY.git  # replace this with your repo path
 git fetch origin
@@ -45,7 +45,10 @@ git push
 
 # Instructions for use
 
-To see the tasks without the Tasks Explorer extension, open VSCode's [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and search for `Tasks: Run Task`:
+Locate the Task Explorer panel to run your project-specific tasks.
+<img width="536" alt="Screen Shot 2021-04-07 at 4 52 54 PM" src="https://user-images.githubusercontent.com/618184/113932541-bb318880-97c1-11eb-9e94-d678eb4c665f.png">
+
+To see the tasks without the Task Explorer extension, open VSCode's [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and search for `Tasks: Run Task`:
 <img width="878" alt="tasks" src="https://user-images.githubusercontent.com/618184/113929032-8b808180-97bd-11eb-8e77-5cd00534776a.png">
 
 Before you can use the included Ren'Py tasks, run the task `Ren'Py Setup: Set .renpy-sdk path` and paste the path to your Ren'Py SDK.  The right path depends on where you unzipped the Ren'Py SDK.  The folder name is something like `renpy-7.4.4-sdk`, and should NOT include any trailing slashes at the end.
