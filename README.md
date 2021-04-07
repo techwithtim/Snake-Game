@@ -47,7 +47,7 @@ git push
 
 Locate the Task Explorer panel to run your project-specific tasks.
 
-<img width="536" alt="Screen Shot 2021-04-07 at 4 52 54 PM" src="https://user-images.githubusercontent.com/618184/113932541-bb318880-97c1-11eb-9e94-d678eb4c665f.png">
+<img width="536" alt="task-explorer" src="https://user-images.githubusercontent.com/618184/113932541-bb318880-97c1-11eb-9e94-d678eb4c665f.png">
 
 To see the tasks without the Task Explorer extension, open VSCode's [Command Palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and search for `Tasks: Run Task`:
 
@@ -59,4 +59,7 @@ Before you can use the included Ren'Py tasks, run the task `Ren'Py Setup: Set .r
 
 A file will be created in the root of your workspace called `.renpy-sdk` with the path you entered inside it.  You can re-run the setup task whenever you want to update this file, or modify the file directly.
 
-You may mark relevant tasks as favorites.  The Windows-specific tasks will call on the `bin/renpy.ps1` helper script, while the non-Windows version will call on `bin/renpy`.
+You may mark relevant tasks as favorites.  The Windows-specific tasks will call on the `bin/renpy.ps1` helper script, while the non-Windows version will call on `bin/renpy`:
+
+<img width="535" alt="all-tasks" src="https://user-images.githubusercontent.com/618184/113933305-6b06f600-97c2-11eb-84f7-f0c344dc23a3.png">
+
