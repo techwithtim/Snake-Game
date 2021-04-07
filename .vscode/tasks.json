@@ -4,10 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Ren'Py: Set .renpy-sdk path",
+            "label": "Ren'Py Setup: Set .renpy-sdk path",
             "type": "shell",
-            "command": "echo \"${input:RenPySh}\" > .renpy-sdk",
+            "command": "echo \"${input:RenPySdk}\" > .renpy-sdk",
         },
+
         {
             "label": "Ren'Py: Run",
             "type": "shell",
@@ -68,13 +69,8 @@
     ],
     "inputs": [
         {
-            "id": "RenPySh",
-            "description": "Paste the path to your Ren'Py SDK `renpy.sh`",
-            "type": "promptString"
-        },
-        {
-            "id": "RenPyExe",
-            "description": "Paste the path to your Ren'Py SDK `renpy.exe`",
+            "id": "RenPySdk",
+            "description": "Paste the path to your Ren'Py SDK folder",
             "type": "promptString"
         }
     ]

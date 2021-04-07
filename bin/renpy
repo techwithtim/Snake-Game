@@ -2,4 +2,4 @@
 
 RENPY="$(<.renpy-sdk)"
 echo "Using Ren'Py SDK: $RENPY"
-"$RENPY" . "${@:1}"
+"$RENPY/renpy.sh" . "${@:1}"
