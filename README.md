@@ -40,6 +40,7 @@ git remote add origin https://github.com/YOUR-ACCOUNT/YOUR-NEW-REPOSITORY.git  #
 git fetch origin
 git checkout -b main --track origin/main
 git add -A
+git commit -m "Add new project files"
 git push
 ```
 
