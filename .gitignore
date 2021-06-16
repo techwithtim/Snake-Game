@@ -5,3 +5,4 @@ traceback.txt
 *.rpyc
 *.rpymc
 cache
+.renpy-sdk
