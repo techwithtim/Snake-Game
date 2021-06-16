@@ -25,7 +25,7 @@ If you can run `git` on your command prompt (or powershell, etc), you can use it
 If you don't have `git` or don't want to synchronize your project to a repository, skip to the next section.
 
 1. Create a new repository from our simple template https://github.com/tiliv/renpy-vscode-template/generate.
-  - The repository name you choose will not affect your Ren'Py project name.
+   - The repository name you choose will not affect your Ren'Py project name.
 2. Create a Ren'Py project on your computer or locate an existing project.
 3. Open a command prompt in the directory your Ren'Py folder (the folder that contains `game/`).
 4. Run the setup helper with the URL for your repository.  You may see a `.git` suffix on some urls, but you shouldn't include that suffix here.
