@@ -6,3 +6,4 @@ traceback.txt
 *.rpymc
 cache
 .renpy-sdk
+saves
