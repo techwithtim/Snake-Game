@@ -3,6 +3,7 @@
 This template includes VSCode tasks and extensions for developing Ren'Py projects.
 - `bin/renpy`: macOS/linux script for calling Ren'Py SDK `renpy.sh`
 - `bin/renpy.ps1`: Windows script for calling Ren'Py SDK `renpy.exe`
+- `bin/set-origin.sh`: Git setup helper to configure your local folder to sync to a remote host
 - `.vscode/tasks.json`: Tasks for launching Ren'Py SDK commands without opening the Ren'Py launcher.
   - Set .renpy-sdk file (custom file for remembering your project's SDK path for commands to work)
   - Run
@@ -18,12 +19,6 @@ This template includes VSCode tasks and extensions for developing Ren'Py project
   - log.txt, error.txt, traceback.txt
 
 ## Making your own GitHub repository
-
-We offer a simple Ren'Py-focused repository template that offers some conveniences:
-  - A default `.gitignore` that excludes local cache, logs, and error files, and ignores .rpyc/.rpymc files (corresponds to python's .pyc files)
-  - Helper scripts in `bin/` for setup and execution of your project.
-  - A `.vscode/extensions.json` of recommended VSCode extensions for a Ren'Py language highlighter and task runner
-  - A `.vscode/tasks.json` of task shortcuts that let you control the standard Ren'Py launcher tasks via VSCode
 
 If you can run `git` on your command prompt (or powershell, etc), you can use it to synchronize your project to GitHub or other git provider.
 
@@ -47,7 +42,9 @@ NOTE: The zip archive will contain a hidden files like the `.vscode` folder.  If
 
 # Instructions for use
 
-Locate the Task Explorer panel to run your project-specific tasks.
+By default, opening a VSCode project will notify you of "recommended" extensions.  VSCode is notifying you that our `.vscode/extensions.json` is present, and allows you install them for you.  We include a task explorer panel and a Ren'Py language highlighter.  Neither is required, but both are useful.
+
+Locate the Task Explorer panel to run your project-specific tasks:
 
 <img width="536" alt="task-explorer" src="https://user-images.githubusercontent.com/618184/113932541-bb318880-97c1-11eb-9e94-d678eb4c665f.png">
 
@@ -55,13 +52,13 @@ To see the tasks without the Task Explorer extension, open VSCode's [Command Pal
 
 <img width="878" alt="tasks" src="https://user-images.githubusercontent.com/618184/113929032-8b808180-97bd-11eb-8e77-5cd00534776a.png">
 
-Before you can use the included Ren'Py tasks, run the task `Ren'Py Setup: Set .renpy-sdk path` and paste the path to your Ren'Py SDK.  The right path depends on where you unzipped the Ren'Py SDK.  The folder name is something like `renpy-7.4.4-sdk`, and should NOT include any trailing slashes at the end.
+To use the provided tasks, please first run the task `Ren'Py Setup: Set .renpy-sdk path`.  It will ask for the path to your Ren'Py SDK (where you unzipped it).  The folder name is something like `renpy-7.4.4-sdk`, and should NOT include any trailing slashes at the end.
 - If I keep my SDK in `~/Applications/`, then the path would be `/Users/autumn/Applications/renpy-7.4.4-sdk`
 - If I keep my SDK in `C:\Program Files\`, then the path would be `C:\Program Files\renpy-7.4.4-sdk`
 
-A file will be created in the root of your workspace called `.renpy-sdk` with the path you entered inside it.  You can re-run the setup task whenever you want to update this file, or modify the file directly.
+A file will be created in the root of your workspace called `.renpy-sdk` with the path you entered inside it.  You can re-run the task to update it, or just modify the `.renpy-sdk` file directly.
 
-You may mark relevant tasks as favorites.  The Windows-specific tasks will call on the `bin/renpy.ps1` helper script, while the non-Windows version will call on `bin/renpy`:
+The Windows-specific tasks will call on a `bin/renpy.ps1` helper script, while the non-Windows version will call on `bin/renpy`:
 
 <img width="535" alt="all-tasks" src="https://user-images.githubusercontent.com/618184/113933305-6b06f600-97c2-11eb-84f7-f0c344dc23a3.png">
 
