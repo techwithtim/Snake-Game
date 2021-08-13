@@ -7,10 +7,8 @@ from tkinter import messagebox
 
 width = 500
 height = 500
-
 cols = 25
 rows = 20
-
 
 class cube():
     rows = 20
@@ -20,6 +18,7 @@ class cube():
         self.dirnx = dirnx
         self.dirny = dirny # "L", "R", "U", "D"
         self.color = color
+
 
     def move(self, dirnx, dirny):
         self.dirnx = dirnx
@@ -42,11 +41,11 @@ class cube():
             pygame.draw.circle(surface, (0,0,0), circleMiddle2, radius)
         
 
-
 class snake():
     body = []
     turns = {}
     
+
     def __init__(self, color, pos):
         #pos is given as coordinates on the grid ex (1,5)
         self.color = color
@@ -55,6 +54,7 @@ class snake():
         self.dirnx = 0
         self.dirny = 1
     
+
     def move(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,6 +98,7 @@ class snake():
         self.dirnx = 0
         self.dirny = 1
 
+
     def addCube(self):
         tail = self.body[-1]
         dx, dy = tail.dirnx, tail.dirny
@@ -114,6 +115,7 @@ class snake():
         self.body[-1].dirnx = dx
         self.body[-1].dirny = dy
     
+
     def draw(self, surface):
         for i,c in enumerate(self.body):
             if i == 0:
@@ -133,7 +135,6 @@ def redrawWindow():
     pass
 
 
-
 def drawGrid(w, rows, surface):
     sizeBtwn = w // rows
 
@@ -146,7 +147,6 @@ def drawGrid(w, rows, surface):
         pygame.draw.line(surface, (255,255,255), (x, 0),(x,w))
         pygame.draw.line(surface, (255,255,255), (0, y),(w,y))
     
-
 
 def randomSnack(rows, item):
     positions = item.body
@@ -192,7 +192,8 @@ def main():
                     
         redrawWindow()
 
-main()
+if __name__=='__main__':
+    main()
     
 
     
