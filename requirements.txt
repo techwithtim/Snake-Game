@@ -1,1 +1,7 @@
-pygame
+=# Requirements
+- Python 3.x
+- pygame
+
+You can install pygame using command: 
+"pip install pygame"
+on your terminal on pycharm, vscode or other
