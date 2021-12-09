@@ -164,6 +164,8 @@ def randomSnack(rows, item):
 
 def main():
     global s, snack, win
+    speed = input("what speed would you like (1-10) -- for slower speeds, hold down direction for turn\n")
+    print("\n")
     win = pygame.display.set_mode((width,height))
     s = snake((255,0,0), (10,10))
     s.addCube()
@@ -173,11 +175,14 @@ def main():
     
     while flag:
         pygame.time.delay(50)
-        clock.tick(10)
+        clock.tick(speed)
         s.move()
         headPos = s.head.pos
         if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
-            print("Score:", len(s.body))
+            print("Your Score Was:", len(s.body))
+            flag = input("\nWould you like to continue? (True/False): ")
+            if flag:
+                s.reset((10,10))
             s.reset((10, 10))
 
         if s.body[0].pos == snack.pos:
@@ -186,10 +191,12 @@ def main():
             
         for x in range(len(s.body)):
             if s.body[x].pos in list(map(lambda z:z.pos,s.body[x+1:])):
-                print("Score:", len(s.body))
-                s.reset((10,10))
+                print("Your Score Was:", len(s.body))
+                flag = input("\nWould you like to continue? (True/False): ")
+                print('\n')
+                if flag:
+                    s.reset((10,10))
                 break
-                    
         redrawWindow()
 
 main()
