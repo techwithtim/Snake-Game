@@ -1,9 +1,7 @@
 import math
 import random
 import pygame
-import random
-import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox as msg
 
 width = 500
 height = 500
@@ -97,6 +95,11 @@ class snake():
         self.turns = {}
         self.dirnx = 0
         self.dirny = 1
+        ask = msg.askyesno("Notice","Play Again?")
+        if ask == True:
+            pass
+        else:
+            exit()
 
     def addCube(self):
         tail = self.body[-1]
