@@ -3,6 +3,7 @@
 	// for the documentation about the extensions.json format
 	"recommendations": [
 		"luquedaniel.languague-renpy",
-		"spmeesseman.vscode-taskexplorer"
+		"spmeesseman.vscode-taskexplorer",
+		"ms-python.python"
 	]
 }

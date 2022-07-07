@@ -1,0 +1,6 @@
+{
+    "[renpy]": {
+        "editor.defaultFormatter": "ms-python.python",
+    },
+    "editor.formatOnSave": true,
+}
