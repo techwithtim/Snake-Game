@@ -51,9 +51,6 @@ To **insert** or **update** the Toolkit in your repo with Pull branch I recommen
 (only if you want to insert the repo) Create a new empty branch, in the example I'll use **vscode-template**
 ```shell
 git checkout vscode-template
-```
-
-```shell
 git pull https://github.com/DRincs-Productions/renpy-vscode-template.git main --allow-unrelated-histories
 ```
 
