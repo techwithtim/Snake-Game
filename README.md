@@ -40,6 +40,22 @@ git push
 
 NOTE: The zip archive will contain a hidden files like the `.vscode` folder.  If you are struggling to move `.vscode` into your project, open the unzipped folder in VSCode and use the VSCode UI to cut/paste the `.vscode` folder into your Ren'Py **Project** folder.
 
+## Instructions to insert Toolkit in your repo 
+I recommend the following ways to include it in your project:
+- [**Pull branch**](https://github.com/DRincs-Productions/renpy-vscode-template#pull-branch) (to **insert** it into your game and **update** it easily)
+- **Fork** (to improve the repo or create a Toolkit based on mine)
+
+### Pull branch
+To **insert** or **update** the Toolkit in your repo with Pull branch I recommend the following procedure:
+
+(only if you want to insert the repo) Create a new empty branch, in the example I'll use **vscode-template**
+
+`git checkout vscode-template`
+
+`git pull https://github.com/DRincs-Productions/renpy-vscode-template.git tool-only --allow-unrelated-histories`
+
+At the end make a merge inside the arm of the project.
+
 # Instructions for use
 
 By default, opening a VSCode project will notify you of "recommended" extensions.  VSCode is notifying you that our `.vscode/extensions.json` is present, and allows you install them for you.  We include a task explorer panel and a Ren'Py language highlighter.  Neither is required, but both are useful.
