@@ -8,36 +8,34 @@
             "type": "shell",
             "command": "echo \"${input:RenPySdk}\" > .renpy-sdk",
         },
-
         {
-            "label": "Ren'Py: Run",
+            "label": "Ren'Py MacOS/Linux: Run",
             "type": "shell",
             "command": "bin/renpy run",
             "group": "build"
         },
         {
-            "label": "Ren'Py: Delete Persistent",
+            "label": "Ren'Py MacOS/Linux: Delete Persistent",
             "type": "shell",
             "command": "bin/renpy rmpersistent"
         },
         {
-            "label": "Ren'Py: Force Recompile",
+            "label": "Ren'Py MacOS/Linux: Force Recompile",
             "type": "shell",
             "command": "bin/renpy compile"
         },
         {
-            "label": "Ren'Py: Lint",
+            "label": "Ren'Py MacOS/Linux: Lint",
             "type": "shell",
             "command": "bin/renpy lint"
         },
         {
-            "label": "Ren'Py: Distribute",
+            "label": "Ren'Py MacOS/Linux: Distribute",
             "type": "shell",
             "command": "bin/renpy distribute",
             "group": "build",
             "problemMatcher": []
         },
-
         {
             "label": "Ren'Py Windows: Run",
             "type": "shell",
