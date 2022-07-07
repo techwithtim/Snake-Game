@@ -18,29 +18,7 @@ This template includes VSCode tasks and extensions for developing Ren'Py project
   - \*.rpyc/rpymc
   - log.txt, error.txt, traceback.txt
 
-## Making your own GitHub repository
-
-If you can run `git` on your command prompt (or powershell, etc), you can use it to synchronize your project to GitHub or other git provider.
-
-If you don't have `git` or don't want to synchronize your project to a repository, skip to the next section.
-
-1. Create a new repository from our simple template https://github.com/tiliv/renpy-vscode-template/generate.
-   - The repository name you choose will not affect your Ren'Py project name.
-2. Create a Ren'Py project on your computer or locate an existing project.
-3. Open a command prompt in the directory your Ren'Py folder (the folder that contains `game/`).
-4. Run the setup helper with the URL for your repository.  You may see a `.git` suffix on some urls, but you shouldn't include that suffix here.
-```shell
-bin/set-origin.sh 'https://github.com/USERNAME/REPOSITORY_NAME'
-git push
-```
-
-## Using files directly (no repository)
-1. [Download the template files to your computer](https://github.com/tiliv/renpy-vscode-template/archive/refs/heads/main.zip).
-2. Extract the zip file into an existing Ren'Py **Project**.
-
-NOTE: The zip archive will contain a hidden files like the `.vscode` folder.  If you are struggling to move `.vscode` into your project, open the unzipped folder in VSCode and use the VSCode UI to cut/paste the `.vscode` folder into your Ren'Py **Project** folder.
-
-## Instructions to insert Toolkit in your repo 
+## Insert Template in your Project 
 I recommend the following ways to include it in your project:
 - [**Pull branch**](https://github.com/DRincs-Productions/renpy-vscode-template#pull-branch) (to **insert** it into your game and **update** it easily)
 - [**Fork**](https://docs.github.com/en/get-started/quickstart/fork-a-repo) (to improve the repo or create a Toolkit based on mine)
