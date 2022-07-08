@@ -4,6 +4,7 @@
 	"recommendations": [
 		"luquedaniel.languague-renpy",
 		"spmeesseman.vscode-taskexplorer",
-		"ms-python.python"
+		"ms-python.python",
+		"ms-vscode.PowerShell",
 	]
 }
