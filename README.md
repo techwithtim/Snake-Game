@@ -23,7 +23,7 @@ This template includes VSCode tasks and extensions for developing Ren'Py project
 
 I recommend the following ways to include it in your project:
 
-- [**Pull branch**](https://github.com/DRincs-Productions/renpy-vscode-template#pull-branch) (to **insert** it into your game and **update** it easily)
+- [**Pull branch**](#pull-branch) (to **insert** it into your game and **update** it easily)
 - [**Fork**](https://docs.github.com/en/get-started/quickstart/fork-a-repo) (to improve the repo or create a Toolkit based on mine)
 - [Manually](https://sites.northwestern.edu/researchcomputing/resources/downloading-from-github/#:~:text=To%20do%20this%2C%20go%20to,likely%20in%20your%20Downloads%20folder.) (not recommended)
 
@@ -36,7 +36,7 @@ To **insert** or **update** the Toolkit in your repo with Pull branch I recommen
 ```shell
 git checkout -b vscode-template
 git checkout vscode-template
-git pull https://github.com/DRincs-Productions/renpy-vscode-template.git tool-only --allow-unrelated-histories
+git pull https://github.com/DRincs-Productions/renpy-template-debug-vscode.git tool-only --allow-unrelated-histories
 ```
 
 At the end make a merge inside the arm of the project.
