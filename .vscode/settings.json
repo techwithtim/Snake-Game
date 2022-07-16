@@ -4,6 +4,9 @@
     },
     "editor.formatOnSave": true,
     "files.exclude": {
-        "**/*.rpyc": true
+        "**/*.rpyc": true,
+        "**/*.rpa": true,
+        "**/*.rpymc": true,
+        "**/cache/": true
     },
 }
