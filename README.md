@@ -25,7 +25,7 @@ I recommend the following ways to include it in your project:
 
 - [**Pull branch**](#pull-branch) (to **insert** it into your game and **update** it easily)
 - [**Fork**](https://docs.github.com/en/get-started/quickstart/fork-a-repo) (to improve the repo or create a Toolkit based on mine)
-- [Manually](https://sites.northwestern.edu/researchcomputing/resources/downloading-from-github/#:~:text=To%20do%20this%2C%20go%20to,likely%20in%20your%20Downloads%20folder.) (not recommended)
+- [Manually](https://github.com/DRincs-Productions/renpy-template-debug-vscode/releases) (not recommended)
 
 ### Pull branch
 
