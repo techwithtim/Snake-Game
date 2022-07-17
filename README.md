@@ -22,6 +22,7 @@ This template includes VSCode launchs and extensions for developing Ren'Py proje
 - `.gitignore`: Git configuration file for ignoring certain file paths and types.
 - `/game/tool/utility.rpy`: Useful functions such as: isNullOrEmpty 
 - `/game/tool/flags.rpy`: Flags System
+- `/game/tool/notify.rpy`: Notify System
 
 ## How Run Debug (F5)
 
