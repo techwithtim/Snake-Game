@@ -1,4 +1,4 @@
-# Ren'Py VSCode Project Template & Debug
+# Debug and Template (VSCode) Ren'py
 
 This template includes VSCode launchs and extensions for developing Ren'Py projects.
 
