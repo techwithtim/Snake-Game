@@ -1,27 +1,35 @@
 init python:
-    ## Notifications
-    # to use: default ... = NotifyEx(msg="...", img="...")
-    class NotifyEx( renpy.python.RevertableObject ):
-        def __init__( self, msg, img ):
+    class NotifyEx(renpy.python.RevertableObject):
+        """Notifications, to use: default ... = NotifyEx(msg="...", img="...")"""
+        def __init__(self,
+                    msg: str,
+                    img: str
+                    ):
             super(NotifyEx, self).__init__()
             self.msg = msg
             self.img = img
             self.remain = gui.notifyEx_delay
-    ## view undefined notifications
-    # to use: $ notifyEx(msg="...")
-    # to use: $ notifyEx(msg="...", img="...")
-    # to use: $ notifyEx(img="...")
-    def notifyEx( msg=None, img=None ):
-        notifications.append( NotifyEx( msg, img ) )
-        if len( store.notifications ) == 1: renpy.show_screen( "notifyEx" )
-    def notifyExClean( value ):
-        if value in store.notifications: store.notifications.remove( value )
-        if len( store.notifications ) == 0: renpy.hide_screen( "notifyEx" )
-    ## view defined notifications
-    # to use: $ notify(...)
-    def notify( n ):
-        notifications.append( NotifyEx( n.msg, n.img ) )
-        if len( store.notifications ) == 1: renpy.show_screen( "notifyEx" )
+
+
+    def notifyEx(msg: str = None, img: str = None):
+        notifications.append(NotifyEx(msg, img))
+        if len(store.notifications) == 1:
+            renpy.show_screen("notifyEx")
+
+
+    def notifyExClean(value):
+        if value in store.notifications:
+            store.notifications.remove(value)
+        if len(store.notifications) == 0:
+            renpy.hide_screen("notifyEx")
+
+
+    def notify(notific):
+        """View defined notifications.
+        to use: $ notify(...)"""
+        notifications.append(NotifyEx(notific.msg, notific.img))
+        if len(store.notifications) == 1:
+            renpy.show_screen("notifyEx")
 
 # Delay of visibility of a notification.
 define gui.notifyEx_delay = 10.0
@@ -30,10 +38,12 @@ define gui.notifyEx_width = 64
 # Height of the images.
 define gui.notifyEx_height = 64
 
+define gui.notifyEx_color = "#000000"
+
 default notifications = []
 
 style notify_text is default:
-    # color "#49aae6"
+    color gui.notifyEx_color
     yalign 0.5
 
 style notify_hbox is default:
