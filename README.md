@@ -20,6 +20,8 @@ This template includes VSCode launchs and extensions for developing Ren'Py proje
   - [Power Shell](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell) for an easy clickable list of launchs from `.vscode/launch.json`
   - [Python](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer) for python syntax highlighting
 - `.gitignore`: Git configuration file for ignoring certain file paths and types.
+- `/game/tool/utility.rpy`: Useful functions such as: isNullOrEmpty 
+- `/game/tool/flags.rpy`: Flags System
 
 ## How Run Debug (F5)
 
