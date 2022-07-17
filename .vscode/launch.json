@@ -5,18 +5,52 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Ren'Py Windows: Run",
+            "name": "Ren'Py: Setup",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy.ps1 -Command run",
-            "cwd": "${workspaceFolder}"
+            "script": "echo \"${input:RenPySdk}\" > .renpy-sdk",
         },
         {
-            "name": "Ren'Py MacOS/Linux: Run",
+            "name": "Ren'Py: Run",
             "type": "PowerShell",
             "request": "launch",
             "script": "bin/renpy run",
             "cwd": "${workspaceFolder}"
         },
+        {
+            "name": "Ren'Py: Recompile & Run",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "bin/renpy compile; bin/renpy run",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Ren'Py: Delete Persistent",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "bin/renpy rmpersistent",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Ren'Py: Lint",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "bin/renpy lint",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Ren'Py: Distribute",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "bin/renpy distribute",
+            "cwd": "${workspaceFolder}"
+        },
+    ],
+    "inputs": [
+        {
+            "id": "RenPySdk",
+            "description": "Paste the path to your Ren'Py SDK folder",
+            "type": "promptString",
+        }
     ]
 }
