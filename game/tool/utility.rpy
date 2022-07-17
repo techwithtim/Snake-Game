@@ -8,3 +8,6 @@ init -999 python:
         if not item or item.isspace():
             return True
         return False
+
+label set_background(img):
+    scene expression (img) as bg
