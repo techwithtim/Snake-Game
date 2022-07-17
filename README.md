@@ -23,6 +23,9 @@ This template includes VSCode launchs and extensions for developing Ren'Py proje
 
 ## How Run Debug (F5)
 
+![image](https://user-images.githubusercontent.com/67595890/179401467-c8abbc9b-8970-4bad-af86-2b5b31c173a4.png)
+
+
 ### Setup
 
 ( **Necessary only in the beginning** )
