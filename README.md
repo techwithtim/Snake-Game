@@ -61,7 +61,7 @@ To **insert** or **update** the Toolkit in your repo with Pull branch I recommen
 ```shell
 git checkout -b vscode-template
 git checkout vscode-template
-git pull https://github.com/DRincs-Productions/renpy-template-debug-vscode.git tool-only --allow-unrelated-histories
+git pull https://github.com/DRincs-Productions/debug-and-template-VSCode-renpy.git tool-only --allow-unrelated-histories
 
 ```
 
