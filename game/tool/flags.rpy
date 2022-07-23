@@ -25,3 +25,13 @@ init python:
             del flags[x]
         del flags_to_del
         return flags
+
+    def getFlags(flag_id: str) -> bool:
+        """returns the value of the flag_id in flags"""
+        if (not flag_id in flags):
+            updateFlags(flags = flags, flag_keys = flag_keys)
+            if (not flag_id in flags):
+                renpy.log("Error(getFlags): in flags is not there flag_id: "+flag_id)
+            else:
+                return False
+        return flags[flag_id]
