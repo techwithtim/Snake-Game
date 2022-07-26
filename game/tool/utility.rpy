@@ -20,5 +20,17 @@ init -999 python:
             return Null()
     config.displayable_prefix['check'] = null_or_image
 
+    def compare(a= 0, b= 0) -> int:
+        if a is None and b is None:
+            return 0
+        elif b is None:
+            return 1
+        elif a is None:
+            return -1
+        return a - b
+
+    def isGreaterThan(a= 0, b= 0) -> bool:
+        return compare(a, b) > 0
+
 label set_background(img):
     scene expression (img) as bg
