@@ -44,6 +44,29 @@ Select:
 
 And Play!
 
+#### For Linux first:
+
+```bash
+chmod +x renpy.sh
+chmod +x lib/py3-linux-x86_64/renpy
+
+```
+
+if this:
+![image](https://user-images.githubusercontent.com/67595890/181924847-19e28398-259a-4ca0-831a-da72410e4612.png)
+
+
+them:
+
+```bash
+sudo apt-get install -y yad
+
+```
+
+#### For microsoft wsl
+https://docs.microsoft.com/it-it/windows/wsl/tutorials/gui-apps
+
+
 ## Insert Template in your Project
 
 I recommend the following ways to include it in your project:
