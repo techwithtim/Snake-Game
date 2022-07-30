@@ -51,6 +51,7 @@ chmod +x renpy.sh
 chmod +x renpy.py
 chmod +x renpy.exe
 chmod +x lib/py3-linux-x86_64/renpy
+chmod +x lib/py3-linux-x86_64/pythonw
 
 ```
 
