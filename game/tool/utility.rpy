@@ -34,3 +34,11 @@ init -999 python:
 
 label set_background(img):
     scene expression (img) as bg
+
+screen popup(message):
+    zorder 100
+    frame:
+        style_group "invstyle"
+        hbox:
+            text message
+    timer 1.5 action Hide("popup")
