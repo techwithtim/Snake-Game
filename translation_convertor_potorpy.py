@@ -33,6 +33,7 @@ dict = {
     r' \[withflash\]"':             r'" with flash',
     r' \[withvpunch\]"':            r'" with vpunch',
     r' \[withDissolve20\]"':        r'" with Dissolve(2.0)',
+    r' \[multiple2\]"':        r'" (multiple=2)',
     r'msgid "\[nvl_clear\]"':       r'    # nvl clear',
     r'msgstr "\[nvl_clear\]"':      r'    nvl clear',
     # first
