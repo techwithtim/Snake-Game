@@ -39,10 +39,10 @@ dict = {
     r'msgid "(.*?) \[special_delimiter\] (.*?)"':       r'    # "\1" "\2"',
     r'msgstr "(.*?) \[special_delimiter\] (.*?)"':      r'    "\1" "\2"',
     r':\nmsgid "(.*?)"':                                r':\n    # "\1"',
-    r'    #(.*?)\nmsgstr "\[(.*?)\] (.*?)"':            r'    #\1\n    \2 "\3"',
+    r'    #(.*?)\nmsgstr "\[_(.*?)\_] (.*?)"':            r'    #\1\n    \2 "\3"',
     r'    # (.*?)\nmsgstr "(.*?)"':                     r'    # \1\n    "\2"',
     # after
-    r'    # "\[(.*?)\] (.*?)"':                         r'    # \1 "\2"',
+    r'    # "\[_(.*?)\_] (.*?)"':                         r'    # \1 "\2"',
     # Comment
     r':\n    # ':                                                   r':\n\n    # ',
     r'rpy:(.*?) #-#-# translate':                                   r'rpy:\1\ntranslate',
@@ -71,6 +71,39 @@ def replacetext(search_text, replace_text, pathFile, languege):
     # Replace the target string
     # filedata = filedata.replace(search_text, replace_text)
     filedata = re.sub(search_text, replace_text, filedata)
+    # TODO: to improve
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r'"\n    (.*?)_s_(.*?) "',
+                      r'"\n    \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
+    filedata = re.sub(r':\n\n    # (.*?)_s_(.*?) "',
+                      r':\n\n    # \1 \2 "', filedata)
     filedata = re.sub(r'crowdin', languege, filedata)
 
     # Write the file out again
@@ -108,6 +141,4 @@ def fileRename(pathFile, extension):
     return pre + extension
 
 
-potorpy("italian")
-
-potorpy("french")
+potorpy("crowdin")
