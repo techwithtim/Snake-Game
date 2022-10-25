@@ -56,6 +56,14 @@ sudo apt-get install -y xdg-utils
 
 ```
 
+when opening the text with error info via terminal, write:
+
+```bash
+:q
+
+```
+
+
 if this:
 
 ![image](https://user-images.githubusercontent.com/67595890/181924847-19e28398-259a-4ca0-831a-da72410e4612.png)
