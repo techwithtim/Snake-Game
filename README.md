@@ -23,6 +23,7 @@ This template includes VSCode launchs and extensions for developing Ren'Py proje
 - `/game/tool/utility.rpy`: Useful functions such as: isNullOrEmpty 
 - `/game/tool/flags.rpy`: Flags System
 - `/game/tool/notify.rpy`: Notify System
+- `/game/tool/log_system.rpy`: Log System
 
 ## How Run Debug (F5)
 
