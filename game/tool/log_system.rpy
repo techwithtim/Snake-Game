@@ -8,7 +8,7 @@ init -998 python:
         renpy.log("Error: " + msg)
         log_filename_line(filename_line)
         if error_notify:
-            notifyExFirst(msg = error_notify)
+            notifyExPreventsLoops(msg = error_notify)
         renpy.log("")
         return
 
@@ -16,7 +16,7 @@ init -998 python:
         renpy.log("Warn: " + msg)
         log_filename_line(filename_line)
         if not IsNullOrWhiteSpace(warn_notify):
-            notifyExFirst(msg = warn_notify)
+            notifyExPreventsLoops(msg = warn_notify)
         renpy.log("")
         return
 
@@ -24,7 +24,7 @@ init -998 python:
         renpy.log("Info: " + msg)
         log_filename_line(filename_line)
         if not IsNullOrWhiteSpace(info_notify):
-            notifyExFirst(msg = info_notify)
+            notifyExPreventsLoops(msg = info_notify)
         renpy.log("")
         return
 

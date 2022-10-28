@@ -29,7 +29,7 @@ init -999 python:
             renpy.show_screen("notifyEx")
         return
 
-    def notifyExFirst(msg: str = None, img: str = None):
+    def notifyExPreventsLoops(msg: str = None, img: str = None):
         if len(store.notifications) > 1:
             notifications[0] = NotifyEx(msg, img)
         else:
