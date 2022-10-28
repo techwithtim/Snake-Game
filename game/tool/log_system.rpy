@@ -5,21 +5,21 @@ define info_notify = false
 
 
 label log_error(msg, filename_line):
-    renpy.log("Error: " + msg)
+    $ renpy.log("Error: " + msg)
     call log_filename_line(filename_line)
     if error_notify:
         $ notify(error_notify)
     return
 
 label log_warn(msg, filename_line):
-    renpy.log("Warn: " + msg)
+    $ renpy.log("Warn: " + msg)
     call log_filename_line(filename_line)
     if warn_notify:
         $ notify(warn_notify)
     return
 
 label log_info(msg, filename_line):
-    renpy.log("Info: " + msg)
+    $ renpy.log("Info: " + msg)
     call log_filename_line(filename_line)
     if info_notify:
         $ notify(info_notify)
@@ -27,5 +27,5 @@ label log_info(msg, filename_line):
 
 label log_filename_line(filename_line):
     if filename_line:
-        renpy.log("filename_line: " + filename_line)
+        $ renpy.log("filename_line: " + filename_line)
     return
