@@ -1,10 +1,11 @@
 
 # Width of the images.
-define gui.notifyEx_width = 64
+define gui.notifyEx_width = gui.label_text_size
 # Height of the images.
-define gui.notifyEx_height = 64
+define gui.notifyEx_height = gui.label_text_size
 
 define gui.notifyEx_color = "#000000"
+define gui.notifyEx_text_color = "#ffffff"
 
 init -999 python:
     notifications = []
@@ -28,6 +29,14 @@ init -999 python:
             renpy.show_screen("notifyEx")
         return
 
+    def notifyExFirst(msg: str = None, img: str = None):
+        if len(store.notifications) > 1:
+            notifications[0] = NotifyEx(msg, img)
+        else:
+            notifications.append(NotifyEx(msg, img))
+        if len(store.notifications) == 1:
+            renpy.show_screen("notifyEx")
+        return
 
     def notifyExClean(value):
         if value in store.notifications:
@@ -38,7 +47,7 @@ init -999 python:
 
 
     def notify(notific):
-        """View defined notifications.
+        """View defined notifications.6
         to use: $ notify(...)"""
         notifications.append(NotifyEx(notific.msg, notific.img))
         if len(store.notifications) == 1:
@@ -80,6 +89,6 @@ screen notifyExInternal( n ):
             null width 5
 
             if not n.msg is None:
-                text n.msg
+                text n.msg color gui.notifyEx_text_color
 
     timer 0.05 repeat True action [ SetField( n, "remain", n.remain - 0.05 ), If( n.remain <= 0, Function( notifyExClean, n ), NullAction() ) ]
