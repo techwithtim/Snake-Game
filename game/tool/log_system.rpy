@@ -1,10 +1,9 @@
-# 'define config.log' is in core.rpy
-define error_notify = _("Where was an ERROR. Please send the developer the logs found in: [config.log]")
-define warn_notify = _("Where was an WARN. Please send the developer the logs found in: [config.log]")
-define info_notify = False
+init -999 python:
+    # 'define config.log' is in core.rpy
+    error_notify = _("Where was an ERROR. Please send the developer the logs found in: [config.log]")
+    warn_notify = _("Where was an WARN. Please send the developer the logs found in: [config.log]")
+    info_notify = False
 
-
-init 1 python:
     def log_error(msg: str, filename_line: str = None):
         renpy.log("Error: " + msg)
         log_filename_line(filename_line)
