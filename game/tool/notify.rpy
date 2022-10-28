@@ -1,20 +1,32 @@
-init python:
+
+# Width of the images.
+define gui.notifyEx_width = 64
+# Height of the images.
+define gui.notifyEx_height = 64
+
+define gui.notifyEx_color = "#000000"
+
+init -999 python:
+    notifications = []
+
     class NotifyEx(renpy.python.RevertableObject):
         """Notifications, to use: default ... = NotifyEx(msg="...", img="...")"""
         def __init__(self,
                     msg: str,
-                    img: str
+                    img: str,
+                    delay: int = 10.0,
                     ):
             super(NotifyEx, self).__init__()
             self.msg = msg
             self.img = img
-            self.remain = gui.notifyEx_delay
+            self.remain = 10.0  # Delay of visibility of a notification.
 
 
     def notifyEx(msg: str = None, img: str = None):
         notifications.append(NotifyEx(msg, img))
         if len(store.notifications) == 1:
             renpy.show_screen("notifyEx")
+        return
 
 
     def notifyExClean(value):
@@ -22,6 +34,7 @@ init python:
             store.notifications.remove(value)
         if len(store.notifications) == 0:
             renpy.hide_screen("notifyEx")
+        return
 
 
     def notify(notific):
@@ -30,17 +43,7 @@ init python:
         notifications.append(NotifyEx(notific.msg, notific.img))
         if len(store.notifications) == 1:
             renpy.show_screen("notifyEx")
-
-# Delay of visibility of a notification.
-define gui.notifyEx_delay = 10.0
-# Width of the images.
-define gui.notifyEx_width = 64
-# Height of the images.
-define gui.notifyEx_height = 64
-
-define gui.notifyEx_color = "#000000"
-
-default notifications = []
+        return
 
 style notify_text is default:
     color gui.notifyEx_color
