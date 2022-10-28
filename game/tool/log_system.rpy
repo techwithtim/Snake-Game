@@ -1,7 +1,7 @@
 # 'define config.log' is in core.rpy
 define error_notify = _("Where was an ERROR. Please send the developer the logs found in: [config.log]")
 define warn_notify = _("Where was an WARN. Please send the developer the logs found in: [config.log]")
-define info_notify = false
+define info_notify = False
 
 
 label log_error(msg, filename_line):
