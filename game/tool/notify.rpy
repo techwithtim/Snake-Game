@@ -7,6 +7,13 @@ define gui.notifyEx_height = gui.label_text_size
 define gui.notifyEx_color = "#000000"
 define gui.notifyEx_text_color = "#ffffff"
 
+label enable_notifyEx:
+    show screen notifyEx
+    return
+label disable_notifyEx:
+    hide notifyEx
+    return
+
 init -999 python:
     notifications = []
 
@@ -34,15 +41,11 @@ init -999 python:
             notifications[0] = NotifyEx(msg, img)
         else:
             notifications.append(NotifyEx(msg, img))
-        if len(store.notifications) == 1:
-            renpy.show_screen("notifyEx")
         return
 
     def notifyExClean(value):
         if value in store.notifications:
             store.notifications.remove(value)
-        if len(store.notifications) == 0:
-            renpy.hide_screen("notifyEx")
         return
 
 
@@ -50,8 +53,6 @@ init -999 python:
         """View defined notifications.6
         to use: $ notify(...)"""
         notifications.append(NotifyEx(notific.msg, notific.img))
-        if len(store.notifications) == 1:
-            renpy.show_screen("notifyEx")
         return
 
 style notify_text is default:
