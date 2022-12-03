@@ -48,7 +48,6 @@ dict = {
     r':\n    # ':                                                   r':\n\n    # ',
     r'rpy:(.*?) #-#-# translate':                                   r'rpy:\1\ntranslate',
     r'strings: #\|#\|# # ':                                         r'strings:\n\n# ',
-    r'\n# §translate':                                               r'\ntranslate',
     r'updated at (.*?)-(.*?)-(.*?) (.*?):(.*?) #\|#\|# # ':         r'updated at \1-\2-\3 \4:\5\n\n# ',
     # end
     r'msgid "(.*?)"':                       r'    old "\1"',
@@ -57,6 +56,7 @@ dict = {
     r'\n\n# TODO: Translation updated':     r'# TODO: Translation updated',
     r'§§§§§§§§':                            r'\\'+'"',
     r'# TODO: Translation updated at (.*?)-(.*?)-(.*?) (.*?):(.*?) #\|#\|# # §translate ': r'# TODO: Translation updated at \1-\2-\3 \4:\5\n\ntranslate ',
+    r'\n# §translate':                      r'\ntranslate',
 }
 
 
