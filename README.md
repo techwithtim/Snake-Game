@@ -104,3 +104,16 @@ git pull https://github.com/DRincs-Productions/debug-and-template-VSCode-renpy.g
 ```
 
 At the end make a merge inside the arm of the project.
+
+### Fix Common
+```regex
+    # renpy/common/(.*)
+    old "###########"
+    new "(.*)"
+```
+
+```regex
+    # # renpy/common/(.*)
+    # old "###########"
+    # new "(.*)"
+```
