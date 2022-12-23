@@ -19,6 +19,7 @@ dict = {
     r'" with flash': r' [withflash]"',
     r'" with vpunch': r' [withvpunch]"',
     r'" with Dissolve\(2.0\)': r' [withDissolve20]"',
+    r'" with Dissolve\(1\)': r' [withDissolve1]"',
     r'" \(multiple=2\)': r' [multiple2]"',
     r'    # nvl clear': r'msgid "[nvl_clear]"',
     r'    nvl clear': r'msgstr "[nvl_clear]"',
