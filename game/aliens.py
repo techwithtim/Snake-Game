@@ -164,13 +164,15 @@ class Bomb(pygame.sprite.Sprite):
 class Score(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+
         self.font = pygame.font.Font("DejaVuSans.ttf", 20)
+
         self.font.set_italic(1)
-        self.color = Color('white')
+        self.color = (255, 255, 255, 255)
         self.lastscore = -1
         self.update()
         self.rect = self.image.get_rect().move(10, 450)
-
+        
     def update(self):
         if SCORE != self.lastscore:
             self.lastscore = SCORE
@@ -182,6 +184,7 @@ class Score(pygame.sprite.Sprite):
 def main(winstyle = 0):
     # Initialize pygame
     pygame.init()
+
     if pygame.mixer and not pygame.mixer.get_init():
         print 'Warning, no sound'
         pygame.mixer = None
@@ -254,6 +257,7 @@ def main(winstyle = 0):
     #initialize our starting sprites
     player = Player()
     Alien() #note, this 'lives' because it goes into a sprite group
+
     if pygame.font:
         all.add(Score())
 
