@@ -1,0 +1,43 @@
+8
+
+dir
+376
+http://www.bishoujo.us/svn/renpy/trunk/template
+http://www.bishoujo.us/svn
+
+
+
+2007-02-18T04:52:18.903536Z
+247
+tom
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+a20cb6e2-ff0c-0410-a951-e6c088e16c52
+
+launcherinfo.py
+file
+
+
+
+
+2007-02-05T06:02:08.000000Z
+22dff16cb203743f74427b0ab97e5203
+2006-10-02T19:01:49.490131Z
+150
+tom
+
+game
+dir
+
