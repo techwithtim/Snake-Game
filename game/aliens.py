@@ -9,7 +9,7 @@ import renpy.exports as renpy
 
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
-    raise SystemExit, "Sorry, extended image module required"
+    raise (SystemExit, "Sorry, extended image module required")
 
 
 def os_path_join(a, b):
@@ -30,7 +30,7 @@ def load_image(file):
     try:
         surface = pygame.image.load(file)
     except pygame.error:
-        raise SystemExit, 'Could not load image "%s" %s'%(file, pygame.get_error())
+        raise (SystemExit, 'Could not load image "%s" %s'%(file, pygame.get_error()))
     return surface.convert()
 
 def load_images(*files):
@@ -50,7 +50,7 @@ def load_sound(file):
         sound = pygame.mixer.Sound(file)
         return sound
     except pygame.error:
-        print 'Warning, unable to load,', file
+        print ('Warning, unable to load,', file)
     return dummysound()
 
 
@@ -186,7 +186,7 @@ def main(winstyle = 0):
     pygame.init()
 
     if pygame.mixer and not pygame.mixer.get_init():
-        print 'Warning, no sound'
+        print ('Warning, no sound')
         pygame.mixer = None
 
     # Set the display mode
