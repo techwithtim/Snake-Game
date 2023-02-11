@@ -20,7 +20,8 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # The version of renpygame we're dealing with.
-renpygame_version = 1002
+renpygame_version = "1.2.0"
+pygame_version = "2.1.2"
 
 import sys
 import pygame
