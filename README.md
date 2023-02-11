@@ -8,17 +8,24 @@ To use renpygame in your own project, copy the renpygame directory from the base
 ## Porting Pygame Code
 To use renpygame, you need to change imports of pygame to imports of renpygame. For example, the code:
 
+```renpy
 import pygame
 from pygame.locals import *
+```
+
 would become
 
+```renpy
 import renpygame
 import renpygame as pygame
 from renpygame.locals import *
+```
+
 The code can then be used mostly unchanged.
 
 Renpygame expects that the renpygame.display.set_mode function will be called whenever we switch from Ren'Py to renpygame. It's up to the user to take a look at _preferences.fullscreen and set the FULLSCREEN flag as appropriate. For example:
 
+```renpy
 init python:
 
    import renpygame
@@ -33,25 +40,29 @@ init python:
 
         screen = renpygame.display.set_mode((800, 600), fsflag, 32)
         return screen
+```
+
 ## Supported Modules
 The following modules are supported:
 
-renpygame.color
-renpygame.constants
-renpygame.cursors
-renpygame.display
-renpygame.draw
-renpygame.event
-renpygame.font
-renpygame.image
-renpygame.joystick
-renpygame.key
-renpygame.locals
-renpygame.mixer
-renpygame.mixer.music
-renpygame.mouse
-renpygame.sprite
-renpygame.time
-renpygame.transform
+* renpygame.color
+* renpygame.constants
+* renpygame.cursors
+* renpygame.display
+* renpygame.draw
+* renpygame.event
+* renpygame.font
+* renpygame.image
+* renpygame.joystick
+* renpygame.key
+* renpygame.locals
+* renpygame.mixer
+* renpygame.mixer.music
+* renpygame.mouse
+* renpygame.sprite
+* renpygame.time
+* renpygame.transform
+
+
 Functions that take a file have been modified so that the files are searched for in archives (except for Fonts), and in the game directory.
 
