@@ -26,7 +26,8 @@ label start:
     e "Good luck!"
 
 label retry:
-    
+
+    $ renpy.free_memory()
     $ score = aliens.main()
 
     # This eats up any remaining keypresses.

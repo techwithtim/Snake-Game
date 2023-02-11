@@ -12,6 +12,9 @@ if not pygame.image.get_extended():
     raise SystemExit, "Sorry, extended image module required"
 
 
+def os_path_join(a, b):
+    return a + "/" + b
+
 #game constants
 MAX_SHOTS      = 2      #most player bullets onscreen
 ALIEN_ODDS     = 22     #chances a new alien appears
@@ -23,7 +26,7 @@ SCORE          = 0
 
 def load_image(file):
     "loads an image, prepares it for play"
-    file = os.path.join('data', file)
+    file = os_path_join('data', file)
     try:
         surface = pygame.image.load(file)
     except pygame.error:
@@ -42,7 +45,7 @@ class dummysound:
 
 def load_sound(file):
     if not pygame.mixer: return dummysound()
-    file = os.path.join('data', file)
+    file = os_path_join('data', file)
     try:
         sound = pygame.mixer.Sound(file)
         return sound
@@ -220,7 +223,7 @@ def main(winstyle = 0):
     boom_sound = load_sound('boom.wav')
     shoot_sound = load_sound('car_door.wav')
     if pygame.mixer:
-        music = os.path.join('data', 'house_lo.wav')
+        music = os_path_join('data', 'house_lo.wav')
         pygame.mixer.music.load(music)
         pygame.mixer.music.play(-1)
 
@@ -260,7 +263,7 @@ def main(winstyle = 0):
         for event in pygame.event.get():
             if event.type == QUIT or \
                 (event.type == KEYDOWN and event.key == K_ESCAPE):
-                    return
+                    return SCORE
         keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
