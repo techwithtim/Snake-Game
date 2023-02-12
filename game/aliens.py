@@ -335,6 +335,6 @@ def main(winstyle = 0):
     # ! It's not work
     renpy.call("start")
     # * It's work
-    renpy.call("start")
+    renpy.call("retry")
 
     return SCORE
