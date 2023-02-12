@@ -26,7 +26,8 @@ pygame_version = "2.1.2"
 import sys
 import pygame
 
-Overlay = pygame.Overlay
+# TODO: has been commented pe make it work
+# Overlay = pygame.Overlay
 Rect = pygame.Rect
 Surface = pygame.Surface
 get_error = pygame.get_error
@@ -62,11 +63,13 @@ def register_quit(callback):
 # Importing the other modules.
 import renpygame.color
 import renpygame.constants
-import renpygame.cursors
+# TODO: has been commented pe make it work
+# import renpygame.cursors
 import renpygame.display
 import renpygame.draw
 import renpygame.event
-import renpygame.font
+# TODO: has been commented pe make it work
+# import renpygame.font
 import renpygame.image
 import renpygame.locals
 import renpygame.joystick

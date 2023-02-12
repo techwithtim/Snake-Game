@@ -112,7 +112,8 @@ class Alien(pygame.sprite.Sprite):
             self.rect.top = self.rect.bottom + 1
             self.rect = self.rect.clamp(SCREENRECT)
         self.frame = self.frame + 1
-        self.image = self.images[self.frame/self.animcycle%3]
+        # TODO: has been commented pe make it work
+        # self.image = self.images[self.frame/self.animcycle%3]
 
 
 class Explosion(pygame.sprite.Sprite):
@@ -127,7 +128,8 @@ class Explosion(pygame.sprite.Sprite):
 
     def update(self):
         self.life = self.life - 1
-        self.image = self.images[self.life/self.animcycle%2]
+        # TODO: has been commented pe make it work
+        # self.image = self.images[self.life/self.animcycle%2]
         if self.life <= 0: self.kill()
 
 
@@ -165,9 +167,11 @@ class Score(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-        self.font = pygame.font.Font("DejaVuSans.ttf", 20)
+        # TODO: has been commented pe make it work
+        # self.font = pygame.font.Font("DejaVuSans.ttf", 20)
 
-        self.font.set_italic(1)
+        # TODO: has been commented pe make it work
+        # self.font.set_italic(1)
         self.color = (255, 255, 255, 255)
         self.lastscore = -1
         self.update()
@@ -177,7 +181,8 @@ class Score(pygame.sprite.Sprite):
         if SCORE != self.lastscore:
             self.lastscore = SCORE
             msg = "Score: %d" % SCORE
-            self.image = self.font.render(msg, 0, self.color)
+            # TODO: has been commented pe make it work
+            # self.image = self.font.render(msg, 0, self.color)
 
 
 
@@ -258,8 +263,9 @@ def main(winstyle = 0):
     player = Player()
     Alien() #note, this 'lives' because it goes into a sprite group
 
-    if pygame.font:
-        all.add(Score())
+    # TODO: has been commented pe make it work
+    # if pygame.font:
+    #     all.add(Score())
 
     while player.alive():
 
@@ -326,4 +332,6 @@ def main(winstyle = 0):
         pygame.mixer.music.fadeout(1000)
     pygame.time.wait(1000)
 
+    # ! Not work
+    renpy.call("start")
     return SCORE
