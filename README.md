@@ -1,3 +1,5 @@
+IMPORTANT: This is a continuation of a project not mine, abandoned from 2008 [Renpygame](https://renpy.org/wiki/renpy/frameworks/Renpygame)
+
 # Renpygame
 Renpygame is a framework that allows pygame games to be integrated with Ren'Py. It's intended for people who are capable programmers. The philosophy of renpygame is to provide a minimal layer over pygame, and to rely on the programmer to reset things he changes.
 
