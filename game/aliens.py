@@ -332,6 +332,9 @@ def main(winstyle = 0):
         pygame.mixer.music.fadeout(1000)
     pygame.time.wait(1000)
 
-    # ! Not work
+    # ! It's not work
     renpy.call("start")
+    # * It's work
+    renpy.call("start")
+
     return SCORE
