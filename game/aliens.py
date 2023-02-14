@@ -332,9 +332,14 @@ def main(winstyle = 0):
         pygame.mixer.music.fadeout(1000)
     pygame.time.wait(1000)
 
-    # ! It's not work
+    # * https://github.com/DRincs-Productions/Renpygame/issues/3
+    # * renpytom tell me to use:
+    renpy.display_reset()  # but not work
+
+    # ! It's not work:
+    # ! because when renpy try to edit the screen not find it
     renpy.call("start")
-    # * It's work
+    # It's work
     renpy.call("retry")
 
     return SCORE
