@@ -1,8 +1,11 @@
 import random, os.path
 
-#import basic pygame modules
-import renpygame as pygame
-from renpygame.locals import *
+#import basic pygame_sdl2 modules
+try:
+    import pygame_sdl2 as pygame
+    pygame.import_as_pygame()
+except ImportError:
+    pass
 
 import renpy.store as store
 import renpy.exports as renpy
