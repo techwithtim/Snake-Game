@@ -86,4 +86,5 @@ sudo apt-get install git python3-dev python3-setuptools python3-numpy python3-op
 # install pygame
 pip install pygame
 pip install Cython
+# dowload https://github.com/renpy/pygame_sdl2/tree/master/src/pygame_sdl2
 ```
