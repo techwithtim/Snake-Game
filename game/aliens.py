@@ -28,11 +28,8 @@ SCORE          = 0
 
 def load_image(file):
     "loads an image, prepares it for play"
-    # file = os_path_join('images', file)
-    # try:
+    file = os_path_join('/images', file)
     surface = pygame.image.load(file)
-    # except pygame.error:
-    #     raise (SystemExit, 'Could not load image "%s" %s'%(file, pygame.get_error()))
     return surface.convert()
 
 def load_images(*files):
