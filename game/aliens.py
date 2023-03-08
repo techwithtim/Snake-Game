@@ -247,6 +247,7 @@ def main(winstyle = 0):
 
     while player.alive():
 
+        # TODO: has been commented pe make it work
         #get input
         # for event in pygame.event.get():
         #     if event.type == QUIT or \
@@ -260,6 +261,7 @@ def main(winstyle = 0):
         #update all the sprites
         all.update()
 
+        # TODO: has been commented pe make it work
         #handle player input
         # direction = keystate[K_RIGHT] - keystate[K_LEFT]
         # player.move(direction)
