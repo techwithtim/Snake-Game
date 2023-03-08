@@ -248,10 +248,10 @@ def main(winstyle = 0):
     while player.alive():
 
         #get input
-        # for event in pygame.event.get():
-        #     if event.type == QUIT or \
-        #         (event.type == KEYDOWN and event.key == K_ESCAPE):
-        #             return SCORE
+        for event in pygame.event.get():
+            if event.type == QUIT or \
+                (event.type == KEYDOWN and event.key == K_ESCAPE):
+                    return SCORE
         keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
