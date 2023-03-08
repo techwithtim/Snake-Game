@@ -248,11 +248,11 @@ def main(winstyle = 0):
     while player.alive():
 
         #get input
-        for event in pygame.event.get():
-            if event.type == QUIT or \
-                (event.type == KEYDOWN and event.key == K_ESCAPE):
-                    return SCORE
-        keystate = pygame.key.get_pressed()
+        # for event in pygame.event.get():
+        #     if event.type == QUIT or \
+        #         (event.type == KEYDOWN and event.key == K_ESCAPE):
+        #             return SCORE
+        # keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
         all.clear(screen, background)
@@ -261,13 +261,13 @@ def main(winstyle = 0):
         all.update()
 
         #handle player input
-        direction = keystate[K_RIGHT] - keystate[K_LEFT]
-        player.move(direction)
-        firing = keystate[K_SPACE]
-        if not player.reloading and firing and len(shots) < MAX_SHOTS:
-            Shot(player.gunpos())
-            shoot_sound.play()
-        player.reloading = firing
+        # direction = keystate[K_RIGHT] - keystate[K_LEFT]
+        # player.move(direction)
+        # firing = keystate[K_SPACE]
+        # if not player.reloading and firing and len(shots) < MAX_SHOTS:
+        #     Shot(player.gunpos())
+        #     shoot_sound.play()
+        # player.reloading = firing
 
         # Create new alien
         if alienreload:
@@ -282,19 +282,19 @@ def main(winstyle = 0):
 
         # Detect collisions
         for alien in pygame.sprite.spritecollide(player, aliens, 1):
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(alien)
             Explosion(player)
             SCORE = SCORE + 1
             player.kill()
 
         for alien in pygame.sprite.groupcollide(shots, aliens, 1, 1).keys():
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(alien)
             SCORE = SCORE + 1
 
         for bomb in pygame.sprite.spritecollide(player, bombs, 1):
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(player)
             Explosion(bomb)
             player.kill()
