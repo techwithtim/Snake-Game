@@ -28,7 +28,8 @@ SCORE          = 0
 
 def load_image(file):
     "loads an image, prepares it for play"
-    file = os_path_join('/images', file)
+    file = os_path_join('images', file)
+    file = renpy.open_file(file)
     surface = pygame.image.load(file)
     return surface.convert()
 
@@ -247,10 +248,10 @@ def main(winstyle = 0):
     while player.alive():
 
         #get input
-        for event in pygame.event.get():
-            if event.type == QUIT or \
-                (event.type == KEYDOWN and event.key == K_ESCAPE):
-                    return SCORE
+        # for event in pygame.event.get():
+        #     if event.type == QUIT or \
+        #         (event.type == KEYDOWN and event.key == K_ESCAPE):
+        #             return SCORE
         keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
