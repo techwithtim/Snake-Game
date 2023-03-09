@@ -62,7 +62,7 @@ sudo dpkg -i packages-microsoft-prod.deb
 sudo apt-get update
 # Install PowerShell
 sudo apt-get install -y powershell
-
+```
 
 give renpy permission
 ```bash
