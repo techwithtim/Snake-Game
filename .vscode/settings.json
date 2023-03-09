@@ -1,14 +1,24 @@
 {
+    // format
     "[renpy]": {
         "editor.defaultFormatter": "ms-python.python",
     },
     "editor.formatOnSave": true,
+    // reorganise imports
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    // hide
     "files.exclude": {
         "**/*.rpyc": true,
         "**/*.rpa": true,
         "**/*.rpymc": true,
         "**/cache/": true
     },
+    // olther
+    "extensions.ignoreRecommendations": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    // color
     "editor.tokenColorCustomizations": {
         "textMateRules": [
             {
