@@ -505,12 +505,6 @@
                 }
             },
             {
-                "scope": "renpy.meta.color.#ffffff",
-                "settings": {
-                    "foreground": "#ffffff"
-                }
-            }
-            {
                 "scope": "renpy.meta.color.#ffff",
                 "settings": {
                     "foreground": "#ffff"
