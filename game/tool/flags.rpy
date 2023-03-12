@@ -6,9 +6,6 @@ init python:
 # I suggest to leave it empty and add the elements only if it is an initial value and set as True
 default flags = {}
 define flag_keys = [
-    # Block all spend_time
-    "not_can_spend_time",
-    "goout",
 ]
 
 init python:
