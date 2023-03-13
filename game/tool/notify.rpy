@@ -1,3 +1,7 @@
+init python:
+    import renpy.store as store
+
+    store.notifications = []
 
 # Width of the images.
 define gui.notifyEx_width = gui.label_text_size
