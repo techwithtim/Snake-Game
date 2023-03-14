@@ -36,6 +36,8 @@ This template includes VSCode launchs and extensions for developing Ren'Py proje
 
 Paste the path to your Ren'Py SDK folder
 
+Exemple: `/home/username/renpy`
+
 ### Run
 
 Select:
