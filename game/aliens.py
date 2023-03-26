@@ -1,31 +1,33 @@
-import random, os.path
-
-#import basic pygame_sdl2 modules
-import pygame_sdl2 as pygame
-pygame.import_as_pygame()
-pygame._optional_imports()
+import math
 from pygame_sdl2.rect import Rect
-
 import renpy.store as store
 import renpy.exports as renpy
 import renpy.display.transform as transform
+import os.path
+import random
 
-#see if we can load more than standard BMP
+# import basic pygame_sdl2 modules
+import pygame_sdl2 as pygame
+
+pygame.import_as_pygame()
+pygame._optional_imports()
+
+# see if we can load more than standard BMP
 if not pygame.image.get_extended():
     raise (SystemExit, "Sorry, extended image module required")
 
-import math
 
 def os_path_join(a, b):
     return a + "/" + b
 
-#game constants
-MAX_SHOTS      = 2      #most player bullets onscreen
-ALIEN_ODDS     = 22     #chances a new alien appears
-BOMB_ODDS      = 60    #chances a new bomb will drop
-ALIEN_RELOAD   = 12     #frames between new aliens
-SCREENRECT     = Rect(0, 0, 640, 480)
-SCORE          = 0
+
+# game constants
+MAX_SHOTS = 2  # most player bullets onscreen
+ALIEN_ODDS = 22  # chances a new alien appears
+BOMB_ODDS = 60  # chances a new bomb will drop
+ALIEN_RELOAD = 12  # frames between new aliens
+SCREENRECT = Rect(0, 0, 640, 480)
+SCORE = 0
 
 
 def load_image(file):
@@ -34,6 +36,7 @@ def load_image(file):
     file = renpy.open_file(file)
     surface = pygame.image.load(file)
     return surface.convert()
+
 
 def load_images(*files):
     imgs = []
@@ -44,7 +47,6 @@ def load_images(*files):
 
 class dummysound:
     def play(self): pass
-
 
 
 # each type of game object gets an init and an
@@ -61,6 +63,7 @@ class Player(pygame.sprite.Sprite):
     bounce = 24
     gun_offset = -11
     images = []
+
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
@@ -70,14 +73,15 @@ class Player(pygame.sprite.Sprite):
         self.facing = -1
 
     def move(self, direction):
-        if direction: self.facing = direction
+        if direction:
+            self.facing = direction
         self.rect.move_ip(direction*self.speed, 0)
         self.rect = self.rect.clamp(SCREENRECT)
         if direction < 0:
             self.image = self.images[0]
         elif direction > 0:
             self.image = self.images[1]
-        self.rect.top = self.origtop - (self.rect.left/self.bounce%2)
+        self.rect.top = self.origtop - (self.rect.left/self.bounce % 2)
 
     def gunpos(self):
         pos = self.facing*self.gun_offset + self.rect.centerx
@@ -88,11 +92,12 @@ class Alien(pygame.sprite.Sprite):
     speed = 13
     animcycle = 12
     images = []
+
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
         self.rect = self.image.get_rect()
-        self.facing = random.choice((-1,1)) * Alien.speed
+        self.facing = random.choice((-1, 1)) * Alien.speed
         self.frame = 0
         if self.facing < 0:
             self.rect.right = SCREENRECT.right
@@ -100,7 +105,7 @@ class Alien(pygame.sprite.Sprite):
     def update(self):
         self.rect.move_ip(self.facing, 0)
         if not SCREENRECT.contains(self.rect):
-            self.facing = -self.facing;
+            self.facing = -self.facing
             self.rect.top = self.rect.bottom + 1
             self.rect = self.rect.clamp(SCREENRECT)
         self.frame = self.frame + 1
@@ -112,6 +117,7 @@ class Explosion(pygame.sprite.Sprite):
     defaultlife = 12
     animcycle = 3
     images = []
+
     def __init__(self, actor):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
@@ -122,12 +128,14 @@ class Explosion(pygame.sprite.Sprite):
         self.life = self.life - 1
         # TODO: has been commented pe make it work
         # self.image = self.images[self.life/self.animcycle%2]
-        if self.life <= 0: self.kill()
+        if self.life <= 0:
+            self.kill()
 
 
 class Shot(pygame.sprite.Sprite):
     speed = -11
     images = []
+
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
@@ -142,11 +150,12 @@ class Shot(pygame.sprite.Sprite):
 class Bomb(pygame.sprite.Sprite):
     speed = 9
     images = []
+
     def __init__(self, alien):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
-        self.rect = self.image.get_rect(midbottom=
-                    alien.rect.move(0,5).midbottom)
+        self.rect = self.image.get_rect(
+            midbottom=alien.rect.move(0, 5).midbottom)
 
     def update(self):
         self.rect.move_ip(0, self.speed)
@@ -168,7 +177,7 @@ class Score(pygame.sprite.Sprite):
         self.lastscore = -1
         self.update()
         self.rect = self.image.get_rect().move(10, 450)
-        
+
     def update(self):
         if SCORE != self.lastscore:
             self.lastscore = SCORE
@@ -177,8 +186,7 @@ class Score(pygame.sprite.Sprite):
             # self.image = self.font.render(msg, 0, self.color)
 
 
-
-def main(winstyle = 0):
+def main(winstyle=0):
     # Initialize pygame
     pygame.init()
 
@@ -191,8 +199,8 @@ def main(winstyle = 0):
     bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
     screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
 
-    #Load images, assign to sprite classes
-    #(do this before the classes are used, after screen setup)
+    # Load images, assign to sprite classes
+    # (do this before the classes are used, after screen setup)
     img = load_image('player1.gif')
     Player.images = [img, pygame.transform.flip(img, 1, 0)]
     img = load_image('explosion1.gif')
@@ -201,18 +209,18 @@ def main(winstyle = 0):
     Bomb.images = [load_image('bomb.gif')]
     Shot.images = [load_image('shot.gif')]
 
-    #decorate the game window
+    # decorate the game window
     icon = pygame.transform.scale(Alien.images[0], (32, 32))
     pygame.display.set_icon(icon)
     pygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)
 
-    #create the background, tile the bgd image
+    # create the background, tile the bgd image
     bgdtile = load_image('background.gif')
     background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
-    screen.blit(background, (0,0))
+    screen.blit(background, (0, 0))
     pygame.display.flip()
 
     # Initialize Game Groups
@@ -222,7 +230,7 @@ def main(winstyle = 0):
     all = pygame.sprite.RenderUpdates()
     lastalien = pygame.sprite.GroupSingle()
 
-    #assign default groups to each sprite class
+    # assign default groups to each sprite class
     Player.containers = all
     Alien.containers = aliens, all, lastalien
     Shot.containers = shots, all
@@ -230,7 +238,7 @@ def main(winstyle = 0):
     Explosion.containers = all
     Score.containers = all
 
-    #Create Some Starting Values
+    # Create Some Starting Values
     global score
     alienreload = ALIEN_RELOAD
     kills = 0
@@ -239,9 +247,9 @@ def main(winstyle = 0):
     global SCORE
     SCORE = 0
 
-    #initialize our starting sprites
+    # initialize our starting sprites
     player = Player()
-    Alien() #note, this 'lives' because it goes into a sprite group
+    Alien()  # note, this 'lives' because it goes into a sprite group
 
     # TODO: has been commented pe make it work
     # if pygame.font:
@@ -250,7 +258,7 @@ def main(winstyle = 0):
     while player.alive():
 
         # TODO: has been commented pe make it work
-        #get input
+        # get input
         # for event in pygame.event.get():
         #     if event.type == QUIT or \
         #         (event.type == KEYDOWN and event.key == K_ESCAPE):
@@ -260,11 +268,11 @@ def main(winstyle = 0):
         # clear/erase the last drawn sprites
         all.clear(screen, background)
 
-        #update all the sprites
+        # update all the sprites
         all.update()
 
         # TODO: has been commented pe make it work
-        #handle player input
+        # handle player input
         # direction = keystate[K_RIGHT] - keystate[K_LEFT]
         # player.move(direction)
         # firing = keystate[K_SPACE]
@@ -303,11 +311,11 @@ def main(winstyle = 0):
             Explosion(bomb)
             player.kill()
 
-        #draw the scene
+        # draw the scene
         dirty = all.draw(screen)
         pygame.display.update(dirty)
 
-        #cap the framerate
+        # cap the framerate
         clock.tick(40)
 
     pygame.time.wait(1000)
@@ -325,20 +333,15 @@ def main(winstyle = 0):
     return SCORE
 
 
-
-
-
-
-
 class Appearing(renpy.Displayable):
 
     def __init__(
-            self, 
-            image, 
-            opaque_distance, 
-            transparent_distance, 
+            self,
+            image,
+            opaque_distance,
+            transparent_distance,
             **kwargs
-            ):
+    ):
 
         # Pass additional properties on to the renpy.Displayable
         # constructor.
@@ -394,7 +397,8 @@ class Appearing(renpy.Displayable):
         elif distance >= self.transparent_distance:
             alpha = 0.0
         else:
-            alpha = 1.0 - 1.0 * (distance - self.opaque_distance) / (self.transparent_distance - self.opaque_distance)
+            alpha = 1.0 - 1.0 * (distance - self.opaque_distance) / \
+                (self.transparent_distance - self.opaque_distance)
 
         # If the alpha has changed, trigger a redraw event.
         if alpha != self.alpha:
@@ -405,4 +409,4 @@ class Appearing(renpy.Displayable):
         return self.image.event(ev, x, y, st)
 
     def visit(self):
-        return [ self.image ]
+        return [self.image]
