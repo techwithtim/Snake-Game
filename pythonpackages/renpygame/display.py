@@ -61,12 +61,10 @@ def set_mode(size=(0, 0), flags=0, depth=0, display=0, vsync=0) -> MainSurface:
     return MainSurface(size, flags, depth)
 
 
-def set_icon(icon: str) -> None: x
-
-
-"""https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
-pygame.display.set_icon(icon)
-return
+def set_icon(icon: str) -> None:
+    """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
+    pygame.display.set_icon(icon)
+    return
 
 
 def set_caption(title: str, icontitle=None) -> None:
