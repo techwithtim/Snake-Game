@@ -5,7 +5,6 @@ import random
 import renpy.display.transform as transform
 import renpy.exports as renpy
 import renpy.store as store
-from pygame_sdl2.rect import Rect
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect

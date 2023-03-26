@@ -1,5 +1,6 @@
+from pygame_sdl2.display import *
+
 import pythonpackages.renpygame.pygame as pygame
-from pythonpackages.renpygame.pygame.display import *
 
 
 class Surface():

@@ -1,5 +1,7 @@
-import pythonpackages.renpygame.display
+import pythonpackages.renpygame.display as mydisplay
+import pythonpackages.renpygame.rect as myRect
 from pythonpackages.renpygame.pygame import *
 
-Surface = pythonpackages.renpygame.display.Surface
-display = pythonpackages.renpygame.display
+Surface = mydisplay.Surface
+rect = myRect
+display = mydisplay
