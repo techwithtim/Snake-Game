@@ -8,6 +8,7 @@ import renpy.store as store
 from pygame_sdl2.rect import Rect
 
 import pythonpackages.renpygame as pygame
+from pythonpackages.renpygame.rect import Rect
 
 
 def os_path_join(a, b):
