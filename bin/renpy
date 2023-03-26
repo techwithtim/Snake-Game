@@ -1,0 +1,5 @@
+#!/bin/bash
+
+RENPY="$(<.renpy-sdk)"
+echo "Using Ren'Py SDK: $RENPY"
+"$RENPY/renpy.sh" . "${@:1}"
