@@ -67,12 +67,6 @@ def set_icon(Surface) -> None:
     return
 
 
-def set_caption(title, icontitle=None) -> None:
-    """https://www.pygame.org/docs/ref/display.html#pygame.display.set_caption"""
-    pygame.display.set_icon(title)
-    return
-
-
 def flip():
     """https://www.pygame.org/docs/ref/display.html#pygame.display.flip"""
     return
