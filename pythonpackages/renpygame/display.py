@@ -27,7 +27,7 @@ class Surface():
         return
 
 
-class MainSurface():
+class MainSurface(Surface):
     """https://www.pygame.org/docs/ref/surface.html"""
 
     def __init__(
