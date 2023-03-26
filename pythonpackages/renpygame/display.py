@@ -19,7 +19,7 @@ class Surface():
 
     def blit(
             self,
-            dest: str,  # img
+            dest,
             area=None,
             special_flags=0
     ):
@@ -43,7 +43,7 @@ class MainSurface():
 
     def blit(
             self,
-            dest: str,  # img
+            dest,
             area=None,
             special_flags=0
     ):

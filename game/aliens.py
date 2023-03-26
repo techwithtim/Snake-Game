@@ -357,13 +357,8 @@ class Appearing(renpy.Displayable):
         self.height = 0
 
     def render(self, width, height, st, at):
-
-        # Create a transform, that can adjust the alpha channel of the
-        # child.
-        t = transform.Transform(child=self.image, alpha=self.alpha)
-
         # Create a render from the child.
-        child_render = renpy.render(t, width, height, st, at)
+        child_render = renpy.render(self.image, width, height, st, at)
 
         # Get the size of the child.
         self.width, self.height = child_render.get_size()
@@ -378,26 +373,6 @@ class Appearing(renpy.Displayable):
         return render
 
     def event(self, ev, x, y, st):
-
-        # Compute the distance between the center of this displayable and
-        # the mouse pointer. The mouse pointer is supplied in x and y,
-        # relative to the upper-left corner of the displayable.
-        distance = math.hypot(x - (self.width / 2), y - (self.height / 2))
-
-        # Base on the distance, figure out an alpha.
-        if distance <= self.opaque_distance:
-            alpha = 1.0
-        elif distance >= self.transparent_distance:
-            alpha = 0.0
-        else:
-            alpha = 1.0 - 1.0 * (distance - self.opaque_distance) / \
-                (self.transparent_distance - self.opaque_distance)
-
-        # If the alpha has changed, trigger a redraw event.
-        if alpha != self.alpha:
-            self.alpha = alpha
-            renpy.redraw(self, 0)
-
         # Pass the event to our child.
         return self.image.event(ev, x, y, st)
 
