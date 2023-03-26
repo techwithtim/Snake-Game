@@ -61,13 +61,28 @@ def set_mode(size=(0, 0), flags=0, depth=0, display=0, vsync=0) -> MainSurface:
     return MainSurface(size, flags, depth)
 
 
-def set_icon(icon: str) -> None:
+def set_icon(Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
-    pygame.display.set_icon(icon)
+    pygame.display.set_icon(Surface)
     return
 
 
-def set_caption(title: str, icontitle=None) -> None:
+def set_caption(title, icontitle=None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_caption"""
     pygame.display.set_icon(title)
+    return
+
+
+def flip():
+    """https://www.pygame.org/docs/ref/display.html#pygame.display.flip"""
+    return
+
+
+def update(rectangle=None) -> None:
+    """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
+    return
+
+
+def update(rectangle_list) -> None:
+    """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
     return
