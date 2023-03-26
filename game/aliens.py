@@ -1,16 +1,20 @@
 import random, os.path
 
-#import basic pygame modules
-import renpygame as pygame
-from renpygame.locals import *
+#import basic pygame_sdl2 modules
+import pygame_sdl2 as pygame
+pygame.import_as_pygame()
+pygame._optional_imports()
+from pygame_sdl2.rect import Rect
 
 import renpy.store as store
 import renpy.exports as renpy
+import renpy.display.transform as transform
 
 #see if we can load more than standard BMP
 if not pygame.image.get_extended():
     raise (SystemExit, "Sorry, extended image module required")
 
+import math
 
 def os_path_join(a, b):
     return a + "/" + b
@@ -26,11 +30,9 @@ SCORE          = 0
 
 def load_image(file):
     "loads an image, prepares it for play"
-    file = os_path_join('data', file)
-    try:
-        surface = pygame.image.load(file)
-    except pygame.error:
-        raise (SystemExit, 'Could not load image "%s" %s'%(file, pygame.get_error()))
+    file = os_path_join('images', file)
+    file = renpy.open_file(file)
+    surface = pygame.image.load(file)
     return surface.convert()
 
 def load_images(*files):
@@ -42,16 +44,6 @@ def load_images(*files):
 
 class dummysound:
     def play(self): pass
-
-def load_sound(file):
-    if not pygame.mixer: return dummysound()
-    file = os_path_join('data', file)
-    try:
-        sound = pygame.mixer.Sound(file)
-        return sound
-    except pygame.error:
-        print ('Warning, unable to load,', file)
-    return dummysound()
 
 
 
@@ -190,10 +182,6 @@ def main(winstyle = 0):
     # Initialize pygame
     pygame.init()
 
-    if pygame.mixer and not pygame.mixer.get_init():
-        print ('Warning, no sound')
-        pygame.mixer = None
-
     # Set the display mode
     if store._preferences.fullscreen:
         winstyle = FULLSCREEN
@@ -226,14 +214,6 @@ def main(winstyle = 0):
         background.blit(bgdtile, (x, 0))
     screen.blit(background, (0,0))
     pygame.display.flip()
-
-    #load the sound effects
-    boom_sound = load_sound('boom.wav')
-    shoot_sound = load_sound('car_door.wav')
-    if pygame.mixer:
-        music = os_path_join('data', 'house_lo.wav')
-        pygame.mixer.music.load(music)
-        pygame.mixer.music.play(-1)
 
     # Initialize Game Groups
     aliens = pygame.sprite.Group()
@@ -269,12 +249,13 @@ def main(winstyle = 0):
 
     while player.alive():
 
+        # TODO: has been commented pe make it work
         #get input
-        for event in pygame.event.get():
-            if event.type == QUIT or \
-                (event.type == KEYDOWN and event.key == K_ESCAPE):
-                    return SCORE
-        keystate = pygame.key.get_pressed()
+        # for event in pygame.event.get():
+        #     if event.type == QUIT or \
+        #         (event.type == KEYDOWN and event.key == K_ESCAPE):
+        #             return SCORE
+        # keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
         all.clear(screen, background)
@@ -282,14 +263,15 @@ def main(winstyle = 0):
         #update all the sprites
         all.update()
 
+        # TODO: has been commented pe make it work
         #handle player input
-        direction = keystate[K_RIGHT] - keystate[K_LEFT]
-        player.move(direction)
-        firing = keystate[K_SPACE]
-        if not player.reloading and firing and len(shots) < MAX_SHOTS:
-            Shot(player.gunpos())
-            shoot_sound.play()
-        player.reloading = firing
+        # direction = keystate[K_RIGHT] - keystate[K_LEFT]
+        # player.move(direction)
+        # firing = keystate[K_SPACE]
+        # if not player.reloading and firing and len(shots) < MAX_SHOTS:
+        #     Shot(player.gunpos())
+        #     shoot_sound.play()
+        # player.reloading = firing
 
         # Create new alien
         if alienreload:
@@ -304,19 +286,19 @@ def main(winstyle = 0):
 
         # Detect collisions
         for alien in pygame.sprite.spritecollide(player, aliens, 1):
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(alien)
             Explosion(player)
             SCORE = SCORE + 1
             player.kill()
 
         for alien in pygame.sprite.groupcollide(shots, aliens, 1, 1).keys():
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(alien)
             SCORE = SCORE + 1
 
         for bomb in pygame.sprite.spritecollide(player, bombs, 1):
-            boom_sound.play()
+            # boom_sound.play()
             Explosion(player)
             Explosion(bomb)
             player.kill()
@@ -328,13 +310,99 @@ def main(winstyle = 0):
         #cap the framerate
         clock.tick(40)
 
-    if pygame.mixer:
-        pygame.mixer.music.fadeout(1000)
     pygame.time.wait(1000)
 
-    # ! It's not work
+    # * https://github.com/DRincs-Productions/Renpygame/issues/3
+    # * renpytom tell me to use:
+    renpy.display_reset()  # but not work
+
+    # ! It's not work:
+    # ! because when renpy try to edit the screen not find it
     renpy.call("start")
-    # * It's work
+    # It's work
     renpy.call("retry")
 
     return SCORE
+
+
+
+
+
+
+
+class Appearing(renpy.Displayable):
+
+    def __init__(
+            self, 
+            image, 
+            opaque_distance, 
+            transparent_distance, 
+            **kwargs
+            ):
+
+        # Pass additional properties on to the renpy.Displayable
+        # constructor.
+        super(Appearing, self).__init__(**kwargs)
+
+        # The child.
+        self.image = renpy.displayable(image)
+
+        # The distance at which the child will become fully opaque, and
+        # where it will become fully transparent. The former must be less
+        # than the latter.
+        self.opaque_distance = opaque_distance
+        self.transparent_distance = transparent_distance
+
+        # The alpha channel of the child.
+        self.alpha = 0.0
+
+        # The width and height of us, and our child.
+        self.width = 0
+        self.height = 0
+
+    def render(self, width, height, st, at):
+
+        # Create a transform, that can adjust the alpha channel of the
+        # child.
+        t = transform.Transform(child=self.image, alpha=self.alpha)
+
+        # Create a render from the child.
+        child_render = renpy.render(t, width, height, st, at)
+
+        # Get the size of the child.
+        self.width, self.height = child_render.get_size()
+
+        # Create the render we will return.
+        render = renpy.Render(self.width, self.height)
+
+        # Blit (draw) the child's render to our render.
+        render.blit(child_render, (0, 0))
+
+        # Return the render.
+        return render
+
+    def event(self, ev, x, y, st):
+
+        # Compute the distance between the center of this displayable and
+        # the mouse pointer. The mouse pointer is supplied in x and y,
+        # relative to the upper-left corner of the displayable.
+        distance = math.hypot(x - (self.width / 2), y - (self.height / 2))
+
+        # Base on the distance, figure out an alpha.
+        if distance <= self.opaque_distance:
+            alpha = 1.0
+        elif distance >= self.transparent_distance:
+            alpha = 0.0
+        else:
+            alpha = 1.0 - 1.0 * (distance - self.opaque_distance) / (self.transparent_distance - self.opaque_distance)
+
+        # If the alpha has changed, trigger a redraw event.
+        if alpha != self.alpha:
+            self.alpha = alpha
+            renpy.redraw(self, 0)
+
+        # Pass the event to our child.
+        return self.image.event(ev, x, y, st)
+
+    def visit(self):
+        return [ self.image ]

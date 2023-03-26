@@ -17,6 +17,8 @@ label start:
     scene bg m64
     show eileen happy at left
     
+    show screen alpha_magic
+    
     e "Welcome!"
 
     e "You're here to defend the moon from invaders from the M-64 galaxy."
@@ -65,3 +67,10 @@ label retry:
 
 
         
+
+
+
+screen alpha_magic:
+    add aliens.Appearing("background.gif", 100, 200):
+        xalign 0.5
+        yalign 0.5
