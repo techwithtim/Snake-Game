@@ -190,7 +190,7 @@ class Score(pygame.sprite.Sprite):
 
 def main(winstyle=0):
     # Initialize pygame
-    pygame.init()
+    renpygame.init()
 
     # Set the display mode
     if store._preferences.fullscreen:
@@ -223,7 +223,7 @@ def main(winstyle=0):
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
     screen.blit(background, (0, 0))
-    pygame.display.flip()
+    renpygame.display.flip()
 
     # Initialize Game Groups
     aliens = pygame.sprite.Group()
@@ -315,7 +315,7 @@ def main(winstyle=0):
 
         # draw the scene
         dirty = all.draw(screen)
-        pygame.display.update(dirty)
+        renpygame.display.update(dirty)
 
         # cap the framerate
         clock.tick(40)

@@ -1,8 +1,5 @@
-from typing import Union
-
-import renpy.exports as renpy
-
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.pygame.display import *
 
 
 class Surface():
