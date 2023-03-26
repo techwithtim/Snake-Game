@@ -1,22 +1,13 @@
 import math
-import os.path
 import random
 
 # import basic pygame_sdl2 modules
-import pygame_sdl2 as pygame
 import renpy.display.transform as transform
 import renpy.exports as renpy
 import renpy.store as store
 from pygame_sdl2.rect import Rect
 
-import pythonpackages.renpygame as renpygame
-
-pygame.import_as_pygame()
-pygame._optional_imports()
-
-# see if we can load more than standard BMP
-if not pygame.image.get_extended():
-    raise (SystemExit, "Sorry, extended image module required")
+import pythonpackages.renpygame as pygame
 
 
 def os_path_join(a, b):
@@ -190,7 +181,7 @@ class Score(pygame.sprite.Sprite):
 
 def main(winstyle=0):
     # Initialize pygame
-    renpygame.init()
+    pygame.init()
 
     # Set the display mode
     if store._preferences.fullscreen:
@@ -198,8 +189,8 @@ def main(winstyle=0):
     else:
         winstyle = 0
 
-    bestdepth = renpygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
-    screen = renpygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
+    bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
+    screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
 
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
@@ -213,17 +204,17 @@ def main(winstyle=0):
 
     # decorate the game window
     icon = pygame.transform.scale(Alien.images[0], (32, 32))
-    renpygame.display.set_icon(icon)
-    renpygame.display.set_caption('Pygame Aliens')
+    pygame.display.set_icon(icon)
+    pygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)
 
     # create the background, tile the bgd image
     bgdtile = load_image('background.gif')
-    background = renpygame.Surface(SCREENRECT.size)
+    background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
     screen.blit(background, (0, 0))
-    renpygame.display.flip()
+    pygame.display.flip()
 
     # Initialize Game Groups
     aliens = pygame.sprite.Group()
@@ -315,7 +306,7 @@ def main(winstyle=0):
 
         # draw the scene
         dirty = all.draw(screen)
-        renpygame.display.update(dirty)
+        pygame.display.update(dirty)
 
         # cap the framerate
         clock.tick(40)
