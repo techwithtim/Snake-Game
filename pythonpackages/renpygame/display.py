@@ -1,7 +1,8 @@
 from typing import Union
 
-import pygame_sdl2 as pygame
 import renpy.exports as renpy
+
+import pythonpackages.renpygame.pygame as pygame
 
 
 class Surface():
