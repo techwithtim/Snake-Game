@@ -69,5 +69,5 @@ def set_icon(icon: str) -> None:
 
 def set_caption(title: str, icontitle=None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_caption"""
-    pygame.display.set_icon(title, icontitle)
+    pygame.display.set_icon(title)
     return
