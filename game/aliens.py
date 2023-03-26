@@ -213,8 +213,8 @@ def main(winstyle=0):
 
     # decorate the game window
     icon = pygame.transform.scale(Alien.images[0], (32, 32))
-    pygame.display.set_icon(icon)
-    pygame.display.set_caption('Pygame Aliens')
+    renpygame.display.set_icon(icon)
+    renpygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)
 
     # create the background, tile the bgd image
