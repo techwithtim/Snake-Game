@@ -1,13 +1,15 @@
 import math
-from pygame_sdl2.rect import Rect
-import renpy.store as store
-import renpy.exports as renpy
-import renpy.display.transform as transform
 import os.path
 import random
 
 # import basic pygame_sdl2 modules
 import pygame_sdl2 as pygame
+import renpy.display.transform as transform
+import renpy.exports as renpy
+import renpy.store as store
+from pygame_sdl2.rect import Rect
+
+import pythonpackages.renpygame as renpygame
 
 pygame.import_as_pygame()
 pygame._optional_imports()
@@ -196,8 +198,8 @@ def main(winstyle=0):
     else:
         winstyle = 0
 
-    bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
-    screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
+    bestdepth = renpygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
+    screen = renpygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
 
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
@@ -217,7 +219,7 @@ def main(winstyle=0):
 
     # create the background, tile the bgd image
     bgdtile = load_image('background.gif')
-    background = pygame.Surface(SCREENRECT.size)
+    background = renpygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
     screen.blit(background, (0, 0))
