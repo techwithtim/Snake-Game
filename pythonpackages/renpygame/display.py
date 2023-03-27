@@ -1,6 +1,8 @@
+from typing import Optional
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.rect import Rect
 
 
 class Surface():
@@ -20,9 +22,9 @@ class Surface():
     def blit(
             self,
             dest,
-            area=None,
-            special_flags=0
-    ):
+            area: Optional[tuple[int, int]] = None,
+            special_flags: int = 0
+    ) -> Rect:
         self.dest = dest
         return
 
@@ -66,7 +68,7 @@ def set_icon(Surface) -> None:
     return pygame.display.set_icon(Surface)
 
 
-def flip():
+def flip() -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.flip"""
     return
 
