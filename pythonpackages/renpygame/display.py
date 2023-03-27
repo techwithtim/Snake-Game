@@ -8,9 +8,9 @@ class Surface():
 
     def __init__(
             self,
-            size=(0, 0),
-            flags=0,
-            depth=0,
+            size: tuple[int, int] = (0, 0),
+            flags: int = 0,
+            depth: int = 0,
             masks=None
     ):
 
