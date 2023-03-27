@@ -51,20 +51,19 @@ class MainSurface(Surface):
         return
 
 
-def mode_ok(size, flags=0, depth=0, display=0) -> int:
+def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
-    return 0
+    return pygame.mode_ok(size, flags, depth, display)
 
 
-def set_mode(size=(0, 0), flags=0, depth=0, display=0, vsync=0) -> MainSurface:
+def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> MainSurface:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
     return MainSurface(size, flags, depth)
 
 
 def set_icon(Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
-    pygame.display.set_icon(Surface)
-    return
+    return pygame.display.set_icon(Surface)
 
 
 def flip():
