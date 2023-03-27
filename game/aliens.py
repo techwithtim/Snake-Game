@@ -343,15 +343,6 @@ class Appearing(renpy.Displayable):
         # The child.
         self.image = renpy.displayable(image)
 
-        # The distance at which the child will become fully opaque, and
-        # where it will become fully transparent. The former must be less
-        # than the latter.
-        self.opaque_distance = opaque_distance
-        self.transparent_distance = transparent_distance
-
-        # The alpha channel of the child.
-        self.alpha = 0.0
-
         # The width and height of us, and our child.
         self.width = 0
         self.height = 0
