@@ -55,7 +55,7 @@ class MainSurface(Surface):
 
 def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
-    return pygame.mode_ok(size, flags, depth, display)
+    return pygame.display.mode_ok(size, flags, depth)
 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> MainSurface:

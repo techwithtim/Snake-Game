@@ -26,6 +26,7 @@ class Rect(renpy.Displayable):
         self.top = top
         self.width = width
         self.height = height
+        self.size = (width, height)
 
     def render(self, width: int, height: int, st: DOUBLE, at: DOUBLE):
         # Create the render we will return.
