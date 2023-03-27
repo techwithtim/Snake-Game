@@ -1,8 +1,8 @@
 from ctypes.wintypes import DOUBLE
 from typing import Optional
 
-from more_itertools import flatten
 from pygame_sdl2.rect import *
+from pythonpackages.utility import flatten
 import renpy.exports as renpy
 
 
@@ -11,10 +11,10 @@ class Rect(renpy.Displayable):
 
     def __init__(
         self,
-        left: int,
-        top: int,
-        width: int,
-        height: int,
+        left: int = 0,
+        top: int = 0,
+        width: int = 0,
+        height: int = 0,
         **kwargs
     ):
 
