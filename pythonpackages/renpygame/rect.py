@@ -333,7 +333,7 @@ class Rect(renpy.Displayable):
         if not isinstance(other, Rect):
             other = Rect(other)
 
-        return self.left < other.right and self.top < other.bottom             self.right > other.left and self.bottom > other.top
+        return self.left < other.right and self.top < other.bottom and self.right > other.left and self.bottom > other.top
 
     def collidelist(self, other_list) -> int:
         for n, other in zip(range(len(other_list)), other_list):
