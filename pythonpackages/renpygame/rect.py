@@ -22,13 +22,13 @@ class Rect(renpy.Displayable, pygame.rect.Rect):
         # renpy.Displayable init
         super(Rect, self).__init__(**kwargs)
 
-        # pygame.rect.Rect init
-        super().__init__(
-            left,
-            top,
-            width,
-            height,
-        )
+        # # pygame.rect.Rect init
+        # super().__init__(
+        #     left,
+        #     top,
+        #     width,
+        #     height,
+        # )
 
         # The child.
         self.image: Optional[renpy.Displayable] = None
