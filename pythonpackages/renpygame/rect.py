@@ -318,28 +318,24 @@ class Rect(renpy.Displayable):
             self.y += self.h
             self.h = -self.h
 
-    def contains(self, other):
+    def contains(self, other) -> bool:
         if not isinstance(other, Rect):
             other = Rect(other)
 
-        return other.x >= self.x and other.right <= self.right and \
-            other.y >= self.y and other.bottom <= self.bottom and \
-            other.left < self.right and other.top < self.bottom
+        return other.x >= self.x and other.right <= self.right and other.y >= self.y and other.bottom <= self.bottom and other.left < self.right and other.top < self.bottom
 
-    def collidepoint(self, x, y=None):
+    def collidepoint(self, x, y=None) -> bool:
         if type(x) == tuple:
             x, y = x
-        return x >= self.x and y >= self.y and \
-            x < self.right and y < self.bottom
+        return x >= self.x and y >= self.y and x < self.right and y < self.bottom
 
-    def colliderect(self, other):
+    def colliderect(self, other) -> bool:
         if not isinstance(other, Rect):
             other = Rect(other)
 
-        return self.left < other.right and self.top < other.bottom and \
-            self.right > other.left and self.bottom > other.top
+        return self.left < other.right and self.top < other.bottom             self.right > other.left and self.bottom > other.top
 
-    def collidelist(self, other_list):
+    def collidelist(self, other_list) -> int:
         for n, other in zip(range(len(other_list)), other_list):
             if self.colliderect(other):
                 return n
