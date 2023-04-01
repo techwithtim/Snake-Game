@@ -9,6 +9,7 @@ init:
     $ e = Character('Eileen', color="#c8ffc8")
 
     $ import aliens
+    $ from pythonpackages.renpygame.rect import Rect
     
 
 # The game starts here.
@@ -71,6 +72,6 @@ label retry:
 
 
 screen alpha_magic:
-    add aliens.Appearing("background.gif", 100, 200):
+    add Rect(image = "background.gif"):
         xalign 0.5
         yalign 0.5

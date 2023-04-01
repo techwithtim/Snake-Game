@@ -1,10 +1,11 @@
 from ctypes.wintypes import DOUBLE
 from typing import Optional
 
-from pygame_sdl2.rect import *
 import pygame_sdl2 as pygame
-from pythonpackages.utility import flatten
 import renpy.exports as renpy
+from pygame_sdl2.rect import *
+
+from pythonpackages.utility import flatten
 
 
 class Rect(renpy.Displayable, pygame.rect.Rect):
@@ -16,22 +17,24 @@ class Rect(renpy.Displayable, pygame.rect.Rect):
         top: int = 0,
         width: int = 0,
         height: int = 0,
+        image: Optional[renpy.Displayable] = None,
         **kwargs
     ):
 
         # renpy.Displayable init
         super(Rect, self).__init__(**kwargs)
 
-        # # pygame.rect.Rect init
-        # super().__init__(
-        #     left,
-        #     top,
-        #     width,
-        #     height,
-        # )
-
         # The child.
-        self.image: Optional[renpy.Displayable] = None
+        if image:
+            self.image = renpy.displayable(image)
+        else:
+            self.image = None
+
+        # The width and height of us, and our child.
+        self.width = width
+        self.height = height
+        self.left = left
+        self.top = top
 
     def render(self, width: int, height: int, st: DOUBLE, at: DOUBLE):
         # Create the render we will return.
