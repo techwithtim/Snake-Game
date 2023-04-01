@@ -17,24 +17,30 @@ class Rect(renpy.Displayable, pygame.rect.Rect):
         top: int = 0,
         width: int = 0,
         height: int = 0,
-        image: Optional[renpy.Displayable] = None,
+        image: Optional[str] = None,
         **kwargs
     ):
 
         # renpy.Displayable init
         super(Rect, self).__init__(**kwargs)
 
-        # The child.
-        if image:
-            self.image = renpy.displayable(image)
-        else:
-            self.image = None
-
         # The width and height of us, and our child.
         self.width = width
         self.height = height
         self.left = left
         self.top = top
+        self.image = image
+
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, value: str):
+        if value:
+            self._image = renpy.displayable(value)
+        else:
+            self._image = None
 
     def render(self, width: int, height: int, st: DOUBLE, at: DOUBLE):
         # Create the render we will return.
