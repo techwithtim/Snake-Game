@@ -1,20 +1,25 @@
 from typing import Optional
+
+import renpy.exports as renpy
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
 from pythonpackages.renpygame.rect import Rect
 
 
-class Surface():
+class Surface(renpy.Displayable, pygame.Surface):
     """https://www.pygame.org/docs/ref/surface.html"""
 
     def __init__(
-            self,
-            size: tuple[int, int] = (0, 0),
-            flags: int = 0,
-            depth: int = 0,
-            masks=None
+        self,
+        size: tuple[int, int] = (0, 0),
+        flags: int = 0,
+        depth: int = 0,
+        masks=None,
+        **kwargs
     ):
+        # renpy.Displayable init
+        super(Surface, self).__init__(**kwargs)
 
         self.size = size
         self.dest = None

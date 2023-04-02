@@ -1,15 +1,14 @@
 from ctypes.wintypes import DOUBLE
 from typing import Optional
 
-import pygame_sdl2 as pygame
 import renpy.exports as renpy
 from pygame_sdl2.rect import *
 
-from pythonpackages.utility import flatten
+import pythonpackages.renpygame.pygame as pygame
 
 
 class Rect(renpy.Displayable, pygame.rect.Rect):
-    """https://github.com/renpy/pygame_sdl2/blob/364d3bcfa005b0eaf897d38b336a97fa6e05e76b/src/pygame_sdl2/rect.pyx#L28"""
+    """https://www.pygame.org/docs/ref/rect.html"""
 
     def __init__(
         self,
