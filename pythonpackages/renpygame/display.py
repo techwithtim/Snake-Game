@@ -20,6 +20,9 @@ class Surface(renpy.Displayable, pygame.Surface):
         # renpy.Displayable init
         super(Surface, self).__init__(**kwargs)
 
+        # pygame.Surface init
+        pygame.Surface.__init__(self, size, flags, depth, masks)
+
         self.size = size
         self.dest = None
 

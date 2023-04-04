@@ -13,19 +13,18 @@ class Sprite(renpy.Displayable, pygame.sprite.Sprite):
         **kwargs
     ):
 
-        self.__g = {}  # The groups the sprite is in
-        if groups:
-            self.add(*groups)
-
         # renpy.Displayable init
         super(Sprite, self).__init__(**kwargs)
+
+        # pygame.sprite.Sprite init
+        pygame.sprite.Sprite.__init__(self, groups)
 
     def renpy_render(self):
         """"""
         return
 
 
-class RenderUpdates(pygame.sprite.RenderUpdates):
+class RenderUpdates(pygame.sprite.RenderUpdates, Sprite):
     """https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates"""
 
     def draw(self, surface) -> list:

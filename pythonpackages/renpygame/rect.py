@@ -23,6 +23,9 @@ class Rect(renpy.Displayable, pygame.rect.Rect):
         # renpy.Displayable init
         super(Rect, self).__init__(**kwargs)
 
+        # pygame.rect.Rect init
+        pygame.rect.Rect.__init__(self, left, top, width, height)
+
         # The width and height of us, and our child.
         self.width = width
         self.height = height
