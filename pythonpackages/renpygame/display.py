@@ -24,14 +24,15 @@ class Surface(renpy.Displayable, pygame.Surface):
         pygame.Surface.__init__(self, size, flags, depth, masks)
 
 
+def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
+    """If it is commented out it will replace the renpy screen creating an error when returning to renpy. https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
+    # * It has the job of replacing the original so nothing happens
+    return Surface(size, flags, depth)
+
+
 def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
     return pygame.display.mode_ok(size, flags, depth)
-
-
-def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
-    """https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
-    return Surface(size, flags, depth)
 
 
 def set_icon(Surface) -> None:
