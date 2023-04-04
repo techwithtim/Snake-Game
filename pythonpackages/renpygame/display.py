@@ -24,39 +24,6 @@ class Surface(renpy.Displayable, pygame.Surface):
         self.size = size
         self.dest = None
 
-    def blit(
-            self,
-            dest,
-            area: Optional[tuple[int, int]] = None,
-            special_flags: int = 0
-    ) -> Rect:
-        self.dest = dest
-        return
-
-
-class MainSurface(Surface):
-    """https://www.pygame.org/docs/ref/surface.html"""
-
-    def __init__(
-            self,
-            size=(0, 0),
-            flags=0,
-            depth=0,
-            masks=None
-    ):
-
-        self.size = size
-        self.dest = None
-
-    def blit(
-            self,
-            dest,
-            area=None,
-            special_flags=0
-    ):
-        self.dest = dest
-        return
-
 
 def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
@@ -65,7 +32,7 @@ def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> MainSurface:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
-    return MainSurface(size, flags, depth)
+    return Surface(size, flags, depth)
 
 
 def set_icon(Surface) -> None:
