@@ -29,9 +29,8 @@ class Surface(renpy.Displayable, pygame.Surface):
         dest,
         area: Optional[tuple[int, int]] = None,
         special_flags: int = 0
-    ):
-        pygame.Surface.blit(self, source, dest, area, special_flags)
-        return
+    ) -> Rect:
+        return pygame.Surface.blit(self, source, dest, area, special_flags)
 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
