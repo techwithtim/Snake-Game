@@ -1,4 +1,3 @@
-from pythonpackages.renpygame import Surface
 import renpy.exports as renpy
 from pygame_sdl2.sprite import *
 
@@ -29,7 +28,7 @@ class Sprite(renpy.Displayable, pygame.sprite.Sprite):
 class RenderUpdates(pygame.sprite.RenderUpdates):
     """https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates"""
 
-    def draw(self, surface: Surface) -> list:
+    def draw(self, surface) -> list:
         sprites_list: list[Sprite] = self.sprites()
         for s in sprites_list:
             if s:

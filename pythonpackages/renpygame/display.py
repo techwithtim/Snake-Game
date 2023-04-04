@@ -1,10 +1,9 @@
 from typing import Optional
-
+from pythonpackages.renpygame.rect import Rect
 import renpy.exports as renpy
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
-from pythonpackages.renpygame.rect import Rect
 
 
 class Surface(renpy.Displayable, pygame.Surface):
@@ -24,13 +23,22 @@ class Surface(renpy.Displayable, pygame.Surface):
         self.size = size
         self.dest = None
 
+    def blit(
+            self,
+            dest,
+            area: Optional[tuple[int, int]] = None,
+            special_flags: int = 0
+    ) -> Rect:
+        self.dest = dest
+        return
+
 
 def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
     return pygame.display.mode_ok(size, flags, depth)
 
 
-def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> MainSurface:
+def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
     return Surface(size, flags, depth)
 
