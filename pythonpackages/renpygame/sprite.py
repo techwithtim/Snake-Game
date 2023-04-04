@@ -24,7 +24,7 @@ class Sprite(renpy.Displayable, pygame.sprite.Sprite):
         return
 
 
-class RenderUpdates(pygame.sprite.RenderUpdates, Sprite):
+class RenderUpdates(pygame.sprite.RenderUpdates):
     """https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates"""
 
     def draw(self, surface) -> list:
