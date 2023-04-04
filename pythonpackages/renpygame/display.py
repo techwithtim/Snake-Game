@@ -14,7 +14,7 @@ class Surface(renpy.Displayable, pygame.Surface):
         size: tuple[int, int] = (0, 0),
         flags: int = 0,
         depth: int = 0,
-        masks=None,
+        masks=None,  # Optional[ColorValue]
         **kwargs
     ):
         # renpy.Displayable init
@@ -22,6 +22,16 @@ class Surface(renpy.Displayable, pygame.Surface):
 
         # pygame.Surface init
         pygame.Surface.__init__(self, size, flags, depth, masks)
+
+    def blit(
+        self,
+        source,  # Surface
+        dest,
+        area: Optional[tuple[int, int]] = None,
+        special_flags: int = 0
+    ):
+        pygame.Surface.blit(self, source, dest, area, special_flags)
+        return
 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:

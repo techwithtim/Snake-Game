@@ -12,10 +12,12 @@ class Rect(renpy.Displayable, pygame.rect.Rect):
 
     def __init__(
         self,
+        # pygame.rect.Rect
         left: int = 0,
         top: int = 0,
         width: int = 0,
         height: int = 0,
+        # my params
         image: Optional[str] = None,
         **kwargs
     ):
