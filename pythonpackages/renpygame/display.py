@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional, Union
 from pythonpackages.renpygame.rect import Rect
 import renpy.exports as renpy
 from pygame_sdl2.display import *
@@ -23,18 +23,6 @@ class Surface(renpy.Displayable, pygame.Surface):
         # pygame.Surface init
         pygame.Surface.__init__(self, size, flags, depth, masks)
 
-        self.size = size
-        self.dest = None
-
-    def blit(
-            self,
-            dest,
-            area: Optional[tuple[int, int]] = None,
-            special_flags: int = 0
-    ) -> Rect:
-        self.dest = dest
-        return
-
 
 def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
@@ -53,14 +41,9 @@ def set_icon(Surface) -> None:
 
 def flip() -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.flip"""
-    return
+    return pygame.display.flip()
 
 
-def update(rectangle=None) -> None:
+def update(rectangle: Optional[Union[list, Any]] = None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
-    return
-
-
-def update(rectangle_list) -> None:
-    """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
-    return
+    return pygame.display.update(rectangle)
