@@ -7,7 +7,8 @@ import pythonpackages.renpygame.pygame as pygame
 
 
 class Surface(renpy.Displayable, pygame.Surface):
-    """https://www.pygame.org/docs/ref/surface.html"""
+    """pygame: https://www.pygame.org/docs/ref/surface.html
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/48e9c45667152a4ccf98d6d9251eeb3c8858b5f1/src/pygame_sdl2/surface.pyx#L53"""
 
     def __init__(
         self,
@@ -23,13 +24,17 @@ class Surface(renpy.Displayable, pygame.Surface):
         # pygame.Surface init
         pygame.Surface.__init__(self, size, flags, depth, masks)
 
+        self.size = size
+
     def blit(
         self,
         source,  # Surface
-        dest,
+        dest: tuple[int, int],
         area: Optional[tuple[int, int]] = None,
         special_flags: int = 0
     ) -> Rect:
+        renpy.show_screen(
+            "rect", left=dest[0], top=dest[1], width=self.size[0], height=self.size[1], img="background.gif")
         return pygame.Surface.blit(self, source, dest, area, special_flags)
 
 

@@ -9,9 +9,7 @@ screen rect(
     height = 0,
     img = None,
 ):
-    add Rect(left = left, top = top, width = width, height = height, image = img):
-        xalign 0.5
-        yalign 0.5
+    add Rect(left = left, top = top, width = width, height = height, image = img)
 
 screen sprite(
     left = 0,
@@ -20,6 +18,4 @@ screen sprite(
     height = 0,
     img = None,
 ):
-    add Sprite(left = left, top = top, width = width, height = height, image = img):
-        xalign 0.5
-        yalign 0.5
+    add Sprite(left = left, top = top, width = width, height = height, image = img)

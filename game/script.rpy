@@ -9,7 +9,6 @@ init:
     $ e = Character('Eileen', color="#c8ffc8")
 
     $ import aliens
-    $ from pythonpackages.renpygame.rect import Rect
     
 
 # The game starts here.
@@ -17,8 +16,6 @@ label start:
 
     scene bg m64
     show eileen happy at left
-    
-    show screen alpha_magic
     
     e "Welcome!"
 
@@ -65,13 +62,3 @@ label retry:
     e "Thank you for playing."
 
     return
-
-
-        
-
-
-
-screen alpha_magic:
-    add Rect(image = "background.gif"):
-        xalign 0.5
-        yalign 0.5
