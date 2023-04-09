@@ -18,6 +18,7 @@
     // olther
     "extensions.ignoreRecommendations": false,
     "diffEditor.ignoreTrimWhitespace": false,
+    "python.analysis.typeCheckingMode": "basic",
     // color
     "editor.tokenColorCustomizations": {
         "textMateRules": [
