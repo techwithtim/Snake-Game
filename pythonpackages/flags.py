@@ -3,9 +3,9 @@ import json
 from pythonpackages.renpy_custom_log import *
 
 __all__ = [
-    "updateFlags",
-    "getFlags",
-    "setFlags",
+    "update_flags",
+    "get_flags",
+    "set_flags",
 ]
 
 
