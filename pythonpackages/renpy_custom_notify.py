@@ -4,11 +4,13 @@ import renpy.store as store
 
 store.notifications = []
 
+DEFAULT_NOTIFY_DELAY = 10.0
+
 __all__ = [
     "NotifyEx",
-    "notifyEx",
-    "notifyExPreventsLoops",
-    "notifyExClean",
+    "notify_add",
+    "notify_prevents_loops",
+    "notify_remove",
     "notify",
 ]
 
@@ -20,7 +22,7 @@ class NotifyEx(renpy.python.RevertableObject):
         self,
         message: Optional[str],
         image: Optional[str],
-        delay: float = 10.0,
+        delay: Optional[float] = None,
     ):
         super(NotifyEx, self).__init__()
         self.message = message
@@ -48,21 +50,21 @@ class NotifyEx(renpy.python.RevertableObject):
     @property
     def delay(self) -> float:
         """Delay of visibility of a notification."""
-        return self._delay
+        return self._delay if self._delay is not None else DEFAULT_NOTIFY_DELAY
 
     @delay.setter
-    def delay(self, value: float):
+    def delay(self, value: Optional[float]):
         self._delay = value
 
 
-def notifyEx(msg: Optional[str] = None, img: Optional[str] = None):
-    store.notifications.append(NotifyEx(msg, img))
+def notify_add(message: Optional[str] = None, image: Optional[str] = None, delay: Optional[float] = None):
+    store.notifications.append(NotifyEx(message, image, delay))
     if len(store.notifications) == 1:
         renpy.show_screen("notifyEx")
     return
 
 
-def notifyExPreventsLoops(msg: Optional[str] = None, img: Optional[str] = None):
+def notify_prevents_loops(msg: Optional[str] = None, img: Optional[str] = None):
     if len(store.notifications) > 1:
         store.notifications[0] = NotifyEx(msg, img)
     else:
@@ -70,7 +72,7 @@ def notifyExPreventsLoops(msg: Optional[str] = None, img: Optional[str] = None):
     return
 
 
-def notifyExClean(value: NotifyEx):
+def notify_remove(value: NotifyEx):
     if value in store.notifications:
         store.notifications.remove(value)
     return

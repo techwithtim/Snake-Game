@@ -21,14 +21,14 @@ label disable_notifyEx:
 init -999 python:
     import pythonpackages.renpy_custom_notify as myNotify
 
-    def notifyEx(message: str = None, image: str = None):
-        return myNotify.notifyEx(message, image)
+    def notify_add(message: str = None, image: str = None):
+        return myNotify.notify_add(message, image)
 
-    def notifyExPreventsLoops(message: str = None, image: str = None):
-        return myNotify.notifyExPreventsLoops(message, image)
+    def notify_prevents_loops(message: str = None, image: str = None):
+        return myNotify.notify_prevents_loops(message, image)
 
-    def notifyExClean(value):
-        return myNotify.notifyExClean(value)
+    def notify_remove(value):
+        return myNotify.notify_remove(value)
 
     def notify(notific):
         return myNotify.notify(notific)
@@ -40,7 +40,7 @@ style notify_text is default:
 style notify_hbox is default:
     ysize gui.notifyEx_height
 
-screen notifyEx():
+screen notifyEx:
 
     zorder 100
 
