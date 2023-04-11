@@ -1,5 +1,3 @@
-import json
-
 from pythonpackages.renpy_custom_log import *
 
 __all__ = [
