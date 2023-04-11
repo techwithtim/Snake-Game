@@ -1,10 +1,12 @@
+from typing import Optional
+
 __all__ = [
     "isNullOrEmpty",
     "IsNullOrWhiteSpace",
 ]
 
 
-def isNullOrEmpty(item: str) -> bool:
+def isNullOrEmpty(item: Optional[str]) -> bool:
     if not item:
         return True
     return False
