@@ -70,4 +70,4 @@ screen notifyExInternal( n ):
             if not n.message is None:
                 text n.message color gui.notifyEx_text_color
 
-    timer 0.05 repeat True action [ SetField( n, "delay", n.delay - 0.05 ), If( n.delay <= 0, Function( notifyExClean, n ), NullAction() ) ]
+    timer 0.05 repeat True action [ SetField( n, "delay", n.delay - 0.05 ), If( n.delay <= 0, Function( notify_remove, n ), NullAction() ) ]
