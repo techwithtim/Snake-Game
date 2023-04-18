@@ -1,3 +1,4 @@
+from typing import Optional
 import renpy.exports as renpy
 from pygame_sdl2.image import *
 
@@ -35,8 +36,10 @@ class RenpyGameImage(renpy.Render):
         return renpy.render(self.displayable, self.width, self.height)
 
 
-def load(file: str) -> RenpyGameImage:
+def load(file: str) -> Optional[RenpyGameImage]:
     """https://www.pygame.org/docs/ref/image.html#pygame.image.load"""
     if isinstance(file, str):
         displayable = renpy.displayable(file)
         return RenpyGameImage(displayable)
+    else:
+        return None
