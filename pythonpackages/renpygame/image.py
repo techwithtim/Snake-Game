@@ -1,4 +1,6 @@
 from typing import Optional
+from game.aliens import os_path_join
+from pythonpackages.renpygame.renpygameCDD import Render
 import renpy.exports as renpy
 from pygame_sdl2.image import *
 
@@ -43,17 +45,21 @@ class RenpyGameImage():
 
     @property
     def file(self):
-        return renpy.open_file(self.path)
+        path = os_path_join('images', self.path)
+        return renpy.open_file(path)
 
     @property
     def pygame_image(self) -> pygame.Surface:
-        return pygame.image.load(self.file)
+        image = pygame.image.load(self.file)
+        image = image.convert()
+        return image
 
-    def convert(self) -> renpy.Render:
-        return renpy.render(self.displayable, self.width, self.height)
+    def convert(self) -> Render:
+        render = Render(self.width, self.height)
+        render.blit(self.displayable, (0, 0))
+        return render
 
 
 def load(file: str) -> Optional[RenpyGameImage]:
     """https://www.pygame.org/docs/ref/image.html#pygame.image.load"""
-    displayable = renpy.displayable(file)
-    return RenpyGameImage(displayable)
+    return RenpyGameImage(file)

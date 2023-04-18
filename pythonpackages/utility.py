@@ -21,3 +21,7 @@ def flatten(*args):
         return args[0]
     else:
         return args
+
+
+def os_path_join(a: str, b: str) -> str:
+    return a + "/" + b

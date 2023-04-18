@@ -19,7 +19,7 @@ class Surface(renpy.Render):
         **kwargs
     ):
         # renpy.Render init
-        super(Surface, self).__init__(size[0], size[1])
+        super().__init__(size[0], size[1])
 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
