@@ -1,6 +1,7 @@
 from typing import Optional
 from game.aliens import os_path_join
 from pythonpackages.renpy_custom_log import log_error
+from pythonpackages.renpygame.display import Surface
 from pythonpackages.renpygame.renpygameCDD import Render
 import renpy.exports as renpy
 from pygame_sdl2.image import *
@@ -57,8 +58,8 @@ class Image():
         image = image.convert()
         return image
 
-    def convert(self) -> Render:
-        render = Render(self.width, self.height)
+    def convert(self) -> Surface:
+        render = Surface(self.width, self.height)
         render.blit(self.displayable, (0, 0))
         return render
 

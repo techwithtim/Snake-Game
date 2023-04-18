@@ -194,13 +194,19 @@ def main(winstyle=0):
 
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
-    img = load_image('player1.gif')
+    img = pygame.image.load('player1.gif')
+    img = img.convert()
     Player.images = [img, pygame.transform.flip(img, 1, 0)]
-    img = load_image('explosion1.gif')
+    img = pygame.image.load('explosion1.gif')
+    img = img.convert()
     Explosion.images = [img, pygame.transform.flip(img, 1, 1)]
-    Alien.images = load_images('alien1.gif', 'alien2.gif', 'alien3.gif')
-    Bomb.images = [load_image('bomb.gif')]
-    Shot.images = [load_image('shot.gif')]
+    Alien.images = [
+        pygame.image.load('alien1.gif').convert(),
+        pygame.image.load('alien2.gif').convert(),
+        pygame.image.load('alien3.gif').convert(),
+    ]
+    Bomb.images = [pygame.image.load('bomb.gif').convert()]
+    Shot.images = [pygame.image.load('shot.gif').convert()]
 
     # decorate the game window
     icon = pygame.transform.scale(Alien.images[0], (32, 32))
