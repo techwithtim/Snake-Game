@@ -6,7 +6,7 @@ from pygame_sdl2.display import *
 import pythonpackages.renpygame.pygame as pygame
 
 
-class Surface(renpy.Displayable, pygame.Surface):
+class Surface(renpy.Render):
     """pygame: https://www.pygame.org/docs/ref/surface.html
     pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/48e9c45667152a4ccf98d6d9251eeb3c8858b5f1/src/pygame_sdl2/surface.pyx#L53"""
 
@@ -18,24 +18,8 @@ class Surface(renpy.Displayable, pygame.Surface):
         masks=None,  # Optional[ColorValue]
         **kwargs
     ):
-        # renpy.Displayable init
-        super(Surface, self).__init__(**kwargs)
-
-        # pygame.Surface init
-        pygame.Surface.__init__(self, size, flags, depth, masks)
-
-        self.size = size
-
-    def blit(
-        self,
-        source,  # Surface
-        dest: tuple[int, int],
-        area: Optional[tuple[int, int]] = None,
-        special_flags: int = 0
-    ) -> Rect:
-        renpy.show_screen(
-            "rect", left=dest[0], top=dest[1], width=self.size[0], height=self.size[1], img="background.gif")
-        return pygame.Surface.blit(self, source, dest, area, special_flags)
+        # renpy.Render init
+        super(Surface, self).__init__(size[0], size[1])
 
 
 def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
