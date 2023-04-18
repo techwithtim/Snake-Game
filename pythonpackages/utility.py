@@ -12,7 +12,11 @@ def isNullOrEmpty(item: Optional[str]) -> bool:
     return False
 
 
-def IsNullOrWhiteSpace(item: str) -> bool:
+def IsNullOrWhiteSpace(item: Optional[str]) -> bool:
     if not item or item.isspace():
         return True
     return False
+
+
+def os_path_join(a: str, b: str) -> str:
+    return a + "/" + b
