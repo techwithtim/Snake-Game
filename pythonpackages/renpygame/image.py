@@ -1,5 +1,6 @@
 from typing import Optional
 from game.aliens import os_path_join
+from pythonpackages.renpy_custom_log import log_error
 from pythonpackages.renpygame.renpygameCDD import Render
 import renpy.exports as renpy
 from pygame_sdl2.image import *
@@ -7,7 +8,7 @@ from pygame_sdl2.image import *
 import pythonpackages.renpygame.pygame as pygame
 
 
-class RenpyGameImage():
+class Image():
     """renpy.Image: https://github.com/renpy/renpy/blob/fb803ea05cca1b933f18d51fb0398d9545879af9/renpy/display/core.py#L292
     renpy.Image: https://github.com/renpy/renpy/blob/fb803ea05cca1b933f18d51fb0398d9545879af9/renpy/ast.py#L1198"""
 
@@ -16,6 +17,8 @@ class RenpyGameImage():
         path: str,
     ):
         self.path = path
+        # for testing
+        a = self.displayable
 
     @property
     def path(self) -> str:
@@ -60,6 +63,6 @@ class RenpyGameImage():
         return render
 
 
-def load(file: str) -> Optional[RenpyGameImage]:
+def load(path: str) -> Image:
     """https://www.pygame.org/docs/ref/image.html#pygame.image.load"""
-    return RenpyGameImage(file)
+    return Image(path)
