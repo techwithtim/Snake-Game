@@ -59,7 +59,7 @@ class Image():
         return image
 
     def convert(self) -> Surface:
-        render = Surface(self.width, self.height)
+        render = Surface((self.width, self.height))
         render.blit(self.displayable, (0, 0))
         return render
 
