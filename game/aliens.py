@@ -209,7 +209,8 @@ def main(winstyle=0):
     pygame.mouse.set_visible(0)
 
     # create the background, tile the bgd image
-    bgdtile = load_image('background.gif')
+    bgdtile = pygame.image.load('background.gif')
+    bgdtile = bgdtile.convert()
     background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
