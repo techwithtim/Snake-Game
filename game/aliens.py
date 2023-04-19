@@ -180,7 +180,15 @@ class Score(pygame.sprite.Sprite):
             # self.image = self.font.render(msg, 0, self.color)
 
 
-def main(winstyle=0):
+def main():
+    screen = RenpyGameSurface(my_game)
+
+    renpy.show_screen("renpygame_surface", surface=screen)
+    renpy.call("start")
+    return
+
+
+def my_game(width: int, height: int, st: float, at: float):
     # Initialize pygame
     pygame.init()
 
@@ -321,18 +329,4 @@ def main(winstyle=0):
 
     pygame.time.wait(1000)
 
-    # * https://github.com/DRincs-Productions/Renpygame/issues/3
-    # * renpytom tell me to use:
-    renpy.display_reset()  # but not work
-
-    screen = RenpyGameSurface()
-
-    renpy.show_screen("renpygame_surface", surface=screen)
-
-    # ! It's not work:
-    # ! because when renpy try to edit the screen not find it
-    renpy.call("start")
-    # It's work
-    renpy.call("retry")
-
-    return SCORE
+    return screen

@@ -1,28 +1,7 @@
+from typing import Callable
 import renpy.exports as renpy
 
 # https://www.renpy.org/doc/html/cdd.html
-
-
-class RenpyGameSurface(renpy.Displayable):
-    def __init__(self, **kwargs):
-        # renpy.Displayable init
-        super(RenpyGameSurface, self).__init__(**kwargs)
-
-        self.renderMainSurface = renpy.Render(300, 300)
-
-    def render(self, width, height, st, at) -> renpy.Render:
-        # Create the render we will return.
-        render = renpy.Render(width, width)
-
-        # Create a render from the child.
-        child_render = renpy.render(renpy.displayable(
-            "alien3.gif"), width, height, st, at)
-
-        # Blit (draw) the child's render to our render.
-        render.blit(child_render, child_render.get_size())
-
-        # Return the render.
-        return render
 
 
 class Render(renpy.Render):
@@ -151,3 +130,42 @@ class Render(renpy.Render):
 
 #     def get_surface(self):
 #         return super().get_surface()
+
+
+class RenpyGameSurface(renpy.Displayable):
+    """https://www.renpy.org/doc/html/cdd.html
+    render(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
+
+    def __init__(
+        self,
+            game_lambda: Callable[[int, int, float, float], Render],
+            **kwargs
+    ):
+        # renpy.Displayable init
+        super(RenpyGameSurface, self).__init__(**kwargs)
+
+        self.game_lambda = game_lambda
+
+    def render(self, width: int, height: int, st: float, at: float) -> Render:
+        """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
+        # # Create the render we will return.
+        # render = renpy.Render(width, width)
+
+        # # Create a render from the child.
+        # child_render = renpy.render(renpy.displayable(
+        #     "alien3.gif"), width, height, st, at)
+
+        # # Blit (draw) the child's render to our render.
+        # render.blit(child_render, child_render.get_size())
+
+        # # Return the render.
+        # return render
+        return self.game_lambda(width, height, st, at)
+
+    @property
+    def game_lambda(self) -> Callable[[int, int, float, float], Render]:
+        return self._game_lambda
+
+    @game_lambda.setter
+    def game_lambda(self, value: Callable[[int, int, float, float], Render]):
+        self._game_lambda = value
