@@ -1,5 +1,6 @@
 import math
 import random
+from pythonpackages.renpygame.renpygameCDD import RenpyGameSurface
 
 # import basic pygame_sdl2 modules
 import renpy.display.transform as transform
@@ -323,6 +324,10 @@ def main(winstyle=0):
     # * https://github.com/DRincs-Productions/Renpygame/issues/3
     # * renpytom tell me to use:
     renpy.display_reset()  # but not work
+
+    screen = RenpyGameSurface()
+
+    renpy.show_screen("renpygame_surface", surface=screen)
 
     # ! It's not work:
     # ! because when renpy try to edit the screen not find it

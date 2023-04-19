@@ -3,6 +3,28 @@ import renpy.exports as renpy
 # https://www.renpy.org/doc/html/cdd.html
 
 
+class RenpyGameSurface(renpy.Displayable):
+    def __init__(self, **kwargs):
+        # renpy.Displayable init
+        super(RenpyGameSurface, self).__init__(**kwargs)
+
+        self.renderMainSurface = renpy.Render(300, 300)
+
+    def render(self, width, height, st, at) -> renpy.Render:
+        # Create the render we will return.
+        render = renpy.Render(width, width)
+
+        # Create a render from the child.
+        child_render = renpy.render(renpy.displayable(
+            "alien3.gif"), width, height, st, at)
+
+        # Blit (draw) the child's render to our render.
+        render.blit(child_render, child_render.get_size())
+
+        # Return the render.
+        return render
+
+
 class Render(renpy.Render):
     """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L586"""
 
