@@ -92,6 +92,9 @@ class Render(renpy.Render):
         _, height = self.get_size()
         return int(height)
 
+    def import_renpy_render(self, renpy_render: renpy.Render):
+        self = renpy_render
+
 
 # class Canvas(renpy.Canvas):
 #     """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L1610"""
@@ -146,7 +149,7 @@ class RenpyGameSurface(renpy.Displayable):
 
         self.game_lambda = game_lambda
 
-    def render(self, width: int, height: int, st: float, at: float) -> Render:
+    def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
         # # Create the render we will return.
         # render = renpy.Render(width, width)
@@ -161,7 +164,10 @@ class RenpyGameSurface(renpy.Displayable):
         # # Return the render.
         # return render
 
-        render = self.game_lambda(width, height, st, at)
+        render = renpy.Render(width, width)
+        child_render = self.game_lambda(width, height, st, at)
+        # TODO: try to remove this line and return child_render
+        render.blit(child_render, child_render.get_size())
         return render
 
     @property
