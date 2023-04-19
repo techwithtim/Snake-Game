@@ -1,8 +1,6 @@
-import math
 import random
 
 # import basic pygame_sdl2 modules
-import renpy.display.transform as transform
 import renpy.exports as renpy
 import renpy.store as store
 
