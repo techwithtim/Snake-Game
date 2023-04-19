@@ -59,7 +59,7 @@ class Image():
         surface = Surface(self.size)
         render = renpy.render(self.displayable, width, height, st, at)
         # * render.blit(self.pygame_image: used only for pygame rendering
-        render.blit(self.pygame_image, (0, 0))
+        surface.blit(self.pygame_image, (0, 0))
         # TODO: try to remove this line and convert to renpy.Render to Surface
         surface.blit(render, (0, 0))
         return surface
