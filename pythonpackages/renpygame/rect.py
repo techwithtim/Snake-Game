@@ -24,8 +24,7 @@ class Rect(Render):
         Render.__init__(self, width, height)
 
         # pygame.rect.Rect init
-        self.internal_rect = pygame.rect.Rect.__init__(
-            self, left, top, width, height)
+        self.internal_rect = pygame.rect.Rect(left, top, width, height)
 
     @property
     def left(self):
