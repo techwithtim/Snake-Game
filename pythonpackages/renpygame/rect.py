@@ -28,75 +28,147 @@ class Rect(Render):
 
     @property
     def left(self):
-        return super().left
+        return self.internal_rect.left
+
+    @left.setter
+    def left(self, value):
+        self.internal_rect.left = value
 
     @property
     def top(self):
-        return super().top
+        return self.internal_rect.top
+
+    @top.setter
+    def top(self, value):
+        self.internal_rect.top = value
 
     @property
     def width(self):
-        return super().width
+        return self.internal_rect.width
+
+    @width.setter
+    def width(self, value):
+        self.internal_rect.width = value
 
     @property
     def height(self):
-        return super().height
+        return self.internal_rect.height
+
+    @height.setter
+    def height(self, value):
+        self.internal_rect.height = value
 
     @property
     def right(self):
-        return super().right
+        return self.internal_rect.right
+
+    @right.setter
+    def right(self, value):
+        self.internal_rect.right = value
 
     @property
     def bottom(self):
-        return super().bottom
+        return self.internal_rect.bottom
+
+    @bottom.setter
+    def bottom(self, value):
+        self.internal_rect.bottom = value
 
     @property
     def size(self):
-        return super().size
+        return self.internal_rect.size
+
+    @size.setter
+    def size(self, value):
+        self.internal_rect.size = value
 
     @property
     def topleft(self):
-        return super().topleft
+        return self.internal_rect.topleft
+
+    @topleft.setter
+    def topleft(self, value):
+        self.internal_rect.topleft = value
 
     @property
     def topright(self):
-        return super().topright
+        return self.internal_rect.topright
+
+    @topright.setter
+    def topright(self, value):
+        self.internal_rect.topright = value
 
     @property
     def bottomright(self):
-        return super().bottomright
+        return self.internal_rect.bottomright
+
+    @bottomright.setter
+    def bottomright(self, value):
+        self.internal_rect.bottomright = value
 
     @property
     def bottomleft(self):
-        return super().bottomleft
+        return self.internal_rect.bottomleft
+
+    @bottomleft.setter
+    def bottomleft(self, value):
+        self.internal_rect.bottomleft = value
 
     @property
     def centerx(self):
-        return super().centerx
+        return self.internal_rect.centerx
+
+    @centerx.setter
+    def centerx(self, value):
+        self.internal_rect.centerx = value
 
     @property
     def centery(self):
-        return super().centery
+        return self.internal_rect.centery
+
+    @centery.setter
+    def centery(self, value):
+        self.internal_rect.centery = value
 
     @property
     def center(self):
-        return super().center
+        return self.internal_rect.center
+
+    @center.setter
+    def center(self, value):
+        self.internal_rect.center = value
 
     @property
     def midtop(self):
-        return super().midtop
+        return self.internal_rect.midtop
+
+    @midtop.setter
+    def midtop(self, value):
+        self.internal_rect.midtop = value
 
     @property
     def midleft(self):
-        return super().midleft
+        return self.internal_rect.midleft
+
+    @midleft.setter
+    def midleft(self, value):
+        self.internal_rect.midleft = value
 
     @property
     def midbottom(self):
-        return super().midbottom
+        return self.internal_rect.midbottom
+
+    @midbottom.setter
+    def midbottom(self, value):
+        self.internal_rect.midbottom = value
 
     @property
     def midright(self):
-        return super().midright
+        return self.internal_rect.midright
+
+    @midright.setter
+    def midright(self, value):
+        self.internal_rect.midright = value
 
     def copy(self):
         return self.internal_rect.copy()
