@@ -42,21 +42,22 @@ class Rect(Render):
     def top(self, value):
         self.internal_rect.top = value
 
-    @property
-    def width(self):
-        return self.internal_rect.width
+    # * they are already defined in Render
+    # @property
+    # def width(self) -> int:
+    #     return int(super().width)
 
-    @width.setter
-    def width(self, value):
-        self.internal_rect.width = value
+    # @width.setter
+    # def width(self, value):
+    #     super().width = value
 
-    @property
-    def height(self):
-        return self.internal_rect.height
+    # @property
+    # def height(self) -> int:
+    #     return int(super().height)
 
-    @height.setter
-    def height(self, value):
-        self.internal_rect.height = value
+    # @height.setter
+    # def height(self, value):
+    #     super().height = value
 
     @property
     def right(self):
