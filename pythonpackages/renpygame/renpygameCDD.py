@@ -4,7 +4,7 @@ import renpy.exports as renpy
 
 
 class Render(renpy.Render):
-    """https://github.com/renpy/renpy/blob/fb803ea05cca1b933f18d51fb0398d9545879af9/renpy/display/render.pyx#L586"""
+    """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L586"""
 
     def __init__(
         self,
@@ -90,3 +90,42 @@ class Render(renpy.Render):
     def get_height(self) -> int:
         _, height = self.get_size()
         return int(height)
+
+
+class Canvas(renpy.Canvas):
+    """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L1610"""
+
+    def __init__(self, surf):
+
+        # renpy.Canvas init
+        super().__init__(surf)
+
+    def rect(self, color, rect, width=0):
+        return super().rect(color, rect, width)
+
+    def polygon(self, color, pointlist, width=0):
+        return super().polygon(color, pointlist, width)
+
+    def circle(self, color, pos, radius, width=0):
+        return super().circle(color, pos, radius, width)
+
+    def ellipse(self, color, rect, width=0):
+        return super().ellipse(color, rect, width)
+
+    def arc(self, color, rect, start_angle, stop_angle, width=1):
+        return super().arc(color, rect, start_angle, stop_angle, width)
+
+    def line(self, color, start_pos, end_pos, width=1):
+        return super().line(color, start_pos, end_pos, width)
+
+    def lines(self, color, closed, pointlist, width=1):
+        return super().lines(color, closed, pointlist, width)
+
+    def aaline(self, color, startpos, endpos, blend=1):
+        return super().aaline(color, startpos, endpos, blend)
+
+    def aalines(self, color, closed, pointlist, blend=1):
+        return super().aalines(color, closed, pointlist, blend)
+
+    def get_surface(self):
+        return super().get_surface()
