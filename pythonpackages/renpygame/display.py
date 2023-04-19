@@ -34,7 +34,7 @@ def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int 
     return pygame.display.mode_ok(size, flags, depth)
 
 
-def set_icon(Surface) -> None:
+def set_icon(Surface: Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
     return pygame.display.set_icon(Surface)
 
