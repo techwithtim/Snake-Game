@@ -57,6 +57,7 @@ class Image():
 
     def convert(self) -> Surface:
         render = Surface((self.width, self.height))
+        render.blit(self.pygame_image, (0, 0))
         render.blit(self.displayable, (0, 0))
         return render
 
