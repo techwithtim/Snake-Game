@@ -1,6 +1,5 @@
 import math
 import random
-from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameSurface
 
 # import basic pygame_sdl2 modules
 import renpy.display.transform as transform
@@ -9,6 +8,7 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
+from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameSurface
 
 
 def os_path_join(a, b):

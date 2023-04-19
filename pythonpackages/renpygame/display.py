@@ -1,10 +1,10 @@
 from typing import Any, Optional, Union
-from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import Render
+
 import renpy.exports as renpy
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.renpygameCDD import Render
 
 
 class Surface(Render):

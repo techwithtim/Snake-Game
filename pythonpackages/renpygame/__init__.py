@@ -1,7 +1,7 @@
 import pythonpackages.renpygame.display as my_display
+import pythonpackages.renpygame.image as my_image
 import pythonpackages.renpygame.rect as my_rect
 import pythonpackages.renpygame.sprite as my_sprite
-import pythonpackages.renpygame.image as my_image
 import pythonpackages.renpygame.transform as my_transform
 from pythonpackages.renpygame.pygame import *
 

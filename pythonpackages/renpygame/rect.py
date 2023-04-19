@@ -1,11 +1,7 @@
-from ctypes.wintypes import DOUBLE
-from typing import Optional
-from pythonpackages.renpygame.renpygameCDD import Render
-
-import renpy.exports as renpy
 from pygame_sdl2.rect import *
 
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.renpygameCDD import Render
 
 
 class Rect(Render):
