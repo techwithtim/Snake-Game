@@ -204,18 +204,20 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
     img = pygame.image.load('player1.gif')
-    img = img.convert()
+    img = img.convert(width, height, st, at)
     Player.images = [img, pygame.transform.flip(img, 1, 0)]
     img = pygame.image.load('explosion1.gif')
-    img = img.convert()
+    img = img.convert(width, height, st, at)
     Explosion.images = [img, pygame.transform.flip(img, 1, 1)]
     Alien.images = [
-        pygame.image.load('alien1.gif').convert(),
-        pygame.image.load('alien2.gif').convert(),
-        pygame.image.load('alien3.gif').convert(),
+        pygame.image.load('alien1.gif').convert(width, height, st, at),
+        pygame.image.load('alien2.gif').convert(width, height, st, at),
+        pygame.image.load('alien3.gif').convert(width, height, st, at),
     ]
-    Bomb.images = [pygame.image.load('bomb.gif').convert()]
-    Shot.images = [pygame.image.load('shot.gif').convert()]
+    Bomb.images = [pygame.image.load(
+        'bomb.gif').convert(width, height, st, at)]
+    Shot.images = [pygame.image.load(
+        'shot.gif').convert(width, height, st, at)]
 
     # decorate the game window
     icon = pygame.transform.scale(Alien.images[0], (32, 32))
@@ -225,7 +227,7 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
 
     # create the background, tile the bgd image
     bgdtile = pygame.image.load('background.gif')
-    bgdtile = bgdtile.convert()
+    bgdtile = bgdtile.convert(width, height, st, at)
     background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         background.blit(bgdtile, (x, 0))
