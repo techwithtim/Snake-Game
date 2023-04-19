@@ -17,7 +17,6 @@ class Surface(Render):
         flags: int = 0,
         depth: int = 0,
         masks=None,  # Optional[ColorValue]
-        **kwargs
     ):
         # Render init
         # super().__init__(size[0], size[1])
