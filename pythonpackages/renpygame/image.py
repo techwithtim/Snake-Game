@@ -2,8 +2,8 @@ import renpy.exports as renpy
 from pygame_sdl2.image import *
 
 import pythonpackages.renpygame.pygame as pygame
-from game.aliens import os_path_join
 from pythonpackages.renpygame.display import Surface
+from pythonpackages.utility import os_path_join
 
 
 class Image():

@@ -8,11 +8,6 @@ import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameSurface
 
-
-def os_path_join(a, b):
-    return a + "/" + b
-
-
 # game constants
 MAX_SHOTS = 2  # most player bullets onscreen
 ALIEN_ODDS = 22  # chances a new alien appears
