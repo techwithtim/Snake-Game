@@ -191,8 +191,8 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
     else:
         winstyle = 0
 
-    bestdepth = pygame.display.mode_ok(SCREENRECT.size, winstyle, 32)
-    screen = pygame.display.set_mode(SCREENRECT.size, winstyle, bestdepth)
+    bestdepth = pygame.display.mode_ok((0, 0), winstyle, 32)
+    screen = pygame.display.set_mode((0, 0), winstyle, bestdepth)
 
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
