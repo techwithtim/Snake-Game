@@ -1,6 +1,6 @@
 import math
 import random
-from pythonpackages.renpygame.renpygameCDD import RenpyGameSurface
+from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameSurface
 
 # import basic pygame_sdl2 modules
 import renpy.display.transform as transform
@@ -188,7 +188,7 @@ def main():
     return
 
 
-def my_game(width: int, height: int, st: float, at: float):
+def my_game(width: int, height: int, st: float, at: float) -> Render:
     # Initialize pygame
     pygame.init()
 

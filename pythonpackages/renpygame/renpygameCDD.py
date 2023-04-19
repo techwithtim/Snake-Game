@@ -160,7 +160,9 @@ class RenpyGameSurface(renpy.Displayable):
 
         # # Return the render.
         # return render
-        return self.game_lambda(width, height, st, at)
+
+        render = self.game_lambda(width, height, st, at)
+        return render
 
     @property
     def game_lambda(self) -> Callable[[int, int, float, float], Render]:
