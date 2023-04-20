@@ -22,6 +22,27 @@ class Rect(Render):
         # pygame.rect.Rect init
         self.internal_rect = pygame.rect.Rect(left, top, width, height)
 
+    def __reduce__(self):
+        return self.internal_rect.__reduce__()
+
+    def __repr__(self):
+        return self.internal_rect.__repr__()
+
+    def __len__(self):
+        return self.internal_rect.__len__()
+
+    def __iter__(self):
+        return self.internal_rect.__iter__()
+
+    def __richcmp__(self, a, b,  op: int):
+        return self.internal_rect.__richcmp__(a, b, op)
+
+    def __getitem__(self, key):
+        return self.internal_rect.__getitem__(key)
+
+    def __setitem__(self, key, val):
+        return self.internal_rect.__setitem__(key, val)
+
     @property
     def left(self):
         return self.internal_rect.left
@@ -166,9 +187,6 @@ class Rect(Render):
     @midright.setter
     def midright(self, value):
         self.internal_rect.midright = value
-
-    def __len__(self):
-        return self.internal_rect.__len__()
 
     def copy(self):
         return self.internal_rect.copy()
