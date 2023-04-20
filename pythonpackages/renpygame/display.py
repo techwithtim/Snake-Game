@@ -126,7 +126,7 @@ class Surface(Render):
 
     def get_rect(self, **kwargs) -> Rect:
         """https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L710"""
-        rv = Rect((0, 0, self.width, self.height))
+        rv = Rect(0, 0, self.width, self.height)
 
         for k, v in kwargs.items():
             setattr(rv, k, v)
