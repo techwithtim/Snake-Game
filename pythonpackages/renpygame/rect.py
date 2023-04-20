@@ -167,6 +167,9 @@ class Rect(Render):
     def midright(self, value):
         self.internal_rect.midright = value
 
+    def __len__(self):
+        return self.internal_rect.__len__()
+
     def copy(self):
         return self.internal_rect.copy()
 
