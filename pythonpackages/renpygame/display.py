@@ -31,6 +31,8 @@ class Surface(Render):
         pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L182"""
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
+        if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):
+            pos = (0, 0)
         return super().blit(source, pos, focus, main, index)
 
     def convert(self, surface=None):
