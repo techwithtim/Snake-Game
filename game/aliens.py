@@ -34,7 +34,7 @@ class Player(pygame.sprite.Sprite):
     speed = 10
     bounce = 24
     gun_offset = -11
-    images = []
+    images: list[pygame.Surface] = []
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -63,7 +63,7 @@ class Player(pygame.sprite.Sprite):
 class Alien(pygame.sprite.Sprite):
     speed = 13
     animcycle = 12
-    images = []
+    images: list[pygame.Surface] = []
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -88,7 +88,7 @@ class Alien(pygame.sprite.Sprite):
 class Explosion(pygame.sprite.Sprite):
     defaultlife = 12
     animcycle = 3
-    images = []
+    images: list[pygame.Surface] = []
 
     def __init__(self, actor):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -106,7 +106,7 @@ class Explosion(pygame.sprite.Sprite):
 
 class Shot(pygame.sprite.Sprite):
     speed = -11
-    images = []
+    images: list[pygame.Surface] = []
 
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self, self.containers)
@@ -121,7 +121,7 @@ class Shot(pygame.sprite.Sprite):
 
 class Bomb(pygame.sprite.Sprite):
     speed = 9
-    images = []
+    images: list[pygame.Surface] = []
 
     def __init__(self, alien):
         pygame.sprite.Sprite.__init__(self, self.containers)
