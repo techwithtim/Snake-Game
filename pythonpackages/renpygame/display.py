@@ -1,4 +1,5 @@
 from typing import Any, Optional, Union
+from pythonpackages.renpygame.rect import Rect
 
 import renpy.exports as renpy
 from pygame_sdl2.display import *
@@ -123,8 +124,14 @@ class Surface(Render):
         self.internal_surface.get_height()
         return super().get_height()
 
-    def get_rect(self, **kwargs):
-        return self.internal_surface.get_rect(**kwargs)
+    def get_rect(self, **kwargs) -> Rect:
+        """https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L710"""
+        rv = Rect((0, 0, self.width, self.height))
+
+        for k, v in kwargs.items():
+            setattr(rv, k, v)
+
+        return rv
 
     def get_bitsize(self):
         return self.internal_surface.get_bitsize()
