@@ -1,35 +1,51 @@
+from pythonpackages.renpygame.display import Surface
+from pythonpackages.renpygame.renpygameCDD import Render
 import renpy.exports as renpy
 from pygame_sdl2.sprite import *
 
 import pythonpackages.renpygame.pygame as pygame
 
 
-class Sprite(renpy.Displayable, pygame.sprite.Sprite):
-    """https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite"""
+class Sprite(pygame.sprite.Sprite):
+    """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L106"""
 
     def __init__(
         self,
         *groups,
         **kwargs
     ):
+        # Sprite init
+        pygame.sprite.Sprite.__init__(self, *groups, **kwargs)
 
-        # renpy.Displayable init
-        super(Sprite, self).__init__(**kwargs)
+    def add(self, *groups):
+        super().add(*groups)
 
-        # pygame.sprite.Sprite init
-        pygame.sprite.Sprite.__init__(self, groups)
+    def remove(self, *groups):
+        super().remove(*groups)
 
-    def renpy_render(self):
-        """"""
-        return
+    def add_internal(self, group):
+        super().add_internal(group)
+
+    def remove_internal(self, group):
+        super().remove_internal(group)
+
+    def update(self, *args):
+        super().update(*args)
+
+    def kill(self):
+        super().kill()
+
+    def groups(self):
+        return super().groups()
+
+    def alive(self):
+        return super().alive()
 
 
 class RenderUpdates(pygame.sprite.RenderUpdates):
-    """https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates"""
+    """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L557"""
 
-    def draw(self, surface) -> list:
-        sprites_list: list[Sprite] = self.sprites()
-        for s in sprites_list:
-            if s:
-                s.renpy_render()
+    def draw(self, surface: Surface) -> list:
         return super().draw(surface)
