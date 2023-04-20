@@ -27,7 +27,8 @@ class Surface(Render):
         self.internal_surface = pygame.Surface(size, flags, depth, masks)
 
     def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
-        """https://www.pygame.org/docs/ref/surface.html#pygame.Surface.blit"""
+        """pygame: https://www.pygame.org/docs/ref/surface.html#pygame.Surface.blit
+        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L182"""
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
         return super().blit(source, pos, focus, main, index)

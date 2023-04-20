@@ -165,6 +165,7 @@ class Render(renpy.Render):
         return super().loaded
 
     def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
+        """render.blit(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L778"""
         return super().blit(source, pos, focus, main, index)
 
     def subpixel_blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
