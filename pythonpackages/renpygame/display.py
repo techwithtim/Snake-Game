@@ -32,7 +32,7 @@ class Surface(Render):
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
         if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):
-            pos = (0, 0)
+            pos = (pos.left, pos.top)
         return super().blit(source, pos, focus, main, index)
 
     def convert(self, surface=None):
