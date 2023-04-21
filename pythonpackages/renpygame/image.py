@@ -15,8 +15,7 @@ class Image():
         path: str,
     ):
         self.path = path
-        # for testing
-        a = self.displayable
+        self._update()
 
     @property
     def path(self) -> str:
@@ -28,7 +27,11 @@ class Image():
 
     @property
     def displayable(self) -> renpy.Displayable:
-        return renpy.displayable(self.path)
+        return self._displayable
+
+    @displayable.setter
+    def displayable(self, value: renpy.Displayable) -> None:
+        self._displayable = value
 
     @property
     def size(self) -> tuple[int, int]:
@@ -54,6 +57,10 @@ class Image():
         image = pygame.image.load(self.file)
         image = image.convert()
         return image
+
+    def _update(self) -> None:
+        self.displayable = renpy.displayable(self.path)
+        return
 
     def convert(self, width: int, height: int, st: float, at: float) -> Surface:
         surface = Surface(self.size)
