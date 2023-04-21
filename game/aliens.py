@@ -202,7 +202,7 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
         'shot.gif').convert(width, height, st, at)]
 
     # decorate the game window
-    icon = Alien.images[0], (32, 32)
+    icon = Alien.images[0]
     pygame.display.set_icon(icon)
     pygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)

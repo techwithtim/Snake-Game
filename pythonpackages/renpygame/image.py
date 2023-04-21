@@ -5,8 +5,9 @@ import pythonpackages.renpygame.pygame as pygame
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
 
-
 # class Image(renpy.display.image.DynamicImage):
+
+
 class Image(renpy.display.im.Image):
     """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L709"""
 
@@ -16,7 +17,6 @@ class Image(renpy.display.im.Image):
         **properties,
     ):
         super().__init__(filename, **properties)
-        # self.load()
 
     def get_hash(self):
         return super().get_hash()
@@ -52,7 +52,8 @@ class Image(renpy.display.im.Image):
         if len(images_names) > 0:
             return images_names[0]
         else:
-            raise FileNotFoundError(f'Image not found: {self}')
+            raise FileNotFoundError(
+                f'renpygame.image.Image.imagename: Image not found: {self}')
 
     @property
     def file(self):
@@ -73,6 +74,67 @@ class Image(renpy.display.im.Image):
         # TODO: try to remove this line and convert to renpy.Render to Surface
         surface.blit(render, (0, 0))
         return surface
+
+
+class Flip(renpy.display.im.Flip):
+    """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L1064"""
+
+    def __init__(
+        self,
+        im: Image,
+        horizontal=False,
+        vertical=False,
+        **properties,
+    ):
+        super().__init__(im, horizontal, vertical, **properties)
+
+    def get_hash(self):
+        return super().get_hash()
+
+    def load(self):
+        return super().load()
+
+    def predict_files(self) -> list[str]:
+        return super().predict_files()
+
+    # my methods
+
+    @property
+    def size(self) -> tuple[int, int]:
+        return self.pygame_image.get_size()
+
+    @property
+    def width(self) -> int:
+        width, _ = self.size
+        return width
+
+    @property
+    def height(self) -> int:
+        _, height = self.size
+        return height
+
+    @property
+    def imagename(self) -> str:
+        images_names = self.predict_files()
+        if len(images_names) > 0:
+            return images_names[0]
+        else:
+            raise FileNotFoundError(
+                f'renpygame.image.Flip.imagename: Image not found: {self}')
+
+    @property
+    def file(self):
+        path = os_path_join('images', self.imagename)
+        return renpy.open_file(path)
+
+    @property
+    def pygame_image(self) -> pygame.Surface:
+        image = pygame.image.load(self.file)
+        image = image.convert()
+        return image
+
+    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
+        return Image.convert(self, width, height, st, at)
 
 
 def load(path: str) -> Image:

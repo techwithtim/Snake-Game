@@ -38,8 +38,11 @@ class Surface(Render):
             return source.get_rect()
         elif isinstance(source, Rect) or isinstance(source, pygame.rect.Rect):
             return source
-        else:
+        elif isinstance(source, renpy.display.render.Render):
             return Rect()
+        else:
+            raise TypeError(
+                f'renpygame.display.Surface.blit(): you have passed an invalid type: {type(source)} or not implemented yet')
 
     def convert(self, surface=None):
         return self.internal_surface.convert(surface)

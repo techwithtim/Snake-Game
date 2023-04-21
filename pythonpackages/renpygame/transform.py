@@ -2,7 +2,7 @@ from typing import Union
 from pygame_sdl2.transform import *
 
 from pythonpackages.renpygame.display import Surface
-from pythonpackages.renpygame.image import Image
+from pythonpackages.renpygame.image import Flip, Image
 import renpy.exports as renpy
 
 # https://www.renpy.org/doc/html/displayables.html
@@ -15,13 +15,13 @@ def flip(surface: Image, flip_x: Union[int, bool], flip_y: Union[int, bool]) -> 
     if isinstance(flip_y, int):
         flip_y = flip_y != 0
     if isinstance(surface, Image):
-        surface = renpy.display.im.Flip(surface, flip_x, flip_y)
+        surface = Flip(surface, flip_x, flip_y)
     elif isinstance(surface, Surface):
-        raise SyntaxError(
-            "You have passed a Surface, not an Image. probably you have to use Image.convert() first")
+        raise TypeError(
+            "renpygame.transform.flip: You have passed a Surface, not an Image. probably you have to use Image.convert() first")
     else:
         raise TypeError(
-            "You have passed an invalid type or not implemented yet")
+            "renpygame.transform.flip: You have passed an invalid type or not implemented yet")
     return surface
 
 
