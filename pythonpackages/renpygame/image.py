@@ -6,16 +6,29 @@ from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
 
 
-class Image(renpy.display.image.DynamicImage):
-    """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/image.py#L545"""
+# class Image(renpy.display.image.DynamicImage):
+class Image(renpy.display.im.Image):
+    """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L709"""
 
     def __init__(
         self,
-        name: str,
-        scope=None,
-        **properties
+        filename: str,
+        **properties,
     ):
-        super().__init__(name, scope, **properties)
+        super().__init__(filename, **properties)
+        # self.load()
+
+    def get_hash(self):
+        return super().get_hash()
+
+    def get_oversample(self):
+        return super().get_oversample()
+
+    def load(self, unscaled=False):
+        return super().load(unscaled)
+
+    def predict_files(self) -> list[str]:
+        return super().predict_files()
 
     # my methods
 
@@ -34,8 +47,16 @@ class Image(renpy.display.image.DynamicImage):
         return height
 
     @property
+    def imagename(self) -> str:
+        images_names = self.predict_files()
+        if len(images_names) > 0:
+            return images_names[0]
+        else:
+            raise FileNotFoundError
+
+    @property
     def file(self):
-        path = os_path_join('images', self.name)
+        path = os_path_join('images', self.imagename)
         return renpy.open_file(path)
 
     @property
