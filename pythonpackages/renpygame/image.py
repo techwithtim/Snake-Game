@@ -6,31 +6,18 @@ from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
 
 
-class Image():
-    """renpy.Image: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L709"""
+class Image(renpy.display.image.DynamicImage):
+    """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/image.py#L545"""
 
     def __init__(
         self,
-        path: str,
+        name: str,
+        scope=None,
+        **properties
     ):
-        self.path = path
-        self._update()
+        super().__init__(name, scope, **properties)
 
-    @property
-    def path(self) -> str:
-        return self._path
-
-    @path.setter
-    def path(self, value: str) -> None:
-        self._path = value
-
-    @property
-    def displayable(self) -> renpy.Displayable:
-        return self._displayable
-
-    @displayable.setter
-    def displayable(self, value: renpy.Displayable) -> None:
-        self._displayable = value
+    # my methods
 
     @property
     def size(self) -> tuple[int, int]:
@@ -48,7 +35,7 @@ class Image():
 
     @property
     def file(self):
-        path = os_path_join('images', self.path)
+        path = os_path_join('images', self.name)
         return renpy.open_file(path)
 
     @property
@@ -57,13 +44,9 @@ class Image():
         image = image.convert()
         return image
 
-    def _update(self) -> None:
-        self.displayable = renpy.displayable(self.path)
-        return
-
     def convert(self, width: int, height: int, st: float, at: float) -> Surface:
         surface = Surface(self.size)
-        render = renpy.render(self.displayable, width, height, st, at)
+        render = renpy.render(self, width, height, st, at)
         # * render.blit(self.pygame_image: used only for pygame rendering
         surface.blit(self.pygame_image, (0, 0))
         # TODO: try to remove this line and convert to renpy.Render to Surface
