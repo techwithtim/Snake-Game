@@ -137,6 +137,68 @@ class Flip(renpy.display.im.Flip):
         return Image.convert(self, width, height, st, at)
 
 
+class Scale(renpy.display.im.Scale):
+    """https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L947"""
+
+    def __init__(
+        self,
+        im,
+        width,
+        height,
+        bilinear=True,
+        **properties
+    ):
+        super().__init__(im, width, height, bilinear, **properties)
+
+    def get_hash(self):
+        return super().get_hash()
+
+    def load(self):
+        return super().load()
+
+    def predict_files(self) -> list[str]:
+        return super().predict_files()
+
+    # my methods
+
+    @property
+    def size(self) -> tuple[int, int]:
+        return self.pygame_image.get_size()
+
+    @property
+    def width(self) -> int:
+        width, _ = self.size
+        return width
+
+    @property
+    def height(self) -> int:
+        _, height = self.size
+        return height
+
+    @property
+    def imagename(self) -> str:
+        images_names = self.predict_files()
+        if len(images_names) > 0:
+            return images_names[0]
+        else:
+            raise FileNotFoundError(
+                f'renpygame.image.Scale.imagename: Image not found: {self}')
+
+    @property
+    def file(self):
+        path = os_path_join('images', self.imagename)
+        return renpy.open_file(path)
+
+    @property
+    def pygame_image(self) -> pygame.Surface:
+        image = pygame.image.load(self.file)
+        image = image.convert()
+        return image
+
+    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
+        return Image.convert(self, width, height, st, at)
+
+
 def load(path: str) -> Image:
     """https://www.pygame.org/docs/ref/image.html#pygame.image.load"""
     return Image(path)

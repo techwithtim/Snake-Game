@@ -2,7 +2,7 @@ from typing import Union
 from pygame_sdl2.transform import *
 
 from pythonpackages.renpygame.display import Surface
-from pythonpackages.renpygame.image import Flip, Image
+from pythonpackages.renpygame.image import Flip, Image, Scale
 import renpy.exports as renpy
 
 # https://www.renpy.org/doc/html/displayables.html
@@ -32,65 +32,78 @@ def flip(surface: Image, flip_x: Union[int, bool], flip_y: Union[int, bool]) -> 
 
 def scale(surface: Image, size: tuple[int, int], dest_surface=None) -> Image:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.scale"""
-    # TODO: implement
+    if isinstance(surface, Image):
+        surface = Scale(surface, size[0], size[1])
+    else:
+        print_error(surface, 'renpygame.transform.scale')
     return surface
 
 
 def scale_by(surface, factor, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.scale_by"""
+    print('renpygame.transform.scale_by: not implemented yet')
     # TODO: implement
     return surface
 
 
 def rotate(surface, angle) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.rotate"""
+    print('renpygame.transform.rotate: not implemented yet')
     # TODO: implement
     return surface
 
 
 def rotozoom(surface, angle, scale) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.rotozoom"""
+    print('renpygame.transform.rotozoom: not implemented yet')
     # TODO: implement
     return surface
 
 
 def scale2x(surface, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.scale2x"""
+    print('renpygame.transform.scale2x: not implemented yet')
     # TODO: implement
     return surface
 
 
 def ssmoothscale(surface, size, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.smoothscale"""
+    print('renpygame.transform.smoothscale: not implemented yet')
     # TODO: implement
     return surface
 
 
 def smoothscale_by(surface, factor, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.smoothscale"""
+    print('renpygame.transform.smoothscale_by: not implemented yet')
     # TODO: implement
     return surface
 
 
 def chop(surface, rect) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.chop"""
+    print('renpygame.transform.chop: not implemented yet')
     # TODO: implement
     return surface
 
 
 def laplacian(surface, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.laplacian"""
+    print('renpygame.transform.laplacian: not implemented yet')
     # TODO: implement
     return surface
 
 
 def average_surfaces(surfaces, dest_surface=None, palette_colors=1) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.average_surfaces"""
+    print('renpygame.transform.average_surfaces: not implemented yet')
     # TODO: implement
     return surfaces
 
 
 def grayscale(surface, dest_surface=None) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.grayscale"""
+    print('renpygame.transform.grayscale: not implemented yet')
     # TODO: implement
     return surface
