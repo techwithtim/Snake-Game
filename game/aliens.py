@@ -182,11 +182,15 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
     img = pygame.image.load('player1.gif')
+    img_flip = pygame.transform.flip(img, 1, 0)
     img = img.convert(width, height, st, at)
-    Player.images = [img, pygame.transform.flip(img, 1, 0)]
+    img_flip = img_flip.convert(width, height, st, at)
+    Player.images = [img, img_flip]
     img = pygame.image.load('explosion1.gif')
+    img_flip = pygame.transform.flip(img, 1, 0)
     img = img.convert(width, height, st, at)
-    Explosion.images = [img, pygame.transform.flip(img, 1, 1)]
+    img_flip = img_flip.convert(width, height, st, at)
+    Explosion.images = [img, img_flip]
     Alien.images = [
         pygame.image.load('alien1.gif').convert(width, height, st, at),
         pygame.image.load('alien2.gif').convert(width, height, st, at),
@@ -198,7 +202,7 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
         'shot.gif').convert(width, height, st, at)]
 
     # decorate the game window
-    icon = pygame.transform.scale(Alien.images[0], (32, 32))
+    icon = Alien.images[0], (32, 32)
     pygame.display.set_icon(icon)
     pygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)

@@ -52,7 +52,7 @@ class Image(renpy.display.im.Image):
         if len(images_names) > 0:
             return images_names[0]
         else:
-            raise FileNotFoundError
+            raise FileNotFoundError(f'Image not found: {self}')
 
     @property
     def file(self):
