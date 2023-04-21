@@ -2,6 +2,8 @@ from pygame_sdl2.transform import *
 
 from pythonpackages.renpygame.display import Surface
 
+# https://www.renpy.org/doc/html/displayables.html
+
 
 def flip(surface: Surface, flip_x: int, flip_y: int) -> Surface:
     """https://www.pygame.org/docs/ref/transform.html#pygame.transform.flip"""

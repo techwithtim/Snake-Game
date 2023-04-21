@@ -212,4 +212,6 @@ def flip() -> None:
 
 def update(rectangle: Optional[Union[list, Any]] = None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
-    return pygame.display.update(rectangle)
+    # TODO: implement
+    # return pygame.display.update(rectangle)
+    return
