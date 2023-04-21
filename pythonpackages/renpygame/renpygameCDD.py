@@ -326,3 +326,10 @@ class RenpyGameSurface(renpy.Displayable):
     @game_lambda.setter
     def game_lambda(self, value: Callable[[int, int, float, float], Render]):
         self._game_lambda = value
+
+
+# class Displayable(renpy.Displayable):
+#     """https://github.com/renpy/renpy/blob/c15f4c3487be27ff1095af955c605b68396591df/renpy/display/core.py#L292"""
+
+#     def __init__(self, focus=None, default=None, style=None, _args=None, tooltip=None, default_focus=None, **properties):
+#         super().__init__(focus, default, style, _args, tooltip, default_focus, **properties)

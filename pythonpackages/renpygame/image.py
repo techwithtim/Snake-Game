@@ -7,8 +7,7 @@ from pythonpackages.utility import os_path_join
 
 
 class Image():
-    """renpy.Image: https://github.com/renpy/renpy/blob/fb803ea05cca1b933f18d51fb0398d9545879af9/renpy/display/core.py#L292
-    renpy.Image: https://github.com/renpy/renpy/blob/fb803ea05cca1b933f18d51fb0398d9545879af9/renpy/ast.py#L1198"""
+    """renpy.Image: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L709"""
 
     def __init__(
         self,
