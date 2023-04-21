@@ -1,4 +1,5 @@
 from pythonpackages.renpygame.display import Surface
+from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.renpygameCDD import Render
 import renpy.exports as renpy
 from pygame_sdl2.sprite import *
@@ -101,7 +102,7 @@ class RenderUpdates(Group):
     """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates
     pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L557"""
 
-    def draw(self, surface: Surface):
+    def draw(self, surface: Surface) -> list[Rect]:
         spritedict = self.spritedict
         surface_blit = surface.blit
         dirty = self.lostsprites

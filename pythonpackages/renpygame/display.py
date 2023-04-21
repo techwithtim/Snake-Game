@@ -26,14 +26,20 @@ class Surface(Render):
         # pygame.Surface init
         self.internal_surface = pygame.Surface(size, flags, depth, masks)
 
-    def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
+    def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> Rect:
         """pygame: https://www.pygame.org/docs/ref/surface.html#pygame.Surface.blit
         pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L182"""
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
         if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):
             pos = (pos.left, pos.top)
-        return super().blit(source, pos, focus, main, index)
+        super().blit(source, pos, focus, main, index)
+        if isinstance(source, Surface) or isinstance(source, pygame.Surface):
+            return source.get_rect()
+        elif isinstance(source, Rect) or isinstance(source, pygame.rect.Rect):
+            return source
+        else:
+            return Rect()
 
     def convert(self, surface=None):
         return self.internal_surface.convert(surface)
@@ -212,6 +218,4 @@ def flip() -> None:
 
 def update(rectangle: Optional[Union[list, Any]] = None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
-    # TODO: implement
-    # return pygame.display.update(rectangle)
-    return
+    return pygame.display.update(rectangle)
