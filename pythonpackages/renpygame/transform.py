@@ -1,9 +1,10 @@
 from typing import Union
+
+import renpy.exports as renpy
 from pygame_sdl2.transform import *
 
 from pythonpackages.renpygame.display import Surface
-from pythonpackages.renpygame.image import Flip, Image, Scale
-import renpy.exports as renpy
+from pythonpackages.renpygame.image import Flip, Image, Rotozoom, Scale
 
 # https://www.renpy.org/doc/html/displayables.html
 
@@ -55,8 +56,10 @@ def rotate(surface, angle) -> Surface:
 
 def rotozoom(surface, angle, scale) -> Surface:
     """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.rotozoom"""
-    print('renpygame.transform.rotozoom: not implemented yet')
-    # TODO: implement
+    if isinstance(surface, Image):
+        surface = Rotozoom(surface, angle, scale)
+    else:
+        print_error(surface, 'renpygame.transform.rotozoom')
     return surface
 
 
