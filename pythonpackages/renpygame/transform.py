@@ -106,7 +106,10 @@ def average_surfaces(surfaces, dest_surface=None, palette_colors=1) -> Surface:
 
 
 def grayscale(surface, dest_surface=None) -> Surface:
-    """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.grayscale"""
-    print('renpygame.transform.grayscale: not implemented yet')
-    # TODO: implement
+    """pygame: https://www.pygame.org/docs/ref/transform.html#pygame.transform.grayscale
+    renpy: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L1792"""
+    if isinstance(surface, Image):
+        surface = renpy.display.im.Grayscale(surface)
+    else:
+        print_error(surface, 'renpygame.transform.grayscale')
     return surface
