@@ -16,7 +16,6 @@ ALIEN_ODDS = 22  # chances a new alien appears
 BOMB_ODDS = 60  # chances a new bomb will drop
 ALIEN_RELOAD = 12  # frames between new aliens
 SCREENRECT = Rect(0, 0, 640, 480)
-SCORE = 0
 
 
 class dummysound:
@@ -153,9 +152,9 @@ class Score(pygame.sprite.Sprite):
         self.rect = self.image.get_rect().move(10, 450)
 
     def update(self):
-        if SCORE != self.lastscore:
-            self.lastscore = SCORE
-            msg = "Score: %d" % SCORE
+        if sh.score != self.lastscore:
+            self.lastscore = sh.score
+            msg = "Score: %d" % sh.score
             # TODO: has been commented pe make it work
             # self.image = self.font.render(msg, 0, self.color)
 
@@ -172,6 +171,7 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.shots = None
         self.is_firt_time = True
         self.alienreload = 12
+        self.score = 0
 
     @property
     def start(self) -> bool:
@@ -245,14 +245,13 @@ sh = SharedDataAlienGame()
 global score
 kills = 0
 clock = pygame.time.Clock()
-SCORE = 0
 
 
 def main():
     displayable = RenpyGameDisplayable(my_game_first_step)
-    screen = RenpyGameController(displayable, 0.1, my_game_logic)
+    # displayable_with_logic = RenpyGameController(displayable, 0.1, my_game_logic)
 
-    renpy.show_screen("renpygame_surface", surface=screen)
+    renpy.show_screen("renpygame_surface", surface=displayable)
     renpy.call("start")
     return
 
@@ -332,10 +331,10 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
     sh.start = True
 
-    return screen
+#     return screen
 
 
-def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
+# def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
 
     if not sh.start:
         return
@@ -343,14 +342,14 @@ def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
     if sh.is_firt_time:
         sh.is_firt_time = False
 
-    if sh.player.alive():
+    while sh.player.alive():
 
         # TODO: has been commented pe make it work
         # get input
         # for event in pygame.event.get():
         #     if event.type == QUIT or \
         #         (event.type == KEYDOWN and event.key == K_ESCAPE):
-        #             return SCORE
+        #             return sh.score
         # keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
@@ -385,13 +384,13 @@ def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
             # boom_sound.play()
             Explosion(alien)
             Explosion(sh.player)
-            SCORE = SCORE + 1
+            sh.score = sh.score + 1
             sh.player.kill()
 
         for alien in pygame.sprite.groupcollide(sh.shots, sh.aliens, 1, 1).keys():
             # boom_sound.play()
             Explosion(alien)
-            SCORE = SCORE + 1
+            sh.score = sh.score + 1
 
         for bomb in pygame.sprite.spritecollide(sh.player, sh.bombs, 1):
             # boom_sound.play()
