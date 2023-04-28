@@ -369,10 +369,13 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         # if child_render:
         #     child_render = self.update_process(st, at, child_render)
         #     self.internal_displayable.child_render = child_render
+        # self.raw_child = None
         return self.internal_displayable, self.time
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        self.update(st, at)
+
         if self.child_render is None:
             self.child_render = self.internal_displayable.render_lambda(
                 width, height, st, at)
