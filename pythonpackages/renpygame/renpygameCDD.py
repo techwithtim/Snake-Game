@@ -311,6 +311,15 @@ class RenpyGameDisplayable(renpy.Displayable):
         return self.main_render(width, height)
 
     @property
+    def render_lambda(self) -> Callable[[int, int, float, float], Render]:
+        """function that returns a child_render"""
+        return self._render_lambda
+
+    @render_lambda.setter
+    def render_lambda(self, value: Callable[[int, int, float, float], Render]):
+        self._render_lambda = value
+
+    @property
     def child_render(self) -> Optional[Render]:
         """child_render is a Render object"""
         return self._child_render
