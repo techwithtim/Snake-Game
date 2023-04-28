@@ -353,9 +353,10 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         super().__init__(self.update_render)
 
     def update_render(self, st, at):
-        if self.internal_displayable.child_render:
-            self.internal_displayable.child_render = self.update_process(
-                st, at, self.internal_displayable.child_render)
+        child_render = self.internal_displayable.child_render
+        if child_render:
+            child_render = self.update_process(st, at, child_render)
+            self.internal_displayable.child_render = child_render
         return self.internal_displayable, self.time
 
 
