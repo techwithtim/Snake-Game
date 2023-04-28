@@ -249,9 +249,10 @@ clock = pygame.time.Clock()
 
 def main():
     displayable = RenpyGameDisplayable(my_game_first_step)
-    # displayable_with_logic = RenpyGameController(displayable, 0.1, my_game_logic)
+    displayable_with_logic = RenpyGameController(
+        displayable, 0.1, my_game_logic)
 
-    renpy.show_screen("renpygame_surface", surface=displayable)
+    renpy.show_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")
     return
 
@@ -331,10 +332,10 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
     sh.start = True
 
-#     return screen
+    return screen
 
 
-# def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
+def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
 
     if not sh.start:
         return
@@ -342,7 +343,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     if sh.is_firt_time:
         sh.is_firt_time = False
 
-    while sh.player.alive():
+    if sh.player.alive():
 
         # TODO: has been commented pe make it work
         # get input
