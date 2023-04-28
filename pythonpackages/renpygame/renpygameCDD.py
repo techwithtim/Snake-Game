@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Any, Callable, Optional
 
 import renpy.exports as renpy
 import renpy.display.layout as renpylayout
@@ -298,35 +298,43 @@ class RenpyGameDisplayable(renpy.Displayable):
         super(RenpyGameDisplayable, self).__init__(**kwargs)
 
         self.render_lambda = render_lambda
+        self.child_render = None
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
-        # # Create the render we will return.
-        # render = renpy.Render(width, width)
+        # if is first time rendering
+        if self.child_render is None:
+            self.child_render = self.render_lambda(width, height, st, at)
 
-        # # Create a render from the child.
-        # child_render = renpy.render(renpy.displayable(
-        #     "alien3.gif"), width, height, st, at)
-
-        # # Blit (draw) the child's render to our render.
-        # render.blit(child_render, child_render.get_size())
-
-        # # Return the render.
-        # return render
-
-        render = renpy.Render(width, width)
-        child_render = self.render_lambda(width, height, st, at)
-        # TODO: try to remove this line and return child_render
-        render.blit(child_render, child_render.get_size())
-        return render
+        return self.main_render(width, height)
 
     @property
     def render_lambda(self) -> Callable[[int, int, float, float], Render]:
+        """function that returns a child_render"""
         return self._render_lambda
 
     @render_lambda.setter
     def render_lambda(self, value: Callable[[int, int, float, float], Render]):
         self._render_lambda = value
+
+    @property
+    def child_render(self) -> Optional[Render]:
+        """child_render is a Render object"""
+        return self._child_render
+
+    @child_render.setter
+    def child_render(self, value: Optional[Render]):
+        # print("setting child_render")
+        self._child_render = value
+
+    def main_render(self, width: int, height: int) -> Render:
+        """is a Render that contains the child_render.
+        # TODO: try to remove and return child_render
+        """
+        render = renpy.Render(width, height)
+        if not self.child_render is None:
+            render.blit(self.child_render, self.child_render.get_size())
+        return render
 
 
 class RenpyGameController(renpylayout.DynamicDisplayable):
@@ -337,14 +345,14 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         self,
             displayable: RenpyGameDisplayable,
             time: float,
-            time_update: Callable[[float, float], Any],
+            update_process: Callable[[float, float, Render], Optional[Render]],
     ):
         self.internal_displayable = displayable
         self.time = time
-        self.time_update = time_update
+        self.update_process = update_process
 
         # renpylayout.DynamicDisplayable init
-        super().__init__(self.show_game)
+        super().__init__(self.update_render)
 
     @property
     def internal_displayable(self) -> RenpyGameDisplayable:
@@ -363,15 +371,17 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         self._time = value
 
     @property
-    def time_update(self) -> Callable[[float, float], Any]:
-        return self._time_update
+    def update_process(self) -> Callable[[float, float], Any]:
+        return self._update_process
 
-    @time_update.setter
-    def time_update(self, value: Callable[[float, float], Any]):
-        self._time_update = value
+    @update_process.setter
+    def update_process(self, value: Callable[[float, float], Any]):
+        self._update_process = value
 
-    def show_game(self, st, at):
-        self.time_update(st, at)
+    def update_render(self, st, at):
+        if self.internal_displayable.child_render:
+            self.internal_displayable.child_render = self.update_process(
+                st, at, self.internal_displayable.child_render)
         return self.internal_displayable, self.time
 
 
