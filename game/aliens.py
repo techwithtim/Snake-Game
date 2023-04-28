@@ -249,15 +249,15 @@ SCORE = 0
 
 
 def main():
-    displayable = RenpyGameDisplayable(my_game)
-    screen = RenpyGameController(displayable, 1, a)
+    displayable = RenpyGameDisplayable(my_game_first_step)
+    screen = RenpyGameController(displayable, 0.1, my_game_logic)
 
     renpy.show_screen("renpygame_surface", surface=screen)
     renpy.call("start")
     return
 
 
-def my_game(width: int, height: int, st: float, at: float) -> pygame.Surface:
+def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
     # Initialize pygame
     pygame.init()
 
@@ -335,10 +335,9 @@ def my_game(width: int, height: int, st: float, at: float) -> pygame.Surface:
     return screen
 
 
-def a(st: float, at: float, screen: pygame.Surface) -> Render:
+def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
 
     if not sh.start:
-        print("not start")
         return
 
     if sh.is_firt_time:

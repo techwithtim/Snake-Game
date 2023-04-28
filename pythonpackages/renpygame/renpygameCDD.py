@@ -302,12 +302,9 @@ class RenpyGameDisplayable(renpy.Displayable):
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
-        print("render(): end")
         # if is first time rendering
         if self.child_render is None:
-            print("first time rendering")
             self.child_render = self.render_lambda(width, height, st, at)
-        print("render(): end")
         return self.main_render(width, height)
 
     @property
@@ -326,7 +323,6 @@ class RenpyGameDisplayable(renpy.Displayable):
 
     @child_render.setter
     def child_render(self, value: Optional[Render]):
-        # print("setting child_render")
         self._child_render = value
 
     def main_render(self, width: int, height: int) -> Render:
@@ -360,8 +356,6 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         if self.internal_displayable.child_render:
             self.internal_displayable.child_render = self.update_process(
                 st, at, self.internal_displayable.child_render)
-        else:
-            print("no child_render")
         return self.internal_displayable, self.time
 
 
