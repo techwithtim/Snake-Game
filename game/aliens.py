@@ -1,4 +1,6 @@
 import random
+from typing import Optional
+from pythonpackages.renpygame.sprite import RenderUpdates
 
 # import basic pygame_sdl2 modules
 import renpy.exports as renpy
@@ -6,7 +8,7 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameSurface
+from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameController, RenpyGameDisplayable
 
 # game constants
 MAX_SHOTS = 2  # most player bullets onscreen
@@ -158,15 +160,104 @@ class Score(pygame.sprite.Sprite):
             # self.image = self.font.render(msg, 0, self.color)
 
 
+class SharedDataAlienGame(pygame.sprite.Sprite):
+    def __init__(self):
+        self.start = False
+        self.all = None
+        self.player = None
+        self.background = None
+        self.lastalien = None
+        self.aliens = None
+        self.bombs = None
+        self.shots = None
+        self.is_firt_time = True
+        self.alienreload = 12
+
+    @property
+    def start(self) -> bool:
+        return self._start
+
+    @start.setter
+    def start(self, value: bool):
+        if value == True:
+            print("start")
+        self._start = value
+
+    @property
+    def all(self) -> RenderUpdates:
+        return self._all
+
+    @all.setter
+    def all(self, value: RenderUpdates):
+        self._all = value
+
+    @property
+    def player(self) -> Player:
+        return self._player
+
+    @player.setter
+    def player(self, value: Player):
+        self._player = value
+
+    @property
+    def background(self) -> pygame.Surface:
+        return self._background
+
+    @background.setter
+    def background(self, value: pygame.Surface):
+        self._background = value
+
+    @property
+    def lastalien(self) -> int:
+        return self._lastalien
+
+    @lastalien.setter
+    def lastalien(self, value: int):
+        self._lastalien = value
+
+    @property
+    def aliens(self) -> RenderUpdates:
+        return self._aliens
+
+    @aliens.setter
+    def aliens(self, value: RenderUpdates):
+        self._aliens = value
+
+    @property
+    def bombs(self) -> RenderUpdates:
+        return self._bombs
+
+    @bombs.setter
+    def bombs(self, value: RenderUpdates):
+        self._bombs = value
+
+    @property
+    def shots(self) -> RenderUpdates:
+        return self._shots
+
+    @shots.setter
+    def shots(self, value: RenderUpdates):
+        self._shots = value
+
+
+sh = SharedDataAlienGame()
+# Create Some Starting Values
+global score
+kills = 0
+clock = pygame.time.Clock()
+SCORE = 0
+
+
 def main():
-    screen = RenpyGameSurface(my_game)
+    displayable = RenpyGameDisplayable(my_game)
+    screen = RenpyGameController(displayable, 1, a)
 
     renpy.show_screen("renpygame_surface", surface=screen)
     renpy.call("start")
     return
 
 
-def my_game(width: int, height: int, st: float, at: float) -> Render:
+def my_game(width: int, height: int, st: float, at: float) -> pygame.Surface:
     # Initialize pygame
     pygame.init()
 
@@ -210,45 +301,51 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
     # create the background, tile the bgd image
     bgdtile = pygame.image.load('background.gif')
     bgdtile = bgdtile.convert(width, height, st, at)
-    background = pygame.Surface(SCREENRECT.size)
+    sh.background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
-        background.blit(bgdtile, (x, 0))
-    screen.blit(background, (0, 0))
+        sh.background.blit(bgdtile, (x, 0))
+    screen.blit(sh.background, (0, 0))
     pygame.display.flip()
 
     # Initialize Game Groups
-    aliens = pygame.sprite.Group()
-    shots = pygame.sprite.Group()
-    bombs = pygame.sprite.Group()
-    all = pygame.sprite.RenderUpdates()
-    lastalien = pygame.sprite.GroupSingle()
+    sh.aliens = pygame.sprite.Group()
+    sh.shots = pygame.sprite.Group()
+    sh.bombs = pygame.sprite.Group()
+    sh.all = pygame.sprite.RenderUpdates()
+    sh.lastalien = pygame.sprite.GroupSingle()
 
     # assign default groups to each sprite class
-    Player.containers = all
-    Alien.containers = aliens, all, lastalien
-    Shot.containers = shots, all
-    Bomb.containers = bombs, all
-    Explosion.containers = all
-    Score.containers = all
-
-    # Create Some Starting Values
-    global score
-    alienreload = ALIEN_RELOAD
-    kills = 0
-    clock = pygame.time.Clock()
-
-    global SCORE
-    SCORE = 0
+    Player.containers = sh.all
+    Alien.containers = sh.aliens, sh.all, sh.lastalien
+    Shot.containers = sh.shots, sh.all
+    Bomb.containers = sh.bombs, sh.all
+    Explosion.containers = sh.all
+    Score.containers = sh.all
 
     # initialize our starting sprites
-    player = Player()
+    sh.player = Player()
     Alien()  # note, this 'lives' because it goes into a sprite group
 
     # TODO: has been commented pe make it work
     # if pygame.font:
     #     all.add(Score())
 
-    while player.alive():
+    sh.start = True
+
+    return screen
+
+
+def a(st: float, at: float, screen: pygame.Surface) -> Render:
+
+    if not sh.start:
+        print("not start")
+        return
+
+    if sh.is_firt_time:
+        sh.is_firt_time = False
+        return
+
+    if sh.player.alive():
 
         # TODO: has been commented pe make it work
         # get input
@@ -259,10 +356,10 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
         # keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
-        all.clear(screen, background)
+        sh.all.clear(screen, sh.background)
 
         # update all the sprites
-        all.update()
+        sh.all.update()
 
         # TODO: has been commented pe make it work
         # handle player input
@@ -275,42 +372,36 @@ def my_game(width: int, height: int, st: float, at: float) -> Render:
         # player.reloading = firing
 
         # Create new alien
-        if alienreload:
-            alienreload = alienreload - 1
+        if sh.alienreload:
+            sh.alienreload = sh.alienreload - 1
         elif not int(random.random() * ALIEN_ODDS):
             Alien()
-            alienreload = ALIEN_RELOAD
+            sh.alienreload = ALIEN_RELOAD
 
         # Drop bombs
-        if lastalien and not int(random.random() * BOMB_ODDS):
-            Bomb(lastalien.sprite)
+        if sh.lastalien and not int(random.random() * BOMB_ODDS):
+            Bomb(sh.lastalien.sprite)
 
         # Detect collisions
-        for alien in pygame.sprite.spritecollide(player, aliens, 1):
+        for alien in pygame.sprite.spritecollide(sh.player, sh.aliens, 1):
             # boom_sound.play()
             Explosion(alien)
-            Explosion(player)
+            Explosion(sh.player)
             SCORE = SCORE + 1
-            player.kill()
+            sh.player.kill()
 
-        for alien in pygame.sprite.groupcollide(shots, aliens, 1, 1).keys():
+        for alien in pygame.sprite.groupcollide(sh.shots, sh.aliens, 1, 1).keys():
             # boom_sound.play()
             Explosion(alien)
             SCORE = SCORE + 1
 
-        for bomb in pygame.sprite.spritecollide(player, bombs, 1):
+        for bomb in pygame.sprite.spritecollide(sh.player, sh.bombs, 1):
             # boom_sound.play()
-            Explosion(player)
+            Explosion(sh.player)
             Explosion(bomb)
-            player.kill()
+            sh.player.kill()
 
         # draw the scene
-        dirty = all.draw(screen)
+        dirty = sh.all.draw(screen)
         pygame.display.update(dirty)
-
-        # cap the framerate
-        clock.tick(40)
-
-    pygame.time.wait(1000)
-
     return screen
