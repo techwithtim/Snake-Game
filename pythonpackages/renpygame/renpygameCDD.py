@@ -1,6 +1,7 @@
-from typing import Callable
+from typing import Any, Callable
 
 import renpy.exports as renpy
+import renpy.display.layout as renpylayout
 
 # https://www.renpy.org/doc/html/cdd.html
 
@@ -284,19 +285,19 @@ class Render(renpy.Render):
 #         return super().get_surface()
 
 
-class RenpyGameSurface(renpy.Displayable):
-    """https://www.renpy.org/doc/html/cdd.html
-    render(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
+class RenpyGameDisplayable(renpy.Displayable):
+    """CDD: https://www.renpy.org/doc/html/cdd.html
+    renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292"""
 
     def __init__(
         self,
-            game_lambda: Callable[[int, int, float, float], Render],
+            render_lambda: Callable[[int, int, float, float], Render],
             **kwargs
     ):
         # renpy.Displayable init
-        super(RenpyGameSurface, self).__init__(**kwargs)
+        super(RenpyGameDisplayable, self).__init__(**kwargs)
 
-        self.game_lambda = game_lambda
+        self.render_lambda = render_lambda
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
@@ -314,18 +315,64 @@ class RenpyGameSurface(renpy.Displayable):
         # return render
 
         render = renpy.Render(width, width)
-        child_render = self.game_lambda(width, height, st, at)
+        child_render = self.render_lambda(width, height, st, at)
         # TODO: try to remove this line and return child_render
         render.blit(child_render, child_render.get_size())
         return render
 
     @property
-    def game_lambda(self) -> Callable[[int, int, float, float], Render]:
-        return self._game_lambda
+    def render_lambda(self) -> Callable[[int, int, float, float], Render]:
+        return self._render_lambda
 
-    @game_lambda.setter
-    def game_lambda(self, value: Callable[[int, int, float, float], Render]):
-        self._game_lambda = value
+    @render_lambda.setter
+    def render_lambda(self, value: Callable[[int, int, float, float], Render]):
+        self._render_lambda = value
+
+
+class RenpyGameController(renpylayout.DynamicDisplayable):
+    """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
+    wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable"""
+
+    def __init__(
+        self,
+            displayable: RenpyGameDisplayable,
+            time: float,
+            time_update: Callable[[float, float], Any],
+    ):
+        self.internal_displayable = displayable
+        self.time = time
+        self.time_update = time_update
+
+        # renpylayout.DynamicDisplayable init
+        super().__init__(self.show_game)
+
+    @property
+    def internal_displayable(self) -> RenpyGameDisplayable:
+        return self._internal_displayable
+
+    @internal_displayable.setter
+    def internal_displayable(self, value: RenpyGameDisplayable):
+        self._internal_displayable = value
+
+    @property
+    def time(self) -> float:
+        return self._time
+
+    @time.setter
+    def time(self, value: float):
+        self._time = value
+
+    @property
+    def time_update(self) -> Callable[[float, float], Any]:
+        return self._time_update
+
+    @time_update.setter
+    def time_update(self, value: Callable[[float, float], Any]):
+        self._time_update = value
+
+    def show_game(self, st, at):
+        self.time_update(st, at)
+        return self.internal_displayable, self.time
 
 
 # class Displayable(renpy.Displayable):
