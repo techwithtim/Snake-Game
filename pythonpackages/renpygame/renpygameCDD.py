@@ -1,7 +1,7 @@
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Tuple
 
-import renpy.exports as renpy
 import renpy.display.layout as renpylayout
+import renpy.exports as renpy
 
 # https://www.renpy.org/doc/html/cdd.html
 
@@ -284,6 +284,15 @@ class Render(renpy.Render):
 #     def get_surface(self):
 #         return super().get_surface()
 
+def main_render(child_render: Optional[Render], width: int, height: int) -> renpy.Render:
+    """is a Render that contains the child_render.
+    # TODO: try to remove and return child_render
+    """
+    render = renpy.Render(width, height)
+    if child_render:
+        render.blit(child_render, child_render.get_size())
+    return render
+
 
 class RenpyGameDisplayable(renpy.Displayable):
     """CDD: https://www.renpy.org/doc/html/cdd.html
@@ -305,7 +314,7 @@ class RenpyGameDisplayable(renpy.Displayable):
         # if is first time rendering
         if self.child_render is None:
             self.child_render = self.render_lambda(width, height, st, at)
-        return self.main_render(width, height)
+        return main_render(self.child_render, width, height)
 
     @property
     def render_lambda(self) -> Callable[[int, int, float, float], Render]:
@@ -325,15 +334,6 @@ class RenpyGameDisplayable(renpy.Displayable):
     def child_render(self, value: Optional[Render]):
         self._child_render = value
 
-    def main_render(self, width: int, height: int) -> Render:
-        """is a Render that contains the child_render.
-        # TODO: try to remove and return child_render
-        """
-        render = renpy.Render(width, height)
-        if self.child_render:
-            render.blit(self.child_render, self.child_render.get_size())
-        return render
-
 
 class RenpyGameController(renpylayout.DynamicDisplayable):
     """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
@@ -348,16 +348,36 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         self.internal_displayable = displayable
         self.time = time
         self.update_process = update_process
+        self.child_render = None
 
         # renpylayout.DynamicDisplayable init
         super().__init__(self.update_render)
 
-    def update_render(self, st, at):
-        child_render = self.internal_displayable.child_render
-        if child_render:
-            child_render = self.update_process(st, at, child_render)
-            self.internal_displayable.child_render = child_render
+    @property
+    def child_render(self) -> Optional[Render]:
+        """child_render is a Render object"""
+        return self._child_render
+
+    @child_render.setter
+    def child_render(self, value: Optional[Render]):
+        self._child_render = value
+
+    # * update_render not worked so I used override render
+
+    def update_render(self, st: float, at: float) -> Tuple[RenpyGameDisplayable, float]:
+        # child_render = self.internal_displayable.child_render
+        # if child_render:
+        #     child_render = self.update_process(st, at, child_render)
+        #     self.internal_displayable.child_render = child_render
         return self.internal_displayable, self.time
+
+    def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
+        """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        if self.child_render is None:
+            self.child_render = self.internal_displayable.render_lambda(
+                width, height, st, at)
+        self.child_render = self.update_process(st, at, self.child_render)
+        return main_render(self.child_render, width, height)
 
 
 # class Displayable(renpy.Displayable):

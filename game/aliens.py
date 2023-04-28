@@ -1,6 +1,5 @@
 import random
 from typing import Optional
-from pythonpackages.renpygame.sprite import RenderUpdates
 
 # import basic pygame_sdl2 modules
 import renpy.exports as renpy
@@ -8,7 +7,9 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import Render, RenpyGameController, RenpyGameDisplayable
+from pythonpackages.renpygame.renpygameCDD import (Render, RenpyGameController,
+                                                   RenpyGameDisplayable)
+from pythonpackages.renpygame.sprite import RenderUpdates
 
 # game constants
 MAX_SHOTS = 2  # most player bullets onscreen
@@ -179,8 +180,6 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
 
     @start.setter
     def start(self, value: bool):
-        if value == True:
-            print("start")
         self._start = value
 
     @property
