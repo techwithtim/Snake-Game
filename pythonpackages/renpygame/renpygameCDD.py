@@ -330,7 +330,7 @@ class RenpyGameDisplayable(renpy.Displayable):
         # TODO: try to remove and return child_render
         """
         render = renpy.Render(width, height)
-        if not self.child_render is None:
+        if self.child_render:
             render.blit(self.child_render, self.child_render.get_size())
         return render
 
