@@ -342,7 +342,6 @@ def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
 
     if sh.is_firt_time:
         sh.is_firt_time = False
-        return
 
     if sh.player.alive():
 
