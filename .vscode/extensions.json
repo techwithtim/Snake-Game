@@ -5,6 +5,7 @@
 		"luquedaniel.languague-renpy",
 		"ms-python.python",
 		"ms-vscode.powershell",
-		"mrorz.language-gettext"
+		"mrorz.language-gettext",
+		"ms-python.black-formatter"
 	]
 }
