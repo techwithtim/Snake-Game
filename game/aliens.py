@@ -251,7 +251,7 @@ def main():
     displayable_with_logic = RenpyGameController(
         displayable, 0.1, my_game_logic)
 
-    renpy.show_screen("renpygame_surface", surface=displayable_with_logic)
+    renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")
     return
 
