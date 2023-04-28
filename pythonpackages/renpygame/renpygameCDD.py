@@ -302,20 +302,13 @@ class RenpyGameDisplayable(renpy.Displayable):
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
+        print("render(): end")
         # if is first time rendering
         if self.child_render is None:
+            print("first time rendering")
             self.child_render = self.render_lambda(width, height, st, at)
-
+        print("render(): end")
         return self.main_render(width, height)
-
-    @property
-    def render_lambda(self) -> Callable[[int, int, float, float], Render]:
-        """function that returns a child_render"""
-        return self._render_lambda
-
-    @render_lambda.setter
-    def render_lambda(self, value: Callable[[int, int, float, float], Render]):
-        self._render_lambda = value
 
     @property
     def child_render(self) -> Optional[Render]:
@@ -354,34 +347,12 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         # renpylayout.DynamicDisplayable init
         super().__init__(self.update_render)
 
-    @property
-    def internal_displayable(self) -> RenpyGameDisplayable:
-        return self._internal_displayable
-
-    @internal_displayable.setter
-    def internal_displayable(self, value: RenpyGameDisplayable):
-        self._internal_displayable = value
-
-    @property
-    def time(self) -> float:
-        return self._time
-
-    @time.setter
-    def time(self, value: float):
-        self._time = value
-
-    @property
-    def update_process(self) -> Callable[[float, float], Any]:
-        return self._update_process
-
-    @update_process.setter
-    def update_process(self, value: Callable[[float, float], Any]):
-        self._update_process = value
-
     def update_render(self, st, at):
         if self.internal_displayable.child_render:
             self.internal_displayable.child_render = self.update_process(
                 st, at, self.internal_displayable.child_render)
+        else:
+            print("no child_render")
         return self.internal_displayable, self.time
 
 
