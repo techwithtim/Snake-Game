@@ -40,7 +40,7 @@ class Sprite(pygame.sprite.Sprite):
     def groups(self):
         return super().groups()
 
-    def alive(self):
+    def alive(self) -> bool:
         return super().alive()
 
 
