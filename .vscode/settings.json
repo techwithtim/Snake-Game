@@ -3,6 +3,10 @@
     "[renpy]": {
         "editor.defaultFormatter": "ms-python.python",
     },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "python.formatting.provider": "none",
     "editor.formatOnSave": true,
     // reorganise imports
     "editor.codeActionsOnSave": {
