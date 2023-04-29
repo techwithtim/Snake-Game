@@ -334,10 +334,10 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     return screen
 
 
-def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
+def my_game_logic(width: int, height: int, st: float, at: float, cur_screen: pygame.Surface, time: float) -> tuple[Render, Optional[float]]:
 
     if not sh.start:
-        return
+        return cur_screen, time
 
     if sh.is_firt_time:
         sh.is_firt_time = False
@@ -353,7 +353,7 @@ def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
         # keystate = pygame.key.get_pressed()
 
         # clear/erase the last drawn sprites
-        sh.all.clear(screen, sh.background)
+        sh.all.clear(cur_screen, sh.background)
 
         # update all the sprites
         sh.all.update()
@@ -399,6 +399,8 @@ def my_game_logic(st: float, at: float, screen: pygame.Surface) -> Render:
             sh.player.kill()
 
         # draw the scene
-        dirty = sh.all.draw(screen)
+        dirty = sh.all.draw(cur_screen)
         pygame.display.update(dirty)
-    return screen
+        return cur_screen, time
+    else:
+        return cur_screen, None

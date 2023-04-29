@@ -1,4 +1,4 @@
-from typing import Any, Callable, Optional, Tuple
+from typing import Callable, Optional
 
 import renpy.display.layout as renpylayout
 import renpy.exports as renpy
@@ -343,7 +343,7 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         self,
             displayable: RenpyGameDisplayable,
             time: float,
-            update_process: Callable[[float, float, Render], Optional[Render]],
+            update_process: Callable[[int, int, float, float, Render, float], tuple[Render, Optional[float]]],
     ):
         self.internal_displayable = displayable
         self.time = time
@@ -351,7 +351,7 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
         self.child_render = None
 
         # renpylayout.DynamicDisplayable init
-        super().__init__(self.update_render)
+        super().__init__(self.update_process)
 
     @property
     def child_render(self) -> Optional[Render]:
@@ -364,22 +364,49 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
 
     # * update_render not worked so I used override render
 
-    def update_render(self, st: float, at: float) -> Tuple[RenpyGameDisplayable, float]:
-        # child_render = self.internal_displayable.child_render
-        # if child_render:
-        #     child_render = self.update_process(st, at, child_render)
-        #     self.internal_displayable.child_render = child_render
-        # self.raw_child = None
-        return self.internal_displayable, self.time
+    def update(self, st, at):
+        """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
+        self.last_st = st
+        self.last_at = at
+
+        if self.child_render:
+            self.internal_displayable.child_render = self.child_render
+            raw_child = self.internal_displayable
+
+            self.raw_child = raw_child
+            raw_child = renpy.easy.displayable(raw_child)
+
+            if raw_child._duplicatable:
+                child = raw_child._duplicate(self._args)
+                child._unique()
+            else:
+                child = raw_child
+
+            if isinstance(self.child, renpy.display.transform.Transform) and isinstance(child, renpy.display.transform.Transform):
+                child.take_state(self.child)
+                child.take_execution_state(self.child)
+
+            child.visit_all(lambda c: c.per_interact())
+
+            self.child = child
+
+        if self.time is not None:
+            renpy.display.render.redraw(self, self.time)
+        else:
+            print("Renpy Game End")
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
         self.update(st, at)
 
         if self.child_render is None:
+            print("Renpy Game Start")
             self.child_render = self.internal_displayable.render_lambda(
                 width, height, st, at)
-        self.child_render = self.update_process(st, at, self.child_render)
+        else:
+            self.child_render, self.time = self.update_process(
+                width, height, st, at, self.child_render, self.time)
+
         return main_render(self.child_render, width, height)
 
 
