@@ -171,6 +171,7 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.shots = None
         self.alienreload = 12
         self.score = 0
+        self.firsttime = True
 
     @property
     def all(self) -> RenderUpdates:
@@ -357,7 +358,8 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
             sh.alienreload = ALIEN_RELOAD
 
         # Drop bombs
-        if sh.lastalien and not int(random.random() * BOMB_ODDS):
+        if not sh.firsttime:
+            # if sh.lastalien and not int(random.random() * BOMB_ODDS):
             Bomb(sh.lastalien.sprite)
 
         # Detect collisions
@@ -382,6 +384,9 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
         # draw the scene
         dirty = sh.all.draw(cur_screen)
         pygame.display.update(dirty)
+
+        sh.firsttime = False
+
         return cur_screen, time
     else:
         return cur_screen, None
