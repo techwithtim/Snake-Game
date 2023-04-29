@@ -393,11 +393,8 @@ class RenpyGameByTimer(renpy.Displayable):
     def child_render(self, value: Optional[Render]):
         self._child_render = value
 
-    def update(self, st, at):
+    def start_redraw_timer(self):
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
-        self.last_st = st
-        self.last_at = at
-
         if self.delay is not None:
             renpy.redraw(self, self.delay)
         else:
@@ -405,7 +402,7 @@ class RenpyGameByTimer(renpy.Displayable):
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
-        self.update(st, at)
+        self.start_redraw_timer()
 
         if self.child_render is None:
             print("Renpy Game Start")
