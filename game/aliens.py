@@ -239,7 +239,7 @@ clock = pygame.time.Clock()
 def main():
     displayable = RenpyGameDisplayable(my_game_first_step)
     displayable_with_logic = RenpyGameController(
-        displayable, 0.1, my_game_logic)
+        displayable, 0.04, my_game_logic)
 
     renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")
