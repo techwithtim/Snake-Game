@@ -334,7 +334,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     return screen
 
 
-def my_game_logic(width: int, height: int, st: float, at: float, cur_screen: pygame.Surface, time: float) -> tuple[Render, Optional[float]]:
+def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float) -> tuple[Render, Optional[float]]:
 
     if not sh.start:
         return cur_screen, time
