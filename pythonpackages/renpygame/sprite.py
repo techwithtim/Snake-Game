@@ -1,10 +1,8 @@
-from pythonpackages.renpygame.display import Surface
-from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import Render
-import renpy.exports as renpy
 from pygame_sdl2.sprite import *
 
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.display import Surface
+from pythonpackages.renpygame.rect import Rect
 
 
 class Sprite(pygame.sprite.Sprite):

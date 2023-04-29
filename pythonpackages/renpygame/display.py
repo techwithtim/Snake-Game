@@ -5,7 +5,7 @@ import renpy.exports as renpy
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
-from pythonpackages.renpygame.renpygameCDD import Render
+from pythonpackages.renpygame.renpygameRender import Render
 
 
 class Surface(Render):

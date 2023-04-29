@@ -358,8 +358,7 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
             sh.alienreload = ALIEN_RELOAD
 
         # Drop bombs
-        if not sh.firsttime:
-            # if sh.lastalien and not int(random.random() * BOMB_ODDS):
+        if sh.lastalien and not int(random.random() * BOMB_ODDS):
             Bomb(sh.lastalien.sprite)
 
         # Detect collisions

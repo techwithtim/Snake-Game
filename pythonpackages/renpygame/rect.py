@@ -1,7 +1,7 @@
 from pygame_sdl2.rect import *
 
 import pythonpackages.renpygame.pygame as pygame
-from pythonpackages.renpygame.renpygameCDD import Render
+from pythonpackages.renpygame.renpygameRender import Render
 
 
 class Rect(Render):

@@ -5,9 +5,22 @@ import pythonpackages.renpygame.pygame as pygame
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
 
+temporary_images = []
+
+
+def get_temporary_images_render() -> Surface:
+    """Get all temporary images render and clear the list.
+    This function is used for deflect a problem in a renppy.redraw() chashing.
+    renppy.redraw() render all images in the screen, but is into first loop of render() function.
+    #TODO: try to remove this function"""
+    surface = Surface((0, 0))
+    for render in temporary_images:
+        surface.blit(render, (0, 0))
+    temporary_images.clear()
+    return surface
+
+
 # class Image(renpy.display.image.DynamicImage):
-
-
 class Image(renpy.display.im.Image):
     """renpy: https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L709"""
 
@@ -74,6 +87,8 @@ class Image(renpy.display.im.Image):
         # surface.blit(self.pygame_image, (0, 0))
         # TODO: try to remove this line and convert to renpy.Render to Surface
         surface.blit(render, (0, 0))
+        # TODO: try to remove this line
+        temporary_images.append(render)
         return surface
 
 
