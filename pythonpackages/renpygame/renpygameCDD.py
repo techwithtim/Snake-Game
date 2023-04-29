@@ -294,35 +294,6 @@ def main_render(child_render: Optional[Render], width: int, height: int) -> renp
     return render
 
 
-class RenpyGameDisplayable(renpy.Displayable):
-    """CDD: https://www.renpy.org/doc/html/cdd.html
-    renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292"""
-
-    def __init__(
-        self,
-            child_render: Render,
-            **kwargs
-    ):
-        # renpy.Displayable init
-        super(RenpyGameDisplayable, self).__init__(**kwargs)
-
-        self.child_render = child_render
-
-    def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
-        """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
-        self.child_render = self.render_lambda(width, height, st, at)
-        return main_render(self.child_render, width, height)
-
-    @property
-    def child_render(self) -> Render:
-        """child_render is a Render object"""
-        return self._child_render
-
-    @child_render.setter
-    def child_render(self, value: Render):
-        self._child_render = value
-
-
 class RenpyGameByEvent(renpy.Displayable):
     """CDD: https://www.renpy.org/doc/html/cdd.html
     renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292"""
