@@ -377,7 +377,7 @@ class RenpyGameByTimer(renpy.Displayable):
         **kwargs,
     ):
         self.first_step = first_step
-        self.time = delay
+        self.delay = delay
         self.update_process = update_process
         self.child_render = None
 
@@ -401,8 +401,8 @@ class RenpyGameByTimer(renpy.Displayable):
         if self.child_render:
             self.child = RenpyGameDisplayable(self.child_render)
 
-        if self.time is not None:
-            renpy.redraw(self, self.time)
+        if self.delay is not None:
+            renpy.redraw(self, self.delay)
         else:
             print("Renpy Game End")
 
@@ -413,8 +413,8 @@ class RenpyGameByTimer(renpy.Displayable):
         if self.child_render is None:
             print("Renpy Game Start")
             self.child_render = self.first_step(width, height, st, at)
-        self.child_render, self.time = self.update_process(
-            st, at, self.child_render, self.time)
+        self.child_render, self.delay = self.update_process(
+            st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
 
 
