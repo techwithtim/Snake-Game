@@ -373,10 +373,10 @@ class RenpyGameByTimer(renpylayout.DynamicDisplayable):
         self,
             first_step: Callable[[int, int, float, float], Render],
             update_process: Callable[[float, float, Render, float], tuple[Render, Optional[float]]],
-            time: float,
+            delay: float,
     ):
         self.first_step = first_step
-        self.time = time
+        self.time = delay
         self.update_process = update_process
         self.child_render = None
 
