@@ -380,24 +380,7 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
                 st, at, self.child_render, self.time)
 
             self.internal_displayable.child_render = self.child_render
-            raw_child = self.internal_displayable
-
-            self.raw_child = raw_child
-            raw_child = renpy.easy.displayable(raw_child)
-
-            if raw_child._duplicatable:
-                child = raw_child._duplicate(self._args)
-                child._unique()
-            else:
-                child = raw_child
-
-            if isinstance(self.child, renpy.display.transform.Transform) and isinstance(child, renpy.display.transform.Transform):
-                child.take_state(self.child)
-                child.take_execution_state(self.child)
-
-            child.visit_all(lambda c: c.per_interact())
-
-            self.child = child
+            self.child = self.internal_displayable
 
         if self.time is not None:
             renpy.display.render.redraw(self, self.time)

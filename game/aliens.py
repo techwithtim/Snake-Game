@@ -162,7 +162,6 @@ class Score(pygame.sprite.Sprite):
 
 class SharedDataAlienGame(pygame.sprite.Sprite):
     def __init__(self):
-        self.start = False
         self.all = None
         self.player = None
         self.background = None
@@ -170,17 +169,8 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.aliens = None
         self.bombs = None
         self.shots = None
-        self.is_firt_time = True
         self.alienreload = 12
         self.score = 0
-
-    @property
-    def start(self) -> bool:
-        return self._start
-
-    @start.setter
-    def start(self, value: bool):
-        self._start = value
 
     @property
     def all(self) -> RenderUpdates:
@@ -251,7 +241,7 @@ def main():
     displayable_with_logic = RenpyGameController(
         displayable, 0.1, my_game_logic)
 
-    renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
+    renpy.show_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")
     return
 
@@ -329,18 +319,10 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     # if pygame.font:
     #     all.add(Score())
 
-    sh.start = True
-
     return screen
 
 
 def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float) -> tuple[Render, Optional[float]]:
-
-    if not sh.start:
-        return cur_screen, time
-
-    if sh.is_firt_time:
-        sh.is_firt_time = False
 
     if sh.player.alive():
 
