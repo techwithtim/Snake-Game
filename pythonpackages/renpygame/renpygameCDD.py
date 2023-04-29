@@ -365,23 +365,24 @@ class RenpyGameByEvent(renpy.Displayable):
         self._child_render = value
 
 
-class RenpyGameByTimer(renpylayout.DynamicDisplayable):
+class RenpyGameByTimer(renpy.Displayable):
     """DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
     wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable"""
 
     def __init__(
         self,
-            first_step: Callable[[int, int, float, float], Render],
-            update_process: Callable[[float, float, Render, float], tuple[Render, Optional[float]]],
-            delay: float,
+        first_step: Callable[[int, int, float, float], Render],
+        update_process: Callable[[float, float, Render, float], tuple[Render, Optional[float]]],
+        delay: float,
+        **kwargs,
     ):
         self.first_step = first_step
         self.time = delay
         self.update_process = update_process
         self.child_render = None
 
-        # renpylayout.DynamicDisplayable init
-        super().__init__(self.update_process)
+        # renpy.Displayable init
+        super(RenpyGameByTimer, self).__init__(**kwargs)
 
     @property
     def child_render(self) -> Optional[Render]:
@@ -398,13 +399,10 @@ class RenpyGameByTimer(renpylayout.DynamicDisplayable):
         self.last_at = at
 
         if self.child_render:
-            self.child_render, self.time = self.update_process(
-                st, at, self.child_render, self.time)
-
             self.child = RenpyGameDisplayable(self.child_render)
 
         if self.time is not None:
-            renpy.display.render.redraw(self, self.time)
+            renpy.redraw(self, self.time)
         else:
             print("Renpy Game End")
 
@@ -415,6 +413,8 @@ class RenpyGameByTimer(renpylayout.DynamicDisplayable):
         if self.child_render is None:
             print("Renpy Game Start")
             self.child_render = self.first_step(width, height, st, at)
+        self.child_render, self.time = self.update_process(
+            st, at, self.child_render, self.time)
         return main_render(self.child_render, width, height)
 
 
