@@ -398,9 +398,6 @@ class RenpyGameByTimer(renpy.Displayable):
         self.last_st = st
         self.last_at = at
 
-        if self.child_render:
-            self.child = RenpyGameDisplayable(self.child_render)
-
         if self.delay is not None:
             renpy.redraw(self, self.delay)
         else:
