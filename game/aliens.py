@@ -283,7 +283,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
     # decorate the game window
     icon = Alien.images[0]
-    pygame.display.set_icon(icon)
+    pygame.display.set_icon(pygame.image.load('alien1.gif').pygame_image)
     pygame.display.set_caption('Pygame Aliens')
     pygame.mouse.set_visible(0)
 

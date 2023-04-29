@@ -1,10 +1,11 @@
 from typing import Any, Optional, Union
-from pythonpackages.renpygame.rect import Rect
 
+import pygame_sdl2 as pygame_sdl2
 import renpy.exports as renpy
 from pygame_sdl2.display import *
 
 import pythonpackages.renpygame.pygame as pygame
+from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.renpygameRender import Render
 
 
@@ -209,8 +210,11 @@ def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int 
     return pygame.display.mode_ok(size, flags, depth)
 
 
-def set_icon(Surface: Surface) -> None:
+def set_icon(Surface: pygame_sdl2.surface.Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
+    if not isinstance(Surface, pygame_sdl2.surface.Surface):
+        print("set_icon(): Warning: Surface is not a pygame_sdl2.surface.Surface, it is a", type(Surface))
+        print("if you have a renpyGame Image you can use image.pygame_image")
     return pygame.display.set_icon(Surface)
 
 
