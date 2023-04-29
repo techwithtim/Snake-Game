@@ -7,8 +7,8 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import (Render, RenpyGameController,
-                                                   RenpyGameDisplayable)
+from pythonpackages.renpygame.renpygameCDD import (Render, RenpyGameByEvent,
+                                                   RenpyGameByTimer)
 from pythonpackages.renpygame.sprite import RenderUpdates
 
 # game constants
@@ -237,9 +237,8 @@ clock = pygame.time.Clock()
 
 
 def main():
-    displayable = RenpyGameDisplayable(my_game_first_step)
-    displayable_with_logic = RenpyGameController(
-        displayable, 0.04, my_game_logic)
+    displayable_with_logic = RenpyGameByTimer(
+        first_step=my_game_first_step, update_process=my_game_logic, time=0.04)
 
     renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")

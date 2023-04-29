@@ -300,11 +300,40 @@ class RenpyGameDisplayable(renpy.Displayable):
 
     def __init__(
         self,
-            render_lambda: Callable[[int, int, float, float], Render],
+            child_render: Render,
             **kwargs
     ):
         # renpy.Displayable init
         super(RenpyGameDisplayable, self).__init__(**kwargs)
+
+        self.child_render = child_render
+
+    def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
+        """https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L170"""
+        self.child_render = self.render_lambda(width, height, st, at)
+        return main_render(self.child_render, width, height)
+
+    @property
+    def child_render(self) -> Render:
+        """child_render is a Render object"""
+        return self._child_render
+
+    @child_render.setter
+    def child_render(self, value: Render):
+        self._child_render = value
+
+
+class RenpyGameByEvent(renpy.Displayable):
+    """CDD: https://www.renpy.org/doc/html/cdd.html
+    renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292"""
+
+    def __init__(
+        self,
+            render_lambda: Callable[[int, int, float, float], Render],
+            **kwargs
+    ):
+        # renpy.Displayable init
+        super(RenpyGameByEvent, self).__init__(**kwargs)
 
         self.render_lambda = render_lambda
         self.child_render = None
@@ -335,23 +364,18 @@ class RenpyGameDisplayable(renpy.Displayable):
     def child_render(self, value: Optional[Render]):
         self._child_render = value
 
-    def update(self, st: float, at: float, update_process: Callable[[float, float, Render], Optional[Render]]):
-        self.child_render = update_process(st, at, self.child_render)
-        renpy.display.render.redraw(self, 0)
-        return
 
-
-class RenpyGameController(renpylayout.DynamicDisplayable):
-    """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
+class RenpyGameByTimer(renpylayout.DynamicDisplayable):
+    """DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
     wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable"""
 
     def __init__(
         self,
-            displayable: RenpyGameDisplayable,
-            time: float,
+            first_step: Callable[[int, int, float, float], Render],
             update_process: Callable[[float, float, Render, float], tuple[Render, Optional[float]]],
+            time: float,
     ):
-        self.internal_displayable = displayable
+        self.first_step = first_step
         self.time = time
         self.update_process = update_process
         self.child_render = None
@@ -368,8 +392,6 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
     def child_render(self, value: Optional[Render]):
         self._child_render = value
 
-    # * update_render not worked so I used override render
-
     def update(self, st, at):
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
         self.last_st = st
@@ -379,8 +401,7 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
             self.child_render, self.time = self.update_process(
                 st, at, self.child_render, self.time)
 
-            self.internal_displayable.child_render = self.child_render
-            self.child = self.internal_displayable
+            self.child = RenpyGameDisplayable(self.child_render)
 
         if self.time is not None:
             renpy.display.render.redraw(self, self.time)
@@ -393,8 +414,7 @@ class RenpyGameController(renpylayout.DynamicDisplayable):
 
         if self.child_render is None:
             print("Renpy Game Start")
-            self.child_render = self.internal_displayable.render_lambda(
-                width, height, st, at)
+            self.child_render = self.first_step(width, height, st, at)
         return main_render(self.child_render, width, height)
 
 
