@@ -321,7 +321,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     return screen
 
 
-def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float) -> tuple[Render, Optional[float]]:
+def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float) -> Optional[float]:
 
     if sh.player.alive():
 
@@ -385,6 +385,6 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
 
         sh.firsttime = False
 
-        return cur_screen, time
+        return time
     else:
-        return cur_screen, None
+        return None

@@ -67,7 +67,7 @@ class RenpyGameByTimer(renpy.Displayable):
     def __init__(
         self,
         first_step: Callable[[int, int, float, float], Render],
-        update_process: Callable[[float, float, Render, float], tuple[Render, Optional[float]]],
+        update_process: Callable[[float, float, Render, float], Optional[float]],
         delay: float,
         **kwargs,
     ):
@@ -104,6 +104,6 @@ class RenpyGameByTimer(renpy.Displayable):
             self.child_render = self.first_step(width, height, st, at)
             # TODO: try to remove get_temporary_images_render
             self.child_render.blit(get_temporary_images_render(), (0,0))
-        self.child_render, self.delay = self.update_process(
+        self.delay = self.update_process(
             st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
