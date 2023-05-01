@@ -33,7 +33,7 @@ Use of events to draw limits a lot -> you can't create loops to update a renpy.D
 - [ ] renpygame.mixer
 - [ ] renpygame.mixer.music
 - [ ] renpygame.mouse (Still to be tested, should already be working)
-- [x] renpygame.rect (Incomplete)
+- [x] renpygame.rect
 - [ ] renpygame.sprite (Incomplete)
 - [ ] renpygame.time (Still to be tested, should already be working)
 - [ ] renpygame.transform (Incomplete)
