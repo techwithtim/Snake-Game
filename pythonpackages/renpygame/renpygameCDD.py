@@ -2,6 +2,7 @@ from typing import Callable, Optional
 
 import renpy.exports as renpy
 
+import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.renpygameRender import Render
 
 # https://www.renpy.org/doc/html/cdd.html
@@ -72,6 +73,7 @@ class RenpyGameByTimer(renpy.Displayable):
     ):
         self.first_step = first_step
         self.delay = delay
+        self.start_delay = delay
         self.update_process = update_process
         self.child_render = None
 
@@ -87,11 +89,18 @@ class RenpyGameByTimer(renpy.Displayable):
     def child_render(self, value: Optional[Render]):
         self._child_render = value
 
-    def start_redraw_timer(self):
+    def reset_game(self):
+        print("Renpy Game Reset")
+        self.delay = self.start_delay
+        self.child_render = None
+
+    def start_redraw_timer(self, delay: Optional[float] = None, check_game_end: bool = True):
         """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
+        if (delay is None):
+            delay = self.delay
         if self.delay is not None:
-            renpy.redraw(self, self.delay)
-        else:
+            renpy.redraw(self, delay)
+        elif check_game_end:
             print("Renpy Game End")
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
@@ -104,3 +113,10 @@ class RenpyGameByTimer(renpy.Displayable):
         self.delay = self.update_process(
             st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
+
+    def event(self, ev, x, y, st):
+        if(pygame.WINDOWEVENT == ev.type):
+            self.start_redraw_timer(check_game_end = False)
+        if(32768 == ev.type): # 32768 is the event type for pause menu
+            self.reset_game()
+        return None
