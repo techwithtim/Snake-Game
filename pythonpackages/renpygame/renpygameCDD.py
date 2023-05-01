@@ -1,4 +1,4 @@
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 import renpy.exports as renpy
 
@@ -25,12 +25,14 @@ class RenpyGameByEvent(renpy.Displayable):
     def __init__(
         self,
             render_lambda: Callable[[int, int, float, float], Render],
+            event_lambda: Callable[[Any, int, int, float], Any],
             **kwargs
     ):
         # renpy.Displayable init
         super(RenpyGameByEvent, self).__init__(**kwargs)
 
         self.render_lambda = render_lambda
+        self.event_lambda = event_lambda
         self.child_render = None
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
@@ -40,6 +42,9 @@ class RenpyGameByEvent(renpy.Displayable):
         if self.child_render is None:
             self.child_render = self.render_lambda(width, height, st, at)
         return main_render(self.child_render, width, height)
+
+    def event(self, ev, x, y, st):
+        return self.event_lambda(ev, x, y, st)
 
     @property
     def render_lambda(self) -> Callable[[int, int, float, float], Render]:
