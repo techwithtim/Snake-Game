@@ -2,7 +2,6 @@ from typing import Callable, Optional
 
 import renpy.exports as renpy
 
-from pythonpackages.renpygame.image import get_temporary_images_render
 from pythonpackages.renpygame.renpygameRender import Render
 
 # https://www.renpy.org/doc/html/cdd.html
@@ -102,8 +101,6 @@ class RenpyGameByTimer(renpy.Displayable):
         if self.child_render is None:
             print("Renpy Game Start")
             self.child_render = self.first_step(width, height, st, at)
-            # TODO: try to remove get_temporary_images_render
-            self.child_render.blit(get_temporary_images_render(), (0,0))
         self.delay = self.update_process(
             st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)

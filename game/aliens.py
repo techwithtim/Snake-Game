@@ -7,8 +7,7 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import (Render, RenpyGameByEvent,
-                                                   RenpyGameByTimer)
+from pythonpackages.renpygame.renpygameCDD import RenpyGameByTimer
 from pythonpackages.renpygame.sprite import RenderUpdates
 
 # game constants
