@@ -18,23 +18,23 @@ Use of events to draw limits a lot -> you can't create loops to update a renpy.D
 ## Supported Modules
 
 
-- [] renpygame.color
-- [] renpygame.constants (Still to be tested, should already be working)
-- [] renpygame.cursors (Still to be tested, should already be working)
-- [] renpygame.display (Incomplete)
+- [ ] renpygame.color
+- [ ] renpygame.constants (Still to be tested, should already be working)
+- [ ] renpygame.cursors (Still to be tested, should already be working)
+- [ ] renpygame.display (Incomplete)
 - [x] renpygame.display.Surface
-- [] renpygame.draw
-- [] renpygame.event (Still to be tested, should already be working)
-- [] renpygame.font
-- [] renpygame.image (Incomplete)
-- [] renpygame.joystick
-- [] renpygame.key
-- [] renpygame.locals (Still to be tested, should already be working)
-- [] renpygame.mixer
-- [] renpygame.mixer.music
-- [] renpygame.mouse (Still to be tested, should already be working)
+- [ ] renpygame.draw
+- [ ] renpygame.event (Still to be tested, should already be working)
+- [ ] renpygame.font
+- [ ] renpygame.image (Incomplete)
+- [ ] renpygame.joystick
+- [ ] renpygame.key
+- [ ] renpygame.locals (Still to be tested, should already be working)
+- [ ] renpygame.mixer
+- [ ] renpygame.mixer.music
+- [ ] renpygame.mouse (Still to be tested, should already be working)
 - [x] renpygame.rect (Incomplete)
-- [] renpygame.sprite (Incomplete)
-- [] renpygame.time (Still to be tested, should already be working)
-- [] renpygame.transform (Incomplete)
+- [ ] renpygame.sprite (Incomplete)
+- [ ] renpygame.time (Still to be tested, should already be working)
+- [ ] renpygame.transform (Incomplete)
 
