@@ -66,7 +66,7 @@ class RenpyGameByEvent(renpy.Displayable):
 
 
 class RenpyGameByTimer(renpy.Displayable):
-    """DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
+    """inspired by: DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
     wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable"""
 
     def __init__(
@@ -100,7 +100,7 @@ class RenpyGameByTimer(renpy.Displayable):
         self.child_render = None
 
     def start_redraw_timer(self, delay: Optional[float] = None, check_game_end: bool = True):
-        """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
+        """inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
         if (delay is None):
             delay = self.delay
         if self.delay is not None:
@@ -109,19 +109,25 @@ class RenpyGameByTimer(renpy.Displayable):
             print("Renpy Game End")
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
-        """https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
-        self.start_redraw_timer()
+        """this function will be started in the form of a loop.
+        through start_redraw_timer, I trigger the event direnpy.redraw to create the loop.
 
-        if self.child_render is None:
+        inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        self.start_redraw_timer()
+        oldchild_render = None
+
+        if self.child_render is None:  # * first round
             print("Renpy Game Start")
+            oldchild_render = self.child_render
             self.child_render = self.first_step(width, height, st, at)
+        # * first round and subsequent rounds
         self.delay = self.update_process(
             st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
 
     def event(self, ev, x, y, st):
-        if(pygame.WINDOWEVENT == ev.type):
-            self.start_redraw_timer(check_game_end = False)
-        if(32768 == ev.type): # 32768 is the event type for pause menu
+        if (pygame.WINDOWEVENT == ev.type):
+            self.start_redraw_timer(check_game_end=False)
+        if (32768 == ev.type):  # 32768 is the event type for pause menu
             self.reset_game()
         return None
