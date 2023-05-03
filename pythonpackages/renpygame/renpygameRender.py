@@ -237,7 +237,8 @@ class Render(renpy.Render):
     @property
     def renpygame_render(self) -> renpy.Render:
         """if set will be used during blit() instead of using the parent class.
-        This is used during conversions and is useful to prevent errors."""
+        This is used during conversions and is useful to prevent errors.
+        # TODO: instead of using this variable during the conversion, one could set all the variables to the old element in the new"""
         return self._original_render
 
     @renpygame_render.setter
