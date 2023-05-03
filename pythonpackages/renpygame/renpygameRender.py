@@ -166,7 +166,6 @@ class Render(renpy.Render):
         """render.blit(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L778"""
         if hasattr(source, "renpygame_render") and source.renpygame_render:
             source = source.renpygame_render
-        print(f'type(source): {type(source)}')
         return super().blit(source, pos, focus, main, index)
 
     def subpixel_blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
