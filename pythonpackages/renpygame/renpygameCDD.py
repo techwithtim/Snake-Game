@@ -1,9 +1,9 @@
 from typing import Any, Callable, Optional
-from pythonpackages.renpygame.event import EventType
 
 import renpy.exports as renpy
 
 import pythonpackages.renpygame as pygame
+from pythonpackages.renpygame.event import EventType
 from pythonpackages.renpygame.renpygameRender import Render
 
 # https://www.renpy.org/doc/html/cdd.html
@@ -166,7 +166,6 @@ class RenpyGameByTimer(renpy.Displayable):
         through start_redraw_timer, I trigger the event direnpy.redraw to create the loop.
 
         inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
-        renpy.queue_event("RENPYGAME_REDRAW", up=False)
 
         # * start the timer immediately at the beginning of the function. so that update_process does not affect the fps.
         # * I don't know if this is a good idea because if update_process time > delay, the game will be looped or the game skip a frame.
