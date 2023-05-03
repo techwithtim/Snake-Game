@@ -1,12 +1,12 @@
 import random
 from typing import Optional
-from pythonpackages.renpygame.event import EventType
 
 # import basic pygame_sdl2 modules
 import renpy.exports as renpy
 import renpy.store as store
 
 import pythonpackages.renpygame as pygame
+from pythonpackages.renpygame.event import EventType
 from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.sprite import RenderUpdates
 
@@ -237,7 +237,7 @@ clock = pygame.time.Clock()
 
 
 def main():
-    displayable_with_logic = RenpyGameByTimer(
+    displayable_with_logic = pygame.RenpyGameByTimer(
         first_step=my_game_first_step,
         update_process=my_game_logic,
         event_lambda=game_event,
