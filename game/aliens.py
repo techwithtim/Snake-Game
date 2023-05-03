@@ -1,5 +1,6 @@
 import random
 from typing import Optional
+from pythonpackages.renpygame.event import EventType
 
 # import basic pygame_sdl2 modules
 import renpy.exports as renpy
@@ -7,7 +8,6 @@ import renpy.store as store
 
 import pythonpackages.renpygame as pygame
 from pythonpackages.renpygame.rect import Rect
-from pythonpackages.renpygame.renpygameCDD import RenpyGameByTimer
 from pythonpackages.renpygame.sprite import RenderUpdates
 
 # game constants
@@ -238,7 +238,11 @@ clock = pygame.time.Clock()
 
 def main():
     displayable_with_logic = RenpyGameByTimer(
-        first_step=my_game_first_step, update_process=my_game_logic, delay=0.04)
+        first_step=my_game_first_step,
+        update_process=my_game_logic,
+        event_lambda=game_event,
+        delay=0.04,
+    )
 
     renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
     renpy.call("start")
@@ -338,15 +342,15 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
         # update all the sprites
         sh.all.update()
 
-        # TODO: has been commented pe make it work
         # handle player input
-        # direction = keystate[K_RIGHT] - keystate[K_LEFT]
-        # player.move(direction)
-        # firing = keystate[K_SPACE]
-        # if not player.reloading and firing and len(shots) < MAX_SHOTS:
-        #     Shot(player.gunpos())
-        #     shoot_sound.play()
-        # player.reloading = firing
+        direction = pygame.K_RIGHT - pygame.K_LEFT
+        firing = pygame.K_SPACE
+        sh.player.move(direction)
+        if not sh.player.reloading and firing and len(sh.shots) < MAX_SHOTS:
+            Shot(sh.player.gunpos())
+            # TODO: has been commented pe make it work
+            # shoot_sound.play()
+        sh.player.reloading = firing
 
         # Create new alien
         if sh.alienreload:
@@ -387,3 +391,8 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
         return time
     else:
         return None
+
+
+def game_event(ev: EventType, x: int, y: int, st: float):
+    print("Event: ", ev, x, y, st)
+    return

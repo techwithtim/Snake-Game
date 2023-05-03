@@ -1,4 +1,5 @@
 from typing import Any, Callable, Optional
+from pythonpackages.renpygame.event import EventType
 
 import renpy.exports as renpy
 
@@ -25,7 +26,7 @@ class RenpyGameByEvent(renpy.Displayable):
     def __init__(
         self,
             render_lambda: Callable[[int, int, float, float], Render],
-            event_lambda: Callable[[Any, int, int, float], Any],
+            event_lambda: Callable[[EventType, int, int, float], Any],
             **kwargs
     ):
         # renpy.Displayable init
@@ -43,7 +44,9 @@ class RenpyGameByEvent(renpy.Displayable):
             self.child_render = self.render_lambda(width, height, st, at)
         return main_render(self.child_render, width, height)
 
-    def event(self, ev, x, y, st):
+    def event(self, ev: EventType, x: int, y: int, st: float):
+        """keys: https://www.pygame.org/docs/ref/key.html#key-constants-label
+        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/event.pyx"""
         return self.event_lambda(ev, x, y, st)
 
     @property
@@ -73,13 +76,16 @@ class RenpyGameByTimer(renpy.Displayable):
         self,
         first_step: Callable[[int, int, float, float], Render],
         update_process: Callable[[float, float, Render, float], Optional[float]],
-        delay: float,
+        event_lambda: Optional[Callable[[
+            EventType, int, int, float], Any]] = None,
+        delay: float = 0.05,
         **kwargs,
     ):
         self.first_step = first_step
         self.delay = delay
         self.start_delay = delay
         self.update_process = update_process
+        self.event_lambda = event_lambda
         self.child_render = None
 
         # renpy.Displayable init
@@ -132,6 +138,15 @@ class RenpyGameByTimer(renpy.Displayable):
     def first_step(self, value: Callable[[int, int, float, float], Render]):
         self._first_step = value
 
+    @property
+    def event_lambda(self) -> Optional[Callable[[Any, int, int, float], Any]]:
+        """event_lambda is a function that return a child_render, it is a first frame of the game"""
+        return self._event_lambda
+
+    @event_lambda.setter
+    def event_lambda(self, value: Optional[Callable[[Any, int, int, float], Any]]):
+        self._event_lambda = value
+
     def reset_game(self):
         print("Renpy Game Reset")
         self.delay = self.start_delay
@@ -151,6 +166,8 @@ class RenpyGameByTimer(renpy.Displayable):
         through start_redraw_timer, I trigger the event direnpy.redraw to create the loop.
 
         inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        renpy.queue_event("RENPYGAME_REDRAW", up=False)
+
         # * start the timer immediately at the beginning of the function. so that update_process does not affect the fps.
         # * I don't know if this is a good idea because if update_process time > delay, the game will be looped or the game skip a frame.
         self.start_redraw_timer()
@@ -163,9 +180,14 @@ class RenpyGameByTimer(renpy.Displayable):
             st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
 
-    def event(self, ev, x, y, st):
+    def event(self, ev: EventType, x: int, y: int, st: float):
+        """pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/event.pyx
+        config.keymap: https://www.renpy.org/doc/html/config.html#var-config.keymap
+        add a event: https://www.renpy.org/doc/html/other.html#renpy.queue_event
+        """
         if (pygame.WINDOWEVENT == ev.type):
             self.start_redraw_timer(check_game_end=False)
         if (32768 == ev.type):  # 32768 is the event type for pause menu
             self.reset_game()
-        return None
+        if self.event_lambda is not None:
+            return self.event_lambda(ev, x, y, st)
