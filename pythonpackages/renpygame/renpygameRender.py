@@ -14,6 +14,8 @@ class Render(renpy.Render):
         super().__init__(width, height)
         # * Render properties, will come set in super().__init__
 
+        self.renpygame_render = None
+
     @property
     def mark(self):
         return super().mark
@@ -162,6 +164,9 @@ class Render(renpy.Render):
 
     def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
         """render.blit(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L778"""
+        if hasattr(source, "renpygame_render") and source.renpygame_render:
+            source = source.renpygame_render
+        print(f'type(source): {type(source)}')
         return super().blit(source, pos, focus, main, index)
 
     def subpixel_blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
@@ -228,6 +233,16 @@ class Render(renpy.Render):
         return super().add_property(name, value)
 
     # my methods
+
+    @property
+    def renpygame_render(self) -> renpy.Render:
+        """if set will be used during blit() instead of using the parent class.
+        This is used during conversions and is useful to prevent errors."""
+        return self._original_render
+
+    @renpygame_render.setter
+    def renpygame_render(self, value: renpy.Render):
+        self._original_render = value
 
     def get_width(self) -> int:
         width, _ = self.get_size()

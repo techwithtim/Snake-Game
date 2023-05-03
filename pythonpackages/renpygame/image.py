@@ -1,23 +1,9 @@
+from pythonpackages.renpygame.display import Surface
 import renpy.exports as renpy
 from pygame_sdl2.image import *
 
 import pythonpackages.renpygame.pygame as pygame
-from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
-
-temporary_images = []
-
-
-def get_temporary_images_render() -> Surface:
-    """Get all temporary images render and clear the list.
-    This function is used for deflect a problem in a renppy.redraw() chashing.
-    renppy.redraw() render all images in the screen, but is into first loop of render() function.
-    #TODO: try to remove this function"""
-    surface = Surface((0, 0))
-    for render in temporary_images:
-        surface.blit(render, (0, 0))
-    temporary_images.clear()
-    return surface
 
 
 # class Image(renpy.display.image.DynamicImage):
@@ -79,17 +65,14 @@ class Image(renpy.display.im.Image):
         image = image.convert()
         return image
 
-    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
-        """* IMPORTANT: when this is converted must be blit into main Render -> because if not, the image is not rendered -> because have a old st and at"""
+    def convert(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         surface = Surface(self.size)
         render = renpy.render(self, width, height, st, at)
-        # * render.blit(self.pygame_image: used only for pygame rendering
-        # * Has been commented on to improve performance
-        # surface.blit(self.pygame_image, (0, 0))
-        # TODO: try to remove this line and convert to renpy.Render to Surface
         surface.blit(render, (0, 0))
-        # TODO: try to remove this line
-        temporary_images.append(render)
+        # * IMPORTANT: into convert is veri inportant set renpygame_render
+        #   -> because so in blit I can use the pygame_render
+        #   -> because if I use surface the image in not visible if is not blit into current st and at
+        surface.renpygame_render = render
         return surface
 
 

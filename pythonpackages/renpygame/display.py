@@ -144,6 +144,8 @@ class Surface(Render):
         for k, v in kwargs.items():
             setattr(rv, k, v)
 
+        # rv.renpygame_render = self.renpygame_render
+
         return rv
 
     def get_bitsize(self):
