@@ -87,12 +87,50 @@ class RenpyGameByTimer(renpy.Displayable):
 
     @property
     def child_render(self) -> Optional[Render]:
-        """child_render is a Render object"""
+        """child_render is a Render object and is a current frame of the game"""
         return self._child_render
 
     @child_render.setter
     def child_render(self, value: Optional[Render]):
         self._child_render = value
+
+    @property
+    def delay(self) -> float:
+        """delay is a time between frames"""
+        return self._delay
+
+    @delay.setter
+    def delay(self, value: float):
+        self._delay = value
+
+    @property
+    def start_delay(self) -> float:
+        """start_delay is a time between frames"""
+        return self._start_delay
+
+    @start_delay.setter
+    def start_delay(self, value: float):
+        self._start_delay = value
+
+    @property
+    def update_process(self) -> Callable[[float, float, Render, float], Optional[float]]:
+        """update_process is a function that edit a child_render.
+        Return a delay or None, if is None, the game will end.
+        Not return a child_render for set a child_render, because it is a Object, so it is not a copy, but a reference."""
+        return self._update_process
+
+    @update_process.setter
+    def update_process(self, value: Callable[[float, float, Render, float], Optional[float]]):
+        self._update_process = value
+
+    @property
+    def first_step(self) -> Callable[[int, int, float, float], Render]:
+        """first_step is a function that return a child_render, it is a first frame of the game"""
+        return self._first_step
+
+    @first_step.setter
+    def first_step(self, value: Callable[[int, int, float, float], Render]):
+        self._first_step = value
 
     def reset_game(self):
         print("Renpy Game Reset")
@@ -113,12 +151,12 @@ class RenpyGameByTimer(renpy.Displayable):
         through start_redraw_timer, I trigger the event direnpy.redraw to create the loop.
 
         inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        # * start the timer immediately at the beginning of the function. so that update_process does not affect the fps.
+        # * I don't know if this is a good idea because if update_process time > delay, the game will be looped or the game skip a frame.
         self.start_redraw_timer()
-        oldchild_render = None
 
         if self.child_render is None:  # * first round
             print("Renpy Game Start")
-            oldchild_render = self.child_render
             self.child_render = self.first_step(width, height, st, at)
         # * first round and subsequent rounds
         self.delay = self.update_process(

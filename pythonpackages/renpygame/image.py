@@ -80,6 +80,7 @@ class Image(renpy.display.im.Image):
         return image
 
     def convert(self, width: int, height: int, st: float, at: float) -> Surface:
+        """* IMPORTANT: when this is converted must be blit into main Render -> because if not, the image is not rendered -> because have a old st and at"""
         surface = Surface(self.size)
         render = renpy.render(self, width, height, st, at)
         # * render.blit(self.pygame_image: used only for pygame rendering
