@@ -4,7 +4,7 @@ import pygame_sdl2 as pygame_sdl2
 import renpy.exports as renpy
 from pygame_sdl2.display import *
 
-import pythonpackages.renpygame.pygame as pygame
+import pythonpackages.pygame as pygame
 from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.renpygameRender import Render
 
