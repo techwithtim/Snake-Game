@@ -5,6 +5,7 @@ from pythonpackages.renpygame.renpygameCDD import RenpyGameByTimer as my_RenpyGa
 import pythonpackages.renpygame.sprite as my_sprite
 import pythonpackages.renpygame.transform as my_transform
 import pythonpackages.renpygame.event as my_event
+import pythonpackages.renpygame.mixer as my_mixer
 from pythonpackages.renpygame.pygame import *
 
 Surface = my_display.Surface
@@ -14,6 +15,7 @@ sprite = my_sprite
 image = my_image
 transform = my_transform
 event = my_event
+mixer = my_mixer
 
 RenpyGameByTimer = my_RenpyGameByTimer
 RenpyGameByEvent = my_RenpyGameByEvent
