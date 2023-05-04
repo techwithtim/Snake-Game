@@ -52,11 +52,12 @@ class Image(renpy.display.im.Image):
             return images_names[0]
         else:
             raise FileNotFoundError(
-                f'renpygame.image.Image.imagename: Image not found: {self}')
+                f"renpygame.image.Image.imagename: Image not found: {self}"
+            )
 
     @property
     def file(self):
-        path = os_path_join('images', self.imagename)
+        path = os_path_join("images", self.imagename)
         return renpy.open_file(path)
 
     @property
@@ -66,6 +67,7 @@ class Image(renpy.display.im.Image):
         return image
 
     def convert(self, width: int, height: int, st: float, at: float) -> renpy.Render:
+        # TODO: try use renpy.load_surface
         surface = Surface(self.size)
         render = renpy.render(self, width, height, st, at)
         surface.blit(render, (0, 0))
@@ -120,11 +122,12 @@ class Flip(renpy.display.im.Flip):
             return images_names[0]
         else:
             raise FileNotFoundError(
-                f'renpygame.image.Flip.imagename: Image not found: {self}')
+                f"renpygame.image.Flip.imagename: Image not found: {self}"
+            )
 
     @property
     def file(self):
-        path = os_path_join('images', self.imagename)
+        path = os_path_join("images", self.imagename)
         return renpy.open_file(path)
 
     @property
@@ -140,14 +143,7 @@ class Flip(renpy.display.im.Flip):
 class Scale(renpy.display.im.Scale):
     """https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L947"""
 
-    def __init__(
-        self,
-        im,
-        width,
-        height,
-        bilinear=True,
-        **properties
-    ):
+    def __init__(self, im, width, height, bilinear=True, **properties):
         super().__init__(im, width, height, bilinear, **properties)
 
     def get_hash(self):
@@ -182,11 +178,12 @@ class Scale(renpy.display.im.Scale):
             return images_names[0]
         else:
             raise FileNotFoundError(
-                f'renpygame.image.Scale.imagename: Image not found: {self}')
+                f"renpygame.image.Scale.imagename: Image not found: {self}"
+            )
 
     @property
     def file(self):
-        path = os_path_join('images', self.imagename)
+        path = os_path_join("images", self.imagename)
         return renpy.open_file(path)
 
     @property
@@ -202,13 +199,7 @@ class Scale(renpy.display.im.Scale):
 class Rotozoom(renpy.display.im.Rotozoom):
     """https://github.com/renpy/renpy/blob/master/renpy/display/im.py#L1113"""
 
-    def __init__(
-        self,
-        im,
-        angle,
-        zoom,
-        **properties
-    ):
+    def __init__(self, im, angle, zoom, **properties):
         super().__init__(im, angle, zoom, **properties)
 
     def get_hash(self):
@@ -243,11 +234,12 @@ class Rotozoom(renpy.display.im.Rotozoom):
             return images_names[0]
         else:
             raise FileNotFoundError(
-                f'renpygame.image.Rotozoom.imagename: Image not found: {self}')
+                f"renpygame.image.Rotozoom.imagename: Image not found: {self}"
+            )
 
     @property
     def file(self):
-        path = os_path_join('images', self.imagename)
+        path = os_path_join("images", self.imagename)
         return renpy.open_file(path)
 
     @property
