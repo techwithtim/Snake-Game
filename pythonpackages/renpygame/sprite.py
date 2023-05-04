@@ -1,6 +1,5 @@
-from pygame_sdl2.sprite import *
-
 import pythonpackages.pygame as pygame
+from pythonpackages.pygame.sprite import *
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.renpygame.rect import Rect
 

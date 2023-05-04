@@ -1,9 +1,9 @@
 from typing import Any, Optional, Union
 
 import renpy.exports as renpy
-from pygame_sdl2.display import *
 
 import pythonpackages.pygame as pygame
+from pythonpackages.pygame.display import *
 from pythonpackages.renpygame.rect import Rect
 from pythonpackages.renpygame.renpygameRender import Render
 

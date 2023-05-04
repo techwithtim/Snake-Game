@@ -1,6 +1,5 @@
-from pygame_sdl2.rect import *
-
 import pythonpackages.pygame as pygame
+from pythonpackages.pygame.rect import *
 from pythonpackages.renpygame.renpygameRender import Render
 
 

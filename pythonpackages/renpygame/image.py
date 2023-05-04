@@ -1,7 +1,7 @@
 import renpy.exports as renpy
-from pygame_sdl2.image import *
 
 import pythonpackages.pygame as pygame
+from pythonpackages.pygame.image import *
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.utility import os_path_join
 

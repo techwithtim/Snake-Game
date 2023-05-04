@@ -1,6 +1,5 @@
-from pygame_sdl2.event import *
-
 import pythonpackages.pygame as pygame
+from pythonpackages.pygame.event import *
 
 # https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/event.pyx
 
