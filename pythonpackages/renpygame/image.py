@@ -136,8 +136,8 @@ class Flip(renpy.display.im.Flip):
         image = image.convert()
         return image
 
-    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
-        return Image.convert(self, width, height, st, at)
+    def convert(self, st: float, at: float) -> Surface:
+        return Image.convert(self, st, at)
 
 
 class Scale(renpy.display.im.Scale):
@@ -192,8 +192,8 @@ class Scale(renpy.display.im.Scale):
         image = image.convert()
         return image
 
-    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
-        return Image.convert(self, width, height, st, at)
+    def convert(self, st: float, at: float) -> Surface:
+        return Image.convert(self, st, at)
 
 
 class Rotozoom(renpy.display.im.Rotozoom):
@@ -248,8 +248,8 @@ class Rotozoom(renpy.display.im.Rotozoom):
         image = image.convert()
         return image
 
-    def convert(self, width: int, height: int, st: float, at: float) -> Surface:
-        return Image.convert(self, width, height, st, at)
+    def convert(self, st: float, at: float) -> Surface:
+        return Image.convert(self, st, at)
 
 
 def load(path: str) -> Image:
