@@ -19,7 +19,8 @@ SCREENRECT = Rect(0, 0, 640, 480)
 
 
 class dummysound:
-    def play(self): pass
+    def play(self):
+        pass
 
 
 # each type of game object gets an init and an
@@ -47,16 +48,16 @@ class Player(pygame.sprite.Sprite):
     def move(self, direction):
         if direction:
             self.facing = direction
-        self.rect.move_ip(direction*self.speed, 0)
+        self.rect.move_ip(direction * self.speed, 0)
         self.rect = self.rect.clamp(SCREENRECT)
         if direction < 0:
             self.image = self.images[0]
         elif direction > 0:
             self.image = self.images[1]
-        self.rect.top = self.origtop - (self.rect.left/self.bounce % 2)
+        self.rect.top = self.origtop - (self.rect.left / self.bounce % 2)
 
     def gunpos(self):
-        pos = self.facing*self.gun_offset + self.rect.centerx
+        pos = self.facing * self.gun_offset + self.rect.centerx
         return pos, self.rect.top
 
 
@@ -126,8 +127,7 @@ class Bomb(pygame.sprite.Sprite):
     def __init__(self, alien):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
-        self.rect = self.image.get_rect(
-            midbottom=alien.rect.move(0, 5).midbottom)
+        self.rect = self.image.get_rect(midbottom=alien.rect.move(0, 5).midbottom)
 
     def update(self):
         self.rect.move_ip(0, self.speed)
@@ -172,6 +172,8 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.firsttime = True
         self.player_have_shot = False
         self.player_move = 0  # -1 left, 0 no move, 1 right
+        self.boom_sound = pygame.mixer.Sound("boom.wav")
+        self.shoot_sound = pygame.mixer.Sound("car_door.wav")
 
     @property
     def all(self) -> RenderUpdates:
@@ -238,15 +240,22 @@ clock = pygame.time.Clock()
 
 
 def main():
+    # # Initialize a shared data
+    # if not sh:
+    #     sh = SharedDataAlienGame()
+
+    # Initialize a game
     displayable_with_logic = pygame.RenpyGameByTimer(
         first_step=my_game_first_step,
         update_process=my_game_logic,
         event_lambda=game_event,
         delay=0.04,
     )
-
+    # start the game
     renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
-    renpy.call("start")
+    # clean up the shared data
+    del sh
+    # return to renpy
     return
 
 
@@ -265,39 +274,41 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
     # Load images, assign to sprite classes
     # (do this before the classes are used, after screen setup)
-    img = pygame.image.load('player1.gif')
+    img = pygame.image.load("player1.gif")
     img_flip = pygame.transform.flip(img, 1, 0)
     img = img.convert(width, height, st, at)
     img_flip = img_flip.convert(width, height, st, at)
     Player.images = [img, img_flip]
-    img = pygame.image.load('explosion1.gif')
+    img = pygame.image.load("explosion1.gif")
     img_flip = pygame.transform.flip(img, 1, 0)
     img = img.convert(width, height, st, at)
     img_flip = img_flip.convert(width, height, st, at)
     Explosion.images = [img, img_flip]
     Alien.images = [
-        pygame.image.load('alien1.gif').convert(width, height, st, at),
-        pygame.image.load('alien2.gif').convert(width, height, st, at),
-        pygame.image.load('alien3.gif').convert(width, height, st, at),
+        pygame.image.load("alien1.gif").convert(width, height, st, at),
+        pygame.image.load("alien2.gif").convert(width, height, st, at),
+        pygame.image.load("alien3.gif").convert(width, height, st, at),
     ]
-    Bomb.images = [pygame.image.load(
-        'bomb.gif').convert(width, height, st, at)]
-    Shot.images = [pygame.image.load(
-        'shot.gif').convert(width, height, st, at)]
+    Bomb.images = [pygame.image.load("bomb.gif").convert(width, height, st, at)]
+    Shot.images = [pygame.image.load("shot.gif").convert(width, height, st, at)]
 
     # decorate the game window
-    pygame.display.set_icon(pygame.image.load('alien1.gif').pygame_image)
-    pygame.display.set_caption('Pygame Aliens')
+    pygame.display.set_icon(pygame.image.load("alien1.gif").pygame_image)
+    pygame.display.set_caption("Pygame Aliens")
     pygame.mouse.set_visible(0)
 
     # create the background, tile the bgd image
-    bgdtile = pygame.image.load('background.gif')
+    bgdtile = pygame.image.load("background.gif")
     bgdtile = bgdtile.convert(width, height, st, at)
     sh.background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         sh.background.blit(bgdtile, (x, 0))
     screen.blit(sh.background, (0, 0))
     pygame.display.flip()
+
+    # play music
+    pygame.mixer.music.load("house_lo.wav")
+    pygame.mixer.music.play(-1)
 
     # Initialize Game Groups
     sh.aliens = pygame.sprite.Group()
@@ -325,10 +336,10 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     return screen
 
 
-def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float) -> Optional[float]:
-
+def my_game_logic(
+    st: float, at: float, cur_screen: pygame.Surface, time: float
+) -> Optional[float]:
     if sh.player.alive():
-
         # clear/erase the last drawn sprites
         sh.all.clear(cur_screen, sh.background)
 
@@ -341,7 +352,7 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
         if sh.player_have_shot and len(sh.shots) < MAX_SHOTS:
             Shot(sh.player.gunpos())
             # TODO: has been commented pe make it work
-            # shoot_sound.play()
+            sh.shoot_sound.play()
 
         # Create new alien
         if sh.alienreload:
@@ -356,19 +367,19 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
 
         # Detect collisions
         for alien in pygame.sprite.spritecollide(sh.player, sh.aliens, 1):
-            # boom_sound.play()
+            sh.boom_sound.play()
             Explosion(alien)
             Explosion(sh.player)
             sh.score = sh.score + 1
             sh.player.kill()
 
         for alien in pygame.sprite.groupcollide(sh.shots, sh.aliens, 1, 1).keys():
-            # boom_sound.play()
+            sh.boom_sound.play()
             Explosion(alien)
             sh.score = sh.score + 1
 
         for bomb in pygame.sprite.spritecollide(sh.player, sh.bombs, 1):
-            # boom_sound.play()
+            sh.boom_sound.play()
             Explosion(sh.player)
             Explosion(bomb)
             sh.player.kill()
@@ -385,23 +396,23 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
 
 
 def game_event(ev: EventType, x: int, y: int, st: float):
-    if (ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE):
+    if ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE:
         print("Player pressed space")
         sh.player_have_shot = True
-    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_SPACE):
+    elif ev.type == pygame.KEYUP and ev.key == pygame.K_SPACE:
         print("Player released space")
         sh.player_have_shot = False
-    elif (ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT):
+    elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT:
         print("Player pressed left")
         sh.player_move = -1
-    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_LEFT):
+    elif ev.type == pygame.KEYUP and ev.key == pygame.K_LEFT:
         print("Player released left")
         if sh.player_move == -1:
             sh.player_move = 0
-    elif (ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT):
+    elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT:
         print("Player pressed right")
         sh.player_move = 1
-    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_RIGHT):
+    elif ev.type == pygame.KEYUP and ev.key == pygame.K_RIGHT:
         print("Player released right")
         if sh.player_move == 1:
             sh.player_move = 0

@@ -1,8 +1,7 @@
-import pygame_sdl2 as pygame_sdl2
-from pygame_sdl2.music import *
-import pygame_sdl2.mixer_music as my_music
+import renpy.exports as renpy
+from pythonpackages.renpygame import mixer_music
 
-music = my_music
+music = mixer_music
 
 # https://www.renpy.org/doc/html/audio.html#functions
 
@@ -17,6 +16,7 @@ class Sound:
     def play(self, loops: int = 0, maxtime: int = -1, fade_ms: int = 0):
         """pygame: https://www.pygame.org/docs/ref/mixer.html#pygame.mixer.Sound.play
         renpy: https://www.renpy.org/doc/html/audio.html#renpy.play"""
+        renpy.play(self.filename, channel=None)
         return
 
     def stop(self):
