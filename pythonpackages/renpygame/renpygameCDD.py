@@ -9,7 +9,9 @@ from pythonpackages.renpygame.renpygameRender import Render
 # https://www.renpy.org/doc/html/cdd.html
 
 
-def main_render(child_render: Optional[Render], width: int, height: int) -> renpy.Render:
+def main_render(
+    child_render: Optional[Render], width: int, height: int
+) -> renpy.Render:
     """is a Render that contains the child_render.
     # TODO: try to remove and return child_render
     """
@@ -21,13 +23,14 @@ def main_render(child_render: Optional[Render], width: int, height: int) -> renp
 
 class RenpyGameByEvent(renpy.Displayable):
     """CDD: https://www.renpy.org/doc/html/cdd.html
-    renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292"""
+    renpy.Displayable: https://github.com/renpy/renpy/blob/master/renpy/display/core.py#L292
+    """
 
     def __init__(
         self,
-            render_lambda: Callable[[int, int, float, float], Render],
-            event_lambda: Callable[[EventType, int, int, float], Any],
-            **kwargs
+        render_lambda: Callable[[int, int, float, float], Render],
+        event_lambda: Callable[[EventType, int, int, float], Any],
+        **kwargs,
     ):
         # renpy.Displayable init
         super(RenpyGameByEvent, self).__init__(**kwargs)
@@ -46,7 +49,8 @@ class RenpyGameByEvent(renpy.Displayable):
 
     def event(self, ev: EventType, x: int, y: int, st: float):
         """keys: https://www.pygame.org/docs/ref/key.html#key-constants-label
-        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/event.pyx"""
+        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/event.pyx
+        """
         return self.event_lambda(ev, x, y, st)
 
     @property
@@ -70,14 +74,14 @@ class RenpyGameByEvent(renpy.Displayable):
 
 class RenpyGameByTimer(renpy.Displayable):
     """inspired by: DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
-    wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable"""
+    wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable
+    """
 
     def __init__(
         self,
         first_step: Callable[[int, int, float, float], Render],
         update_process: Callable[[float, float, Render, float], Optional[float]],
-        event_lambda: Optional[Callable[[
-            EventType, int, int, float], Any]] = None,
+        event_lambda: Optional[Callable[[EventType, int, int, float], Any]] = None,
         delay: float = 0.05,
         **kwargs,
     ):
@@ -119,14 +123,19 @@ class RenpyGameByTimer(renpy.Displayable):
         self._start_delay = value
 
     @property
-    def update_process(self) -> Callable[[float, float, Render, float], Optional[float]]:
+    def update_process(
+        self,
+    ) -> Callable[[float, float, Render, float], Optional[float]]:
         """update_process is a function that edit a child_render.
         Return a delay or None, if is None, the game will end.
-        Not return a child_render for set a child_render, because it is a Object, so it is not a copy, but a reference."""
+        Not return a child_render for set a child_render, because it is a Object, so it is not a copy, but a reference.
+        """
         return self._update_process
 
     @update_process.setter
-    def update_process(self, value: Callable[[float, float, Render, float], Optional[float]]):
+    def update_process(
+        self, value: Callable[[float, float, Render, float], Optional[float]]
+    ):
         self._update_process = value
 
     @property
@@ -152,9 +161,11 @@ class RenpyGameByTimer(renpy.Displayable):
         self.delay = self.start_delay
         self.child_render = None
 
-    def start_redraw_timer(self, delay: Optional[float] = None, check_game_end: bool = True):
+    def start_redraw_timer(
+        self, delay: Optional[float] = None, check_game_end: bool = True
+    ):
         """inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1503"""
-        if (delay is None):
+        if delay is None:
             delay = self.delay
         if self.delay is not None:
             renpy.redraw(self, delay)
@@ -165,7 +176,8 @@ class RenpyGameByTimer(renpy.Displayable):
         """this function will be started in the form of a loop.
         through start_redraw_timer, I trigger the event direnpy.redraw to create the loop.
 
-        inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534"""
+        inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534
+        """
 
         # * start the timer immediately at the beginning of the function. so that update_process does not affect the fps.
         # * I don't know if this is a good idea because if update_process time > delay, the game will be looped or the game skip a frame.
@@ -175,8 +187,7 @@ class RenpyGameByTimer(renpy.Displayable):
             print("Renpy Game Start")
             self.child_render = self.first_step(width, height, st, at)
         # * first round and subsequent rounds
-        self.delay = self.update_process(
-            st, at, self.child_render, self.delay)
+        self.delay = self.update_process(st, at, self.child_render, self.delay)
         return main_render(self.child_render, width, height)
 
     def event(self, ev: EventType, x: int, y: int, st: float):
@@ -184,9 +195,9 @@ class RenpyGameByTimer(renpy.Displayable):
         config.keymap: https://www.renpy.org/doc/html/config.html#var-config.keymap
         add a event: https://www.renpy.org/doc/html/other.html#renpy.queue_event
         """
-        if (pygame.WINDOWEVENT == ev.type):
+        if pygame.WINDOWEVENT == ev.type:
             self.start_redraw_timer(check_game_end=False)
-        if (32768 == ev.type):  # 32768 is the event type for pause menu
+        if 32768 == ev.type:  # 32768 is the event type for pause menu
             self.reset_game()
         if self.event_lambda is not None:
             return self.event_lambda(ev, x, y, st)
