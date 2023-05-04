@@ -1,3 +1,4 @@
+from typing import Optional
 import pygame_sdl2 as pygame_sdl2
 from pygame_sdl2.event import *
 
@@ -13,5 +14,5 @@ class EventType(pygame_sdl2.event.EventType):
         return super().dict
 
     @property
-    def type(self):
+    def type(self) -> int:
         return super().type

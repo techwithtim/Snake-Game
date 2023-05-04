@@ -41,7 +41,6 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = self.images[0]
         self.rect = self.image.get_rect(midbottom=SCREENRECT.midbottom)
-        self.reloading = 0
         self.origtop = self.rect.top
         self.facing = -1
 
@@ -171,6 +170,8 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.alienreload = 12
         self.score = 0
         self.firsttime = True
+        self.player_have_shot = False
+        self.player_move = 0  # -1 left, 0 no move, 1 right
 
     @property
     def all(self) -> RenderUpdates:
@@ -343,14 +344,12 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
         sh.all.update()
 
         # handle player input
-        direction = pygame.K_RIGHT - pygame.K_LEFT
-        firing = pygame.K_SPACE
+        direction = sh.player_move
         sh.player.move(direction)
-        if not sh.player.reloading and firing and len(sh.shots) < MAX_SHOTS:
+        if sh.player_have_shot and len(sh.shots) < MAX_SHOTS:
             Shot(sh.player.gunpos())
             # TODO: has been commented pe make it work
             # shoot_sound.play()
-        sh.player.reloading = firing
 
         # Create new alien
         if sh.alienreload:
@@ -394,5 +393,24 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
 
 
 def game_event(ev: EventType, x: int, y: int, st: float):
-    print("Event: ", ev, x, y, st)
+    if (ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE):
+        print("Player pressed space")
+        sh.player_have_shot = True
+    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_SPACE):
+        print("Player released space")
+        sh.player_have_shot = False
+    elif (ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT):
+        print("Player pressed left")
+        sh.player_move = -1
+    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_LEFT):
+        print("Player released left")
+        if sh.player_move == -1:
+            sh.player_move = 0
+    elif (ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT):
+        print("Player pressed right")
+        sh.player_move = 1
+    elif (ev.type == pygame.KEYUP and ev.key == pygame.K_RIGHT):
+        print("Player released right")
+        if sh.player_move == 1:
+            sh.player_move = 0
     return
