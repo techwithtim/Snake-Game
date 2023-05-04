@@ -11,7 +11,8 @@ from pythonpackages.renpygame.renpygameRender import Render
 
 class Surface(Render):
     """pygame: https://www.pygame.org/docs/ref/surface.html
-    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L53"""
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L53
+    """
 
     def __init__(
         self,
@@ -27,9 +28,12 @@ class Surface(Render):
         # pygame.Surface init
         self.internal_surface = pygame.Surface(size, flags, depth, masks)
 
-    def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> Rect:
+    def blit(
+        self, source, pos: tuple[int, int], focus=True, main=True, index=None
+    ) -> Rect:
         """pygame: https://www.pygame.org/docs/ref/surface.html#pygame.Surface.blit
-        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L182"""
+        pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/surface.pyx#L182
+        """
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
         if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):
@@ -43,7 +47,8 @@ class Surface(Render):
             return Rect()
         else:
             raise TypeError(
-                f'renpygame.display.Surface.blit(): you have passed an invalid type: {type(source)} or not implemented yet')
+                f"renpygame.display.Surface.blit(): you have passed an invalid type: {type(source)} or not implemented yet"
+            )
 
     def convert(self, surface=None):
         return self.internal_surface.convert(surface)
@@ -58,7 +63,7 @@ class Surface(Render):
         self.internal_surface.fill(color, rect, special_flags)
         return super().fill(color, rect, special_flags)
 
-    def scroll(self,  dx: int = 0,  dy: int = 0):
+    def scroll(self, dx: int = 0, dy: int = 0):
         return self.internal_surface.scroll(dx, dy)
 
     def set_colorkey(self, color, flags=0):
@@ -181,7 +186,7 @@ class Surface(Render):
     def get_bounding_rect(self, min_alpha=1):
         return self.internal_surface.get_bounding_rect(min_alpha)
 
-    def get_view(self, kind='2'):
+    def get_view(self, kind="2"):
         return self.internal_surface.get_view(kind)
 
     def get_buffer(self):
@@ -201,13 +206,21 @@ class Surface(Render):
         self._internal_surface = value
 
 
-def set_mode(size: tuple[int, int] = (0, 0), flags: int = 0, depth: int = 0, display: int = 0, vsync: int = 0) -> Surface:
+def set_mode(
+    size: tuple[int, int] = (0, 0),
+    flags: int = 0,
+    depth: int = 0,
+    display: int = 0,
+    vsync: int = 0,
+) -> Surface:
     """If it is commented out it will replace the renpy screen creating an error when returning to renpy. https://www.pygame.org/docs/ref/display.html#pygame.display.set_mode"""
     # * It has the job of replacing the original so nothing happens
     return Surface(size, flags, depth)
 
 
-def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0) -> int:
+def mode_ok(
+    size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0
+) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
     return pygame.display.mode_ok(size, flags, depth)
 
@@ -215,7 +228,10 @@ def mode_ok(size: tuple[int, int], flags: int = 0, depth: int = 0, display: int 
 def set_icon(Surface: pygame_sdl2.surface.Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
     if not isinstance(Surface, pygame_sdl2.surface.Surface):
-        print("set_icon(): Warning: Surface is not a pygame_sdl2.surface.Surface, it is a", type(Surface))
+        print(
+            "set_icon(): Warning: Surface is not a pygame_sdl2.surface.Surface, it is a",
+            type(Surface),
+        )
         print("if you have a renpyGame Image you can use image.pygame_image")
     return pygame.display.set_icon(Surface)
 

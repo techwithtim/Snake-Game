@@ -9,7 +9,6 @@ class Render(renpy.Render):
         width: int,
         height: int,
     ):
-
         # renpy.Render init
         super().__init__(width, height)
         # * Render properties, will come set in super().__init__
@@ -162,16 +161,22 @@ class Render(renpy.Render):
     def loaded(self):
         return super().loaded
 
-    def blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
+    def blit(
+        self, source, pos: tuple[int, int], focus=True, main=True, index=None
+    ) -> int:
         """render.blit(): https://github.com/renpy/renpy/blob/master/renpy/display/render.pyx#L778"""
         if hasattr(source, "renpygame_render") and source.renpygame_render:
             source = source.renpygame_render
         return super().blit(source, pos, focus, main, index)
 
-    def subpixel_blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
+    def subpixel_blit(
+        self, source, pos: tuple[int, int], focus=True, main=True, index=None
+    ) -> int:
         return super().subpixel_blit(source, pos, focus, main, index)
 
-    def absolute_blit(self, source, pos: tuple[int, int], focus=True, main=True, index=None) -> int:
+    def absolute_blit(
+        self, source, pos: tuple[int, int], focus=True, main=True, index=None
+    ) -> int:
         return super().absolute_blit(source, pos, focus, main, index)
 
     def get_size(self) -> tuple[int, int]:
@@ -192,11 +197,15 @@ class Render(renpy.Render):
     def kill(self):
         return super().kill()
 
-    def add_focus(self, d, arg=None, x=0, y=0, w=None, h=None, mx=None, my=None, mask=None):
+    def add_focus(
+        self, d, arg=None, x=0, y=0, w=None, h=None, mx=None, my=None, mask=None
+    ):
         return super().add_focus(d, arg, x, y, w, h, mx, my, mask)
 
     def take_focuses(self, cminx, cminy, cmaxx, cmaxy, transform, screen, focuses):
-        return super().take_focuses(cminx, cminy, cmaxx, cmaxy, transform, screen, focuses)
+        return super().take_focuses(
+            cminx, cminy, cmaxx, cmaxy, transform, screen, focuses
+        )
 
     def focus_at_point(self, x, y, screen):
         return super().focus_at_point(x, y, screen)
@@ -216,7 +225,18 @@ class Render(renpy.Render):
     def screen_rect(self, sx: float, sy: float, transform: list[list[int]]):
         return super().screen_rect(sx, sy, transform)
 
-    def place(self, d, x=0, y=0, width=None, height=None, st=None, at=None, render=None, main=True):
+    def place(
+        self,
+        d,
+        x=0,
+        y=0,
+        width=None,
+        height=None,
+        st=None,
+        at=None,
+        render=None,
+        main=True,
+    ):
         return super().place(d, x, y, width, height, st, at, render, main)
 
     def zoom(self, xzoom, yzoom):
@@ -237,7 +257,8 @@ class Render(renpy.Render):
     def renpygame_render(self) -> renpy.Render:
         """if set will be used during blit() instead of using the parent class.
         This is used during conversions and is useful to prevent errors.
-        # TODO: instead of using this variable during the conversion, one could set all the variables to the old element in the new"""
+        # TODO: instead of using this variable during the conversion, one could set all the variables to the old element in the new
+        """
         return self._original_render
 
     @renpygame_render.setter

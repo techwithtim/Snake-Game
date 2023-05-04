@@ -7,13 +7,10 @@ from pythonpackages.renpygame.rect import Rect
 
 class Sprite(pygame.sprite.Sprite):
     """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.Sprite
-    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L106"""
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L106
+    """
 
-    def __init__(
-        self,
-        *groups,
-        **kwargs
-    ):
+    def __init__(self, *groups, **kwargs):
         # Sprite init
         pygame.sprite.Sprite.__init__(self, *groups, **kwargs)
 
@@ -44,7 +41,7 @@ class Sprite(pygame.sprite.Sprite):
 
 class AbstractGroup(pygame.sprite.AbstractGroup):
     """pygame: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L284
-    pygame_sdl2: """
+    pygame_sdl2:"""
 
     def AbstractGroup(self):
         # Sprite init
@@ -88,8 +85,9 @@ class AbstractGroup(pygame.sprite.AbstractGroup):
 
 
 class Group(AbstractGroup):
-    """pygame: 
-    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L531"""
+    """pygame:
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L531
+    """
 
     def __init__(self, *sprites):
         AbstractGroup.__init__(self)
@@ -98,7 +96,8 @@ class Group(AbstractGroup):
 
 class RenderUpdates(Group):
     """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates
-    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L557"""
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/sprite.py#L557
+    """
 
     def draw(self, surface: Surface) -> list[Rect]:
         spritedict = self.spritedict

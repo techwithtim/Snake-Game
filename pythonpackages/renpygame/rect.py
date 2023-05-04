@@ -6,7 +6,8 @@ from pythonpackages.renpygame.renpygameRender import Render
 
 class Rect(Render):
     """pygame: https://www.pygame.org/docs/ref/rect.html
-    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/rect.pyx#L28"""
+    pygame_sdl2: https://github.com/renpy/pygame_sdl2/blob/master/src/pygame_sdl2/rect.pyx#L28
+    """
 
     def __init__(
         self,
@@ -15,7 +16,6 @@ class Rect(Render):
         width: int = 0,
         height: int = 0,
     ):
-
         # Render init
         Render.__init__(self, width, height)
 
@@ -34,7 +34,7 @@ class Rect(Render):
     def __iter__(self):
         return self.internal_rect.__iter__()
 
-    def __richcmp__(self, a, b,  op: int):
+    def __richcmp__(self, a, b, op: int):
         return self.internal_rect.__richcmp__(a, b, op)
 
     def __getitem__(self, key):
