@@ -80,7 +80,7 @@ class RenpyGameByTimer(renpy.Displayable):
     def __init__(
         self,
         first_step: Callable[[int, int, float, float], Render],
-        update_process: Callable[[float, float, Render, float], Optional[float]],
+        update_process: Callable[[Render, float, float, float, int], Optional[float]],
         event_lambda: Optional[Callable[[EventType, int, int, float], Any]] = None,
         delay: float = 0.05,
         **kwargs,
@@ -91,6 +91,7 @@ class RenpyGameByTimer(renpy.Displayable):
         self.update_process = update_process
         self.event_lambda = event_lambda
         self.child_render = None
+        self.current_frame_number = 0
 
         # renpy.Displayable init
         super(RenpyGameByTimer, self).__init__(**kwargs)
@@ -125,7 +126,7 @@ class RenpyGameByTimer(renpy.Displayable):
     @property
     def update_process(
         self,
-    ) -> Callable[[float, float, Render, float], Optional[float]]:
+    ) -> Callable[[Render, float, float, float, int], Optional[float]]:
         """update_process is a function that edit a child_render.
         Return a delay or None, if is None, the game will end.
         Not return a child_render for set a child_render, because it is a Object, so it is not a copy, but a reference.
@@ -134,7 +135,7 @@ class RenpyGameByTimer(renpy.Displayable):
 
     @update_process.setter
     def update_process(
-        self, value: Callable[[float, float, Render, float], Optional[float]]
+        self, value: Callable[[Render, float, float, float, int], Optional[float]]
     ):
         self._update_process = value
 
@@ -170,7 +171,13 @@ class RenpyGameByTimer(renpy.Displayable):
         if self.delay is not None:
             renpy.redraw(self, delay)
         elif check_game_end:
-            print("Renpy Game End")
+            self.game_end()
+
+    def game_end(self):
+        print("Renpy Game End")
+
+    def clean_screen(self):
+        renpy.free_memory()
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """this function will be started in the form of a loop.
@@ -186,8 +193,13 @@ class RenpyGameByTimer(renpy.Displayable):
         if self.child_render is None:  # * first round
             print("Renpy Game Start")
             self.child_render = self.first_step(width, height, st, at)
+            self.current_frame_number = 0
+        else:
+            self.current_frame_number += 1
         # * first round and subsequent rounds
-        self.delay = self.update_process(st, at, self.child_render, self.delay)
+        self.delay = self.update_process(
+            self.child_render, st, at, self.delay, self.current_frame_number
+        )
         return main_render(self.child_render, width, height)
 
     def event(self, ev: EventType, x: int, y: int, st: float):

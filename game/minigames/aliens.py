@@ -337,7 +337,11 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
 
 def my_game_logic(
-    st: float, at: float, cur_screen: pygame.Surface, time: float
+    cur_screen: pygame.Surface,
+    st: float,
+    at: float,
+    next_frame_time: float,
+    current_frame_number: int,
 ) -> Optional[float]:
     if sh.player.alive():
         # clear/erase the last drawn sprites
@@ -390,8 +394,9 @@ def my_game_logic(
 
         sh.firsttime = False
 
-        return time
+        return next_frame_time
     else:
+        # game end
         return None
 
 
