@@ -329,14 +329,6 @@ def my_game_logic(st: float, at: float, cur_screen: pygame.Surface, time: float)
 
     if sh.player.alive():
 
-        # TODO: has been commented pe make it work
-        # get input
-        # for event in pygame.event.get():
-        #     if event.type == QUIT or \
-        #         (event.type == KEYDOWN and event.key == K_ESCAPE):
-        #             return sh.score
-        # keystate = pygame.key.get_pressed()
-
         # clear/erase the last drawn sprites
         sh.all.clear(cur_screen, sh.background)
 
