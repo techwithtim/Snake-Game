@@ -276,21 +276,21 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     # (do this before the classes are used, after screen setup)
     img = pygame.image.load("player1.gif")
     img_flip = pygame.transform.flip(img, 1, 0)
-    img = img.convert(width, height, st, at)
-    img_flip = img_flip.convert(width, height, st, at)
+    img = img.convert(st, at)
+    img_flip = img_flip.convert(st, at)
     Player.images = [img, img_flip]
     img = pygame.image.load("explosion1.gif")
     img_flip = pygame.transform.flip(img, 1, 0)
-    img = img.convert(width, height, st, at)
-    img_flip = img_flip.convert(width, height, st, at)
+    img = img.convert(st, at)
+    img_flip = img_flip.convert(st, at)
     Explosion.images = [img, img_flip]
     Alien.images = [
-        pygame.image.load("alien1.gif").convert(width, height, st, at),
-        pygame.image.load("alien2.gif").convert(width, height, st, at),
-        pygame.image.load("alien3.gif").convert(width, height, st, at),
+        pygame.image.load("alien1.gif").convert(st, at),
+        pygame.image.load("alien2.gif").convert(st, at),
+        pygame.image.load("alien3.gif").convert(st, at),
     ]
-    Bomb.images = [pygame.image.load("bomb.gif").convert(width, height, st, at)]
-    Shot.images = [pygame.image.load("shot.gif").convert(width, height, st, at)]
+    Bomb.images = [pygame.image.load("bomb.gif").convert(st, at)]
+    Shot.images = [pygame.image.load("shot.gif").convert(st, at)]
 
     # decorate the game window
     pygame.display.set_icon(pygame.image.load("alien1.gif").pygame_image)
@@ -299,7 +299,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
 
     # create the background, tile the bgd image
     bgdtile = pygame.image.load("background.gif")
-    bgdtile = bgdtile.convert(width, height, st, at)
+    bgdtile = bgdtile.convert(st, at)
     sh.background = pygame.Surface(SCREENRECT.size)
     for x in range(0, SCREENRECT.width, bgdtile.get_width()):
         sh.background.blit(bgdtile, (x, 0))

@@ -66,10 +66,10 @@ class Image(renpy.display.im.Image):
         image = image.convert()
         return image
 
-    def convert(self, width: int, height: int, st: float, at: float) -> renpy.Render:
+    def convert(self, st: float, at: float) -> Surface:
         # TODO: try use renpy.load_surface
         surface = Surface(self.size)
-        render = renpy.render(self, width, height, st, at)
+        render = renpy.render(self, self.width, self.height, st, at)
         surface.blit(render, (0, 0))
         # * IMPORTANT: into convert is veri inportant set renpygame_render
         #   -> because so in blit I can use the pygame_render
