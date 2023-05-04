@@ -2,7 +2,6 @@
 
 **IMPORTANT**: This is a continuation of a project not mine, abandoned from 2008 [Renpygame](https://renpy.org/wiki/renpy/frameworks/Renpygame) (not working).
 
-
 ----
 
 Renpygame is a framework that allows pygame games to be integrated with Ren'Py. It's intended for people who are capable programmers. Currently compared to 2008, it is not possible to directly use the [pygame_sdl2](https://github.com/renpy/pygame_sdl2) library, especially to "draw".
@@ -17,7 +16,6 @@ Use of events to draw limits a lot -> you can't create loops to update a renpy.D
 
 ## Supported Modules
 
-
 - [ ] renpygame.color
 - [ ] renpygame.constants (Still to be tested, should already be working)
 - [ ] renpygame.cursors (Still to be tested, should already be working)
@@ -28,13 +26,12 @@ Use of events to draw limits a lot -> you can't create loops to update a renpy.D
 - [ ] renpygame.font
 - [ ] renpygame.image (Incomplete)
 - [ ] renpygame.joystick
-- [ ] renpygame.key
+- [ ] renpygame.key (Incomplete)
 - [ ] renpygame.locals (Still to be tested, should already be working)
-- [ ] renpygame.mixer
-- [ ] renpygame.mixer.music
+- [ ] renpygame.mixer (Incomplete)
+- [ ] renpygame.mixer.music (Incomplete)
 - [ ] renpygame.mouse (Still to be tested, should already be working)
 - [x] renpygame.rect
 - [ ] renpygame.sprite (Incomplete)
 - [ ] renpygame.time (Still to be tested, should already be working)
 - [ ] renpygame.transform (Incomplete)
-

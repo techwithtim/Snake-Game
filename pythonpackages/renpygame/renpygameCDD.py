@@ -80,7 +80,9 @@ class RenpyGameByTimer(renpy.Displayable):
     def __init__(
         self,
         first_step: Callable[[int, int, float, float], Render],
-        update_process: Callable[[Render, float, float, float, int], Optional[float]],
+        update_process: Callable[
+            [Render, float, float, Optional[float], int], Optional[float]
+        ],
         event_lambda: Optional[Callable[[EventType, int, int, float], Any]] = None,
         delay: float = 0.05,
         **kwargs,
@@ -106,12 +108,12 @@ class RenpyGameByTimer(renpy.Displayable):
         self._child_render = value
 
     @property
-    def delay(self) -> float:
+    def delay(self) -> Optional[float]:
         """delay is a time between frames"""
         return self._delay
 
     @delay.setter
-    def delay(self, value: float):
+    def delay(self, value: Optional[float]):
         self._delay = value
 
     @property
@@ -126,7 +128,7 @@ class RenpyGameByTimer(renpy.Displayable):
     @property
     def update_process(
         self,
-    ) -> Callable[[Render, float, float, float, int], Optional[float]]:
+    ) -> Callable[[Render, float, float, Optional[float], int], Optional[float]]:
         """update_process is a function that edit a child_render.
         Return a delay or None, if is None, the game will end.
         Not return a child_render for set a child_render, because it is a Object, so it is not a copy, but a reference.
@@ -135,7 +137,8 @@ class RenpyGameByTimer(renpy.Displayable):
 
     @update_process.setter
     def update_process(
-        self, value: Callable[[Render, float, float, float, int], Optional[float]]
+        self,
+        value: Callable[[Render, float, float, Optional[float], int], Optional[float]],
     ):
         self._update_process = value
 

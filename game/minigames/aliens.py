@@ -1,7 +1,6 @@
 import random
 from typing import Optional
 
-# import basic pygame_sdl2 modules
 import renpy.exports as renpy
 import renpy.store as store
 
