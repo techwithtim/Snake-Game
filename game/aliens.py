@@ -172,8 +172,8 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.firsttime = True
         self.player_have_shot = False
         self.player_move = 0  # -1 left, 0 no move, 1 right
-        self.boom_sound = pygame.mixer.Sound("boom.wav")
-        self.shoot_sound = pygame.mixer.Sound("car_door.wav")
+        self.boom_sound = pygame.mixer.Sound("audio/boom.wav")
+        self.shoot_sound = pygame.mixer.Sound("audio/car_door.wav")
 
     @property
     def all(self) -> RenderUpdates:
@@ -307,7 +307,7 @@ def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.
     pygame.display.flip()
 
     # play music
-    pygame.mixer.music.load("house_lo.wav")
+    pygame.mixer.music.load("audio/house_lo.wav")
     pygame.mixer.music.play(-1)
 
     # Initialize Game Groups
@@ -397,23 +397,17 @@ def my_game_logic(
 
 def game_event(ev: EventType, x: int, y: int, st: float):
     if ev.type == pygame.KEYDOWN and ev.key == pygame.K_SPACE:
-        print("Player pressed space")
         sh.player_have_shot = True
     elif ev.type == pygame.KEYUP and ev.key == pygame.K_SPACE:
-        print("Player released space")
         sh.player_have_shot = False
     elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_LEFT:
-        print("Player pressed left")
         sh.player_move = -1
     elif ev.type == pygame.KEYUP and ev.key == pygame.K_LEFT:
-        print("Player released left")
         if sh.player_move == -1:
             sh.player_move = 0
     elif ev.type == pygame.KEYDOWN and ev.key == pygame.K_RIGHT:
-        print("Player pressed right")
         sh.player_move = 1
     elif ev.type == pygame.KEYUP and ev.key == pygame.K_RIGHT:
-        print("Player released right")
         if sh.player_move == 1:
             sh.player_move = 0
     return
