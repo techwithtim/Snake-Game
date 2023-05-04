@@ -1,21 +1,10 @@
-﻿# You can place the script of your game in this file.
-
-init:
-    # Declare images below this line, using the image statement.
-    image bg m64 = "m64.jpg"
-    image eileen happy = "eileen_happy.png"
-
-    # Declare characters used by this game.
-    $ e = Character('Eileen', color="#c8ffc8")
-
+﻿init:
+    # import minigame
     $ import game.minigames.aliens as aliens
     
 
 # The game starts here.
 label aliens_start:
-
-    scene bg m64
-    show eileen happy at left
     
     e "Welcome!"
 
