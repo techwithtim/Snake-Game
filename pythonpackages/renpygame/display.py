@@ -1,6 +1,5 @@
 from typing import Any, Optional, Union
 
-import pygame_sdl2 as pygame_sdl2
 import renpy.exports as renpy
 from pygame_sdl2.display import *
 
@@ -225,9 +224,9 @@ def mode_ok(
     return pygame.display.mode_ok(size, flags, depth)
 
 
-def set_icon(Surface: pygame_sdl2.surface.Surface) -> None:
+def set_icon(Surface: pygame.surface.Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
-    if not isinstance(Surface, pygame_sdl2.surface.Surface):
+    if not isinstance(Surface, pygame.surface.Surface):
         print(
             "set_icon(): Warning: Surface is not a pygame_sdl2.surface.Surface, it is a",
             type(Surface),
