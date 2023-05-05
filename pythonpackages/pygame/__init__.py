@@ -1,15 +1,15 @@
 from pygame_sdl2 import *
 
-import pygame.display as my_display
-import pygame.event as my_event
-import pygame.image as my_image
-import pygame.rect as my_rect
-import pygame.sprite as my_sprite
-import pygame.transform as my_transform
+import pygame.display as pygame_display
+import pygame.event as pygame_event
+import pygame.image as pygame_image
+import pygame.rect as pygame_rect
+import pygame.sprite as pygame_sprite
+import pygame.transform as pygame_transform
 
-rect = my_rect
-display = my_display
-sprite = my_sprite
-image = my_image
-transform = my_transform
-event = my_event
+rect = pygame_rect
+display = pygame_display
+sprite = pygame_sprite
+image = pygame_image
+transform = pygame_transform
+event = pygame_event
