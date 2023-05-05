@@ -240,8 +240,10 @@ clock = pygame.time.Clock()
 
 def main():
     # # Initialize a shared data
-    # if not sh:
-    #     sh = SharedDataAlienGame()
+    global sh
+
+    if not sh:
+        sh = SharedDataAlienGame()
 
     # Initialize a game
     displayable_with_logic = pygame.RenpyGameByTimer(
@@ -253,7 +255,7 @@ def main():
     # start the game
     renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
     # clean up the shared data
-    del sh
+    sh = None
     # return to renpy
     return
 
