@@ -43,19 +43,19 @@ class Rect(Render):
         return self.internal_rect.__setitem__(key, val)
 
     @property
-    def left(self):
+    def left(self) -> int:
         return self.internal_rect.left
 
     @left.setter
-    def left(self, value):
+    def left(self, value: int):
         self.internal_rect.left = value
 
     @property
-    def top(self):
+    def top(self) -> int:
         return self.internal_rect.top
 
     @top.setter
-    def top(self, value):
+    def top(self, value: int):
         self.internal_rect.top = value
 
     # * they are already defined in Render

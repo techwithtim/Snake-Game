@@ -62,7 +62,7 @@ class Image(renpy.display.im.Image):
 
     @property
     def pygame_image(self) -> pygame.Surface:
-        image = pygame.image.load(self.file)
+        image = pygame.image.load(self.file)  # type: ignore
         image = image.convert()
         return image
 
@@ -132,7 +132,7 @@ class Flip(renpy.display.im.Flip):
 
     @property
     def pygame_image(self) -> pygame.Surface:
-        image = pygame.image.load(self.file)
+        image = pygame.image.load(self.file)  # type: ignore
         image = image.convert()
         return image
 
@@ -188,7 +188,7 @@ class Scale(renpy.display.im.Scale):
 
     @property
     def pygame_image(self) -> pygame.Surface:
-        image = pygame.image.load(self.file)
+        image = pygame.image.load(self.file)  # type: ignore
         image = image.convert()
         return image
 
@@ -244,7 +244,7 @@ class Rotozoom(renpy.display.im.Rotozoom):
 
     @property
     def pygame_image(self) -> pygame.Surface:
-        image = pygame.image.load(self.file)
+        image = pygame.image.load(self.file)  # type: ignore
         image = image.convert()
         return image
 

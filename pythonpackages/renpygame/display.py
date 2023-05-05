@@ -35,14 +35,14 @@ class Surface(Render):
         """
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
-        if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):
+        if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):  # type: ignore
             pos = (pos.left, pos.top)
         super().blit(source, pos, focus, main, index)
         if isinstance(source, Surface) or isinstance(source, pygame.Surface):
             return source.get_rect()
-        elif isinstance(source, Rect) or isinstance(source, pygame.rect.Rect):
+        elif isinstance(source, Rect) or isinstance(source, pygame.rect.Rect):  # type: ignore
             return source
-        elif isinstance(source, renpy.display.render.Render):
+        elif isinstance(source, renpy.Render):
             return Rect()
         else:
             raise TypeError(
@@ -221,25 +221,25 @@ def mode_ok(
     size: tuple[int, int], flags: int = 0, depth: int = 0, display: int = 0
 ) -> int:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.mode_ok"""
-    return pygame.display.mode_ok(size, flags, depth)
+    return pygame.display.mode_ok(size, flags, depth)  # type: ignore
 
 
-def set_icon(Surface: pygame.surface.Surface) -> None:
+def set_icon(Surface: pygame.Surface) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.set_icon"""
-    if not isinstance(Surface, pygame.surface.Surface):
+    if not isinstance(Surface, pygame.Surface):
         print(
             "set_icon(): Warning: Surface is not a pygame_sdl2.surface.Surface, it is a",
             type(Surface),
         )
         print("if you have a renpyGame Image you can use image.pygame_image")
-    return pygame.display.set_icon(Surface)
+    return pygame.display.set_icon(Surface)  # type: ignore
 
 
 def flip() -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.flip"""
-    return pygame.display.flip()
+    return pygame.display.flip()  # type: ignore
 
 
 def update(rectangle: Optional[Union[list, Any]] = None) -> None:
     """https://www.pygame.org/docs/ref/display.html#pygame.display.update"""
-    return pygame.display.update(rectangle)
+    return pygame.display.update(rectangle)  # type: ignore
