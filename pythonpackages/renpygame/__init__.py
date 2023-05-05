@@ -14,6 +14,7 @@ from pythonpackages.renpygame.renpygameCDD import (
 )
 
 Surface = my_display.Surface
+Rect = my_rect.Rect
 rect = my_rect
 display = my_display
 sprite = my_sprite

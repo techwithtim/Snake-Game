@@ -35,12 +35,12 @@ class Surface(Render):
         """
         if isinstance(source, pygame.Surface):
             self.internal_surface.blit(source, pos)
-        if isinstance(pos, Rect) or isinstance(pos, pygame.rect.Rect):  # type: ignore
+        if isinstance(pos, Rect) or isinstance(pos, pygame.Rect):
             pos = (pos.left, pos.top)
         super().blit(source, pos, focus, main, index)
         if isinstance(source, Surface) or isinstance(source, pygame.Surface):
             return source.get_rect()
-        elif isinstance(source, Rect) or isinstance(source, pygame.rect.Rect):  # type: ignore
+        elif isinstance(source, Rect) or isinstance(source, pygame.Rect):
             return source
         elif isinstance(source, renpy.Render):
             return Rect()
@@ -60,7 +60,7 @@ class Surface(Render):
 
     def fill(self, color, rect=None, special_flags=0):
         self.internal_surface.fill(color, rect, special_flags)
-        return super().fill(color, rect, special_flags)
+        return super().fill(color)
 
     def scroll(self, dx: int = 0, dy: int = 0):
         return self.internal_surface.scroll(dx, dy)
@@ -175,9 +175,6 @@ class Surface(Render):
 
     def set_shifts(self, shifts):
         return self.internal_surface.set_shifts(shifts)
-
-    def get_shifts(self):
-        return self.internal_surface.get_shifts()
 
     def get_losses(self):
         return self.internal_surface.get_losses()

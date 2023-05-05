@@ -31,7 +31,7 @@ class Sprite(pygame.sprite.Sprite):
     def kill(self):
         return super().kill()
 
-    def groups(self):
+    def groups(self) -> list[AbstractGroup]:
         return super().groups()
 
     def alive(self) -> bool:
@@ -55,10 +55,10 @@ class AbstractGroup(pygame.sprite.AbstractGroup):
     def remove_internal(self, sprite):
         return super().remove_internal(sprite)
 
-    def has_internal(self, sprite):
+    def has_internal(self, sprite) -> bool:
         return super().has_internal(sprite)
 
-    def copy(self):
+    def copy(self) -> pygame.sprite.AbstractGroup:
         return super().copy()
 
     def add(self, *sprites):
@@ -67,7 +67,7 @@ class AbstractGroup(pygame.sprite.AbstractGroup):
     def remove(self, *sprites):
         return super().remove(*sprites)
 
-    def has(self, *sprites):
+    def has(self, *sprites) -> bool:
         return super().has(*sprites)
 
     def update(self, *args):

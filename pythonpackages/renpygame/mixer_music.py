@@ -26,9 +26,7 @@ def play(loops: int = 0, start: float = 0.0, fade_ms: int = 0) -> None:
     if current_music_filename is None:
         print("renpygame.mixer_music.play: no music loaded")
         return
-    renpy.music.play(
-        current_music_filename, loop=loops, fadeout=fade_ms, synchro_start=start
-    )
+    renpy.music.play(current_music_filename, loop=loops, fadeout=fade_ms)
     return
 
 
@@ -74,14 +72,14 @@ def get_volume() -> float:
     """pygame: https://www.pygame.org/docs/ref/music.html#pygame.mixer.music.get_volume"""
     # TODO: implement
     print("renpygame.mixer_music.get_volume: not implemented yet")
-    return
+    return 0.0
 
 
 def get_busy() -> bool:
     """pygame: https://www.pygame.org/docs/ref/music.html#pygame.mixer.music.get_busy"""
     # TODO: implement
     print("renpygame.mixer_music.get_busy: not implemented yet")
-    return
+    return False
 
 
 def set_pos(pos: float) -> None:
@@ -94,7 +92,7 @@ def set_pos(pos: float) -> None:
 def get_pos() -> float:
     """pygame: https://www.pygame.org/docs/ref/music.html#pygame.mixer.music.get_pos"""
     renpy.music.get_pos()
-    return
+    return 0.0
 
 
 def queue(fileobj, namehint: str = "", loops: int = 0) -> None:
@@ -114,4 +112,4 @@ def get_endevent() -> type:
     """pygame: https://www.pygame.org/docs/ref/music.html#pygame.mixer.music.get_endevent"""
     # TODO: implement
     print("renpygame.mixer_music.get_endevent: not implemented yet")
-    return
+    return type

@@ -18,8 +18,8 @@ class Rect(Render):
         # Render init
         Render.__init__(self, width, height)
 
-        # pygame.rect.Rect init
-        self.internal_rect = pygame.rect.Rect(left, top, width, height)
+        # pygame.Rect init
+        self.internal_rect = pygame.Rect(left, top, width, height)
 
     def __reduce__(self):
         return self.internal_rect.__reduce__()
@@ -253,9 +253,9 @@ class Rect(Render):
     # my methods
 
     @property
-    def internal_rect(self) -> pygame.rect.Rect:
+    def internal_rect(self) -> pygame.Rect:
         return self._internal_rect
 
     @internal_rect.setter
-    def internal_rect(self, value: pygame.rect.Rect):
+    def internal_rect(self, value: pygame.Rect):
         self._internal_rect = value
