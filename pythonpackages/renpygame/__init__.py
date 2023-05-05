@@ -5,7 +5,7 @@ import pythonpackages.renpygame.mixer as my_mixer
 import pythonpackages.renpygame.rect as my_rect
 import pythonpackages.renpygame.sprite as my_sprite
 import pythonpackages.renpygame.transform as my_transform
-from pythonpackages.pygame import *
+from pythonpackages.renpygame_pygame import *
 from pythonpackages.renpygame.renpygameCDD import (
     RenpyGameByEvent as my_RenpyGameByEvent,
 )

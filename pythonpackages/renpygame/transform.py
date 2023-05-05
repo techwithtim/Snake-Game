@@ -2,7 +2,7 @@ from typing import Union
 
 import renpy.exports as renpy
 
-from pythonpackages.pygame.transform import *
+from pythonpackages.renpygame_pygame.transform import *
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.renpygame.image import Flip, Image, Rotozoom, Scale
 

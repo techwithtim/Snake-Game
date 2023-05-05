@@ -1,5 +1,5 @@
-import pythonpackages.pygame as pygame
-from pythonpackages.pygame.rect import *
+import pythonpackages.renpygame_pygame as pygame
+from pythonpackages.renpygame_pygame.rect import *
 from pythonpackages.renpygame.renpygameRender import Render
 
 
