@@ -261,9 +261,6 @@ def main():
 
 
 def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
-    # Initialize pygame
-    pygame.init()
-
     # Set the display mode
     if store._preferences.fullscreen:
         winstyle = FULLSCREEN
