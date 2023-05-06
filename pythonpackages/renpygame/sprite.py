@@ -1,7 +1,9 @@
+import renpy.exports as renpy
+
 import pythonpackages.renpygame_pygame as pygame
-from pythonpackages.renpygame_pygame.sprite import *
 from pythonpackages.renpygame.display import Surface
 from pythonpackages.renpygame.rect import Rect
+from pythonpackages.renpygame_pygame.sprite import *
 
 
 class Sprite(pygame.sprite.Sprite):
@@ -76,8 +78,11 @@ class AbstractGroup(pygame.sprite.AbstractGroup):
     def draw(self, surface):
         return super().draw(surface)
 
-    def clear(self, surface, bgd):
-        return super().clear(surface, bgd)
+    def clear(self, surface: Surface, bgd):
+        # * Is commented for improved performance
+        # return super().clear(surface, bgd)
+        surface.blit(bgd, (0, 0))
+        return
 
     def empty(self):
         return super().empty()
@@ -91,6 +96,9 @@ class Group(pygame.sprite.Group):
     def __init__(self, *sprites):
         super().__init__(*sprites)
 
+    def clear(self, surface: Surface, bgd):
+        return AbstractGroup.clear(self, surface, bgd)
+
 
 class RenderUpdates(pygame.sprite.RenderUpdates):
     """pygame: https://www.pygame.org/docs/ref/sprite.html#pygame.sprite.RenderUpdates
@@ -99,3 +107,6 @@ class RenderUpdates(pygame.sprite.RenderUpdates):
 
     def draw(self, surface: Surface) -> list[Rect]:
         return super().draw(surface)
+
+    def clear(self, surface: Surface, bgd):
+        return AbstractGroup.clear(self, surface, bgd)

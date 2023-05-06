@@ -72,6 +72,50 @@ class RenpyGameByEvent(renpy.Displayable):
         self._child_render = value
 
 
+def render_free_memory():
+    """
+    Frees memory used by the render system.
+    """
+
+    # global screen_render
+    # screen_render = None
+
+    # renpy.display.render.mark_sweep()
+
+    renpy.display.render.render_cache.clear()
+
+    # This can hang onto a render.
+    renpy.display.interface.surftree = None
+
+
+def kill_textures():
+    """
+    Kills all textures that have been loaded.
+    """
+
+    if renpy.display.draw is not None:
+        renpy.display.draw.kill_textures()
+
+    renpy.display.im.cache.clear()
+    render_free_memory()
+    renpy.text.text.layout_cache_clear()
+    renpy.display.video.texture.clear()
+
+
+def free_memory():
+    """https://github.com/renpy/renpy/blob/ed471a56cbe82d58d8b68faf807e4f0ff860f1a5/renpy/exports.py#LL2692C1-L2705C1"""
+    renpy.force_full_redraw()
+    kill_textures()
+    renpy.display.interface.kill_surfaces()
+    renpy.text.font.free_memory()
+
+    renpy.gc.collect(2)
+
+    if renpy.gc.garbage:
+        del renpy.gc.garbage[:]
+    return
+
+
 class RenpyGameByTimer(renpy.Displayable):
     """inspired by: DynamicDisplayable: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1418
     wiki: https://www.renpy.org/doc/html/displayables.html?highlight=dynamic#DynamicDisplayable
@@ -188,6 +232,13 @@ class RenpyGameByTimer(renpy.Displayable):
 
         inspired by: https://github.com/renpy/renpy/blob/master/renpy/display/layout.py#L1534
         """
+
+        if self.current_frame_number % 3600 == 0:
+            free_memory()
+            print(
+                "Renpy Game Free Memory, current_frame_number:",
+                self.current_frame_number,
+            )
 
         # * start the timer immediately at the beginning of the function. so that update_process does not affect the fps.
         # * I don't know if this is a good idea because if update_process time > delay, the game will be looped or the game skip a frame.
