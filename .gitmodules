@@ -1,0 +1,4 @@
+[submodule "pythonpackages/renpy_utility"]
+	path = pythonpackages/renpy_utility
+	url = https://github.com/DRincs-Productions/renpy-utility-lib
+	branch = python-lib
