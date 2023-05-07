@@ -1,5 +1,5 @@
 init python:
-    import pythonpackages.flags as myFlags
+    import pythonpackages.renpy_utility.flags as myFlags
 
 # flags are Boolean values, a good use is for example in quests to know quickly if MC has the possibility to do a certain thing, after unlocking it somehow.
 # has the same alements as flag_keys, all set as False

@@ -1,4 +1,4 @@
-from pythonpackages.renpy_custom_log import *
+from pythonpackages.renpy_utility.renpy_custom_log import *
 
 __all__ = [
     "update_flags",

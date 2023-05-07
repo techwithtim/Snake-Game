@@ -1,5 +1,5 @@
 init -998 python:
-    import pythonpackages.renpy_custom_log as myLog
+    import pythonpackages.renpy_utility.renpy_custom_log as myLog
 
     # 'define config.log' is in core.rpy
     error_notify = __("There is an {color=#f00}{b}ERROR{/b}{/color}. Please send the developer the logs found in: {color=#00ccff}[config.log]{/color}")
