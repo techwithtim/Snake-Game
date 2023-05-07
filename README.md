@@ -16,7 +16,7 @@ To **insert** or **update** the Toolkit in your repo with Pull branch I recommen
 git checkout -b renpy-utility-lib
 git checkout renpy-utility-lib
 git config pull.rebase false
-git pull https://github.com/DRincs-Productions/debug-and-template-VSCode-renpy.git tool-only --allow-unrelated-histories
+git pull https://github.com/DRincs-Productions/renpy-utility-lib.git tool-only --allow-unrelated-histories
 git submodule update --remote
 
 ```
