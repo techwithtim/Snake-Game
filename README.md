@@ -1,90 +1,60 @@
 # Renpygame
 
-**IMPORTANT**: This is a continuation of a project not mine, abandoned from 2008 [Renpygame](https://renpy.org/wiki/renpy/frameworks/Renpygame)
+**IMPORTANT**: This is a continuation of a project not mine, abandoned from 2008 [Renpygame](https://renpy.org/wiki/renpy/frameworks/Renpygame) (not working).
 
 ----
 
-Renpygame is a framework that allows pygame games to be integrated with Ren'Py. It's intended for people who are capable programmers. The philosophy of renpygame is to provide a minimal layer over pygame, and to rely on the programmer to reset things he changes.
+Renpygame is a framework that allows pygame games to be integrated with Ren'Py. It's intended for people who are capable programmers. Currently compared to 2008, it is not possible to directly use the [pygame_sdl2](https://github.com/renpy/pygame_sdl2) library, especially to "draw".
 
-To try out renpygame, download the renpygame demo from the [Frameworks](https://www.renpy.org/wiki/renpy/Frameworks) page, and unpack it inside a Ren'Py You can then select the renpygame-demo project from the launcher, launch it, and see an example of Ren'Py integrated with one of the pygame demo games.
+The idea is to create a library that uses [pygame_sdl2](https://github.com/renpy/pygame_sdl2) and overrides functions that can be handled by the [renpy](https://github.com/renpy/renpy) library.
 
-To use renpygame in your own project, copy the renpygame directory from the base directory of the renpygame-demo project into the base directory of your own project. The base directory is the directory above the game directory, the directory that contains the game directory.
+The big problem is that the mode for drawing is very different. The only way I found was to use [CDD](https://www.renpy.org/doc/html/cdd.html) and use that events to draw and update an element.
 
-## Porting Pygame Code
+Use of events to draw limits a lot -> you can't create loops to update a renpy.Displayable -> that's why you can't copy and paste a game, but modify it slightly.
 
-To use renpygame, you need to change imports of pygame to imports of renpygame. For example, the code:
+## Why use pygame-renpygame and not renpy-CDD?
 
-```renpy
-import pygame
-from pygame.locals import *
-```
+pygame-renpygame's pros:
 
-would become
+- You can use pygame and renpy functions
+- huge number of minigames on github
+- popularity (pygame is also often used in universities)
+- typification (I am endeavouring to add the type everywhere)
 
-```renpy
-import renpygame
-import renpygame as pygame
-from renpygame.locals import *
-```
+renpy's pros:
 
-The code can then be used mostly unchanged.
+- durability ([CDD](https://www.renpy.org/doc/html/cdd.html) is developed by the same developer as renpy)
 
-Renpygame expects that the renpygame.display.set_mode function will be called whenever we switch from Ren'Py to renpygame. It's up to the user to take a look at _preferences.fullscreen and set the FULLSCREEN flag as appropriate. For example:
+## Performance
 
-```renpy
-init python:
+([in development](https://github.com/DRincs-Productions/Renpygame/issues/10))
 
-   import renpygame
-   import renpygame as pygame
-   from renpygame.locals import *
+**Important**: I am currently trying to solve performance problems in animations using [CDD](https://www.renpy.org/doc/html/cdd.html). for the time being i will not evaluate this problem because it is only a problem of incorrect implementation.
 
-   def set_mode():
-        if _preferences.fullscreen:
-            fsflag = FULLSCREEN
-        else:
-            fsflag = 0
+(I don't made any tests for now) Renpygame use [CDD](https://www.renpy.org/doc/html/cdd.html) for draw and renpy for open a file, but I use a typification and is a external library. So, the performance is the same as renpy, excluding possible implementation errors.
 
-        screen = renpygame.display.set_mode((800, 600), fsflag, 32)
-        return screen
-```
+## Instructions
 
 ## Supported Modules
 
-The following modules are supported:
+A good number of functions should already work even if they have not yet been tested
 
-* renpygame.color
-* renpygame.constants
-* renpygame.cursors
-* renpygame.display
-* renpygame.draw
-* renpygame.event
-* renpygame.font
-* renpygame.image
-* renpygame.joystick
-* renpygame.key
-* renpygame.locals
-* renpygame.mixer
-* renpygame.mixer.music
-* renpygame.mouse
-* renpygame.sprite
-* renpygame.time
-* renpygame.transform
-
-Functions that take a file have been modified so that the files are searched for in archives (except for Fonts), and in the game directory.
-
-# Install Pygame
-
-```bash
-# install pip
-sudo apt install python3-pip
-# install dependencies https://www.pygame.org/wiki/CompileUbuntu?parent=
-sudo apt-get install git python3-dev python3-setuptools python3-numpy python3-opengl \
-    libsdl-image1.2-dev libsdl-mixer1.2-dev libsdl-ttf2.0-dev libsmpeg-dev \
-    libsdl1.2-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev \
-    libtiff5-dev libx11-6 libx11-dev fluid-soundfont-gm timgm6mb-soundfont \
-    xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic fontconfig fonts-freefont-ttf libfreetype6-dev
-# install pygame
-pip install pygame
-pip install Cython
-# dowload https://github.com/renpy/pygame_sdl2/tree/master/src/pygame_sdl2
-```
+- [ ] renpygame.color
+- [ ] renpygame.constants (Still to be tested, should already be working)
+- [ ] renpygame.cursors (Still to be tested, should already be working)
+- [ ] renpygame.display (Incomplete)
+- [x] renpygame.display.Surface
+- [ ] renpygame.draw
+- [ ] renpygame.event (Still to be tested, should already be working)
+- [ ] renpygame.font
+- [ ] renpygame.image (Incomplete)
+- [ ] renpygame.joystick
+- [ ] renpygame.key (Incomplete)
+- [ ] renpygame.locals (Still to be tested, should already be working)
+- [ ] renpygame.mixer (Incomplete)
+- [ ] renpygame.mixer.music (Incomplete)
+- [ ] renpygame.mouse (Still to be tested, should already be working)
+- [x] renpygame.rect
+- [ ] renpygame.sprite (Incomplete)
+- [ ] renpygame.time (Still to be tested, should already be working)
+- [ ] renpygame.transform (Incomplete)
