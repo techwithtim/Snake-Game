@@ -19,7 +19,7 @@ label disable_notifyEx:
     return
 
 init -999 python:
-    import pythonpackages.renpy_custom_notify as myNotify
+    import pythonpackages.renpy_utility.renpy_custom_notify as myNotify
 
     def notify_add(message: str = None, image: str = None):
         return myNotify.notify_add(message, image)
