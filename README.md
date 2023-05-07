@@ -23,13 +23,13 @@ pygame-renpygame's pros:
 
 renpy's pros:
 
-- durability (CDD is developed by the same developer as renpy)
+- durability ([CDD](https://www.renpy.org/doc/html/cdd.html) is developed by the same developer as renpy)
 
 ## Performance
 
-**Important**: I am currently trying to solve performance problems in animations using CDD. for the time being i will not evaluate this problem because it is only a problem of incorrect implementation.
+**Important**: I am currently trying to solve performance problems in animations using [CDD](https://www.renpy.org/doc/html/cdd.html). for the time being i will not evaluate this problem because it is only a problem of incorrect implementation.
 
-(I don't made any tests for now) Renpygame use CDD for draw and renpy for open a file, but I use a typification and is a external library. So, the performance is the same as renpy, excluding possible implementation errors.
+(I don't made any tests for now) Renpygame use [CDD](https://www.renpy.org/doc/html/cdd.html) for draw and renpy for open a file, but I use a typification and is a external library. So, the performance is the same as renpy, excluding possible implementation errors.
 
 ## Instructions
 
