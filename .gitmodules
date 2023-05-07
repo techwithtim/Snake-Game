@@ -1,0 +1,12 @@
+[submodule "pythonpackages/renpygame"]
+	path = pythonpackages/renpygame
+	url = https://github.com/DRincs-Productions/Renpygame
+	branch = renpy-tool
+[submodule "pythonpackages/renpygame_pygame"]
+	path = pythonpackages/renpygame_pygame
+	url = https://github.com/DRincs-Productions/Renpygame
+	branch = renpygame_pygame
+[submodule "game/renpygame"]
+	path = game/renpygame
+	url = https://github.com/DRincs-Productions/Renpygame
+	branch = renpygame
