@@ -13,13 +13,16 @@ The big problem is that the mode for drawing is very different. The only way I f
 Use of events to draw limits a lot -> you can't create loops to update a renpy.Displayable -> that's why you can't copy and paste a game, but modify it slightly.
 
 ## Why use pygame-renpygame and not renpy-CDD?
+
 pygame-renpygame's pros:
+
 - You can use pygame and renpy functions
-- huge number of minigames on github 
+- huge number of minigames on github
 - popularity (pygame is also often used in universities)
 - typification (I am endeavouring to add the type everywhere)
 
 renpy's pros:
+
 - durability (CDD is developed by the same developer as renpy)
 
 ## Performance

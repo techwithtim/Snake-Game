@@ -157,7 +157,7 @@ class Score(pygame.sprite.Sprite):
             # self.image = self.font.render(msg, 0, self.color)
 
 
-class SharedDataAlienGame(pygame.sprite.Sprite):
+class SharedDataAlienGame:
     def __init__(self):
         self.all = None
         self.player = None
@@ -168,7 +168,6 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
         self.shots = None
         self.alienreload = 12
         self.score = 0
-        self.firsttime = True
         self.player_have_shot = False
         self.player_move = 0  # -1 left, 0 no move, 1 right
         self.boom_sound = pygame.mixer.Sound("audio/boom.wav")
@@ -233,7 +232,6 @@ class SharedDataAlienGame(pygame.sprite.Sprite):
 
 sh = SharedDataAlienGame()
 # Create Some Starting Values
-global score
 kills = 0
 clock = pygame.time.Clock()
 
@@ -252,8 +250,11 @@ def main():
         event_lambda=game_event,
         delay=0.04,
     )
-    # start the game
-    renpy.call_screen("renpygame_surface", surface=displayable_with_logic)
+    # show amd start the game
+    displayable_with_logic.show()
+
+    # * after show() the game will be running when the game is over
+
     # clean up the shared data
     sh = None
     # return to renpy
@@ -389,8 +390,6 @@ def my_game_logic(
         # draw the scene
         dirty = sh.all.draw(cur_screen)
         pygame.display.update(dirty)
-
-        sh.firsttime = False
 
         return next_frame_time
     else:

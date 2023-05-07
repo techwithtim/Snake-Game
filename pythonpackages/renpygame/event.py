@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pythonpackages.renpygame_pygame as pygame
 from pythonpackages.renpygame_pygame.event import *
 
@@ -15,3 +17,7 @@ class EventType(pygame.event.EventType):  # type: ignore
     @property
     def type(self) -> int:
         return super().type
+
+    @property
+    def key(self) -> Optional[int]:
+        return super().key
