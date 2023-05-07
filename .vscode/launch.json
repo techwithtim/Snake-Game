@@ -14,35 +14,35 @@
             "name": "Ren'Py: Run",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy run",
+            "script": "bin/renpy.ps1 run",
             "cwd": "${workspaceFolder}"
         },
         {
             "name": "Ren'Py: Recompile & Run",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy compile; bin/renpy run",
+            "script": "bin/renpy.ps1 compile; bin/renpy.ps1 run",
             "cwd": "${workspaceFolder}"
         },
         {
             "name": "Ren'Py: Delete Persistent",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy rmpersistent",
+            "script": "bin/renpy.ps1 rmpersistent",
             "cwd": "${workspaceFolder}"
         },
         {
             "name": "Ren'Py: Lint",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy lint",
+            "script": "bin/renpy.ps1 lint",
             "cwd": "${workspaceFolder}"
         },
         {
             "name": "Ren'Py: Distribute",
             "type": "PowerShell",
             "request": "launch",
-            "script": "bin/renpy distribute",
+            "script": "bin/renpy.ps1 distribute",
             "cwd": "${workspaceFolder}"
         },
     ],

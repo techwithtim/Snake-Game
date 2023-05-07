@@ -21,14 +21,14 @@ label disable_notifyEx:
 init -999 python:
     import pythonpackages.renpy_custom_notify as myNotify
 
-    def notifyEx(msg: str = None, img: str = None):
-        return myNotify.notifyEx(msg, img)
+    def notify_add(message: str = None, image: str = None):
+        return myNotify.notify_add(message, image)
 
-    def notifyExPreventsLoops(msg: str = None, img: str = None):
-        return myNotify.notifyExPreventsLoops(msg, img)
+    def notify_prevents_loops(message: str = None, image: str = None):
+        return myNotify.notify_prevents_loops(message, image)
 
-    def notifyExClean(value):
-        return myNotify.notifyExClean(value)
+    def notify_remove(value):
+        return myNotify.notify_remove(value)
 
     def notify(notific):
         return myNotify.notify(notific)
@@ -40,7 +40,7 @@ style notify_text is default:
 style notify_hbox is default:
     ysize gui.notifyEx_height
 
-screen notifyEx():
+screen notifyEx:
 
     zorder 100
 
@@ -58,8 +58,8 @@ screen notifyExInternal( n ):
 
     frame at notify_appear:
         hbox:
-            if not n.img is None:
-                add n.img
+            if not n.image is None:
+                add n.image
             else:
                 # Ensure that all the texts will be aligned.
                 null width gui.notifyEx_width
@@ -67,7 +67,7 @@ screen notifyExInternal( n ):
             # aerate a little.
             null width 5
 
-            if not n.msg is None:
-                text n.msg color gui.notifyEx_text_color
+            if not n.message is None:
+                text n.message color gui.notifyEx_text_color
 
-    timer 0.05 repeat True action [ SetField( n, "remain", n.remain - 0.05 ), If( n.remain <= 0, Function( notifyExClean, n ), NullAction() ) ]
+    timer 0.05 repeat True action [ SetField( n, "delay", n.delay - 0.05 ), If( n.delay <= 0, Function( notify_remove, n ), NullAction() ) ]

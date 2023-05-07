@@ -9,13 +9,13 @@ define flag_keys = [
 ]
 
 init python:
-    def updateFlags():
+    def update_flags():
         """update flags by making it with the same elements of flag_keys. in case you have to add them set them as False"""
-        return myFlags.updateFlags(flags, flag_keys)
+        return myFlags.update_flags(flags, flag_keys)
 
-    def getFlags(flag_id: str) -> bool:
+    def get_flags(flag_id: str) -> bool:
         """returns the value of the flag_id in flags"""
-        return myFlags.getFlags(flag_id, flags)
+        return myFlags.get_flags(flag_id, flags)
 
-    def setFlags(flag_id: str, value: bool):
-        return myFlags.setFlags(flag_id, value, flags)
+    def set_flags(flag_id: str, value: bool):
+        return myFlags.set_flags(flag_id, value, flags)

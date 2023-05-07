@@ -9,17 +9,17 @@ init -998 python:
     def log_error(msg: str, filename_line = None):
         myLog.log_error(msg, filename_line)
         if error_notify:
-            notifyExPreventsLoops(msg = error_notify)
+            notify_prevents_loops(msg = error_notify)
         return
 
     def log_warn(msg: str, filename_line = None):
         myLog.log_warn(msg, filename_line)
         if not IsNullOrWhiteSpace(warn_notify):
-            notifyExPreventsLoops(msg = warn_notify)
+            notify_prevents_loops(msg = warn_notify)
         return
 
     def log_info(msg: str, filename_line = None):
         myLog.log_info(msg, filename_line)
         if not IsNullOrWhiteSpace(info_notify):
-            notifyExPreventsLoops(msg = info_notify)
+            notify_prevents_loops(msg = info_notify)
         return
