@@ -27,6 +27,8 @@ renpy's pros:
 
 ## Performance
 
+([in development](https://github.com/DRincs-Productions/Renpygame/issues/10))
+
 **Important**: I am currently trying to solve performance problems in animations using [CDD](https://www.renpy.org/doc/html/cdd.html). for the time being i will not evaluate this problem because it is only a problem of incorrect implementation.
 
 (I don't made any tests for now) Renpygame use [CDD](https://www.renpy.org/doc/html/cdd.html) for draw and renpy for open a file, but I use a typification and is a external library. So, the performance is the same as renpy, excluding possible implementation errors.
