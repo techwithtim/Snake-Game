@@ -139,6 +139,7 @@ class RenpyGameByTimer(renpy.Displayable):
         self.child_render = None
         self.current_frame_number = 0
         self.is_started = False
+        self.is_game_end = False
 
         # renpy.Displayable init
         super(RenpyGameByTimer, self).__init__(**kwargs)
@@ -202,6 +203,14 @@ class RenpyGameByTimer(renpy.Displayable):
     def event_lambda(self, value: Optional[Callable[[Any, int, int, float], Any]]):
         self._event_lambda = value
 
+    @property
+    def is_game_end(self) -> bool:
+        return self._is_game_end
+
+    @is_game_end.setter
+    def is_game_end(self, value: bool):
+        self._is_game_end = value
+
     def show(self, show_and_start: bool = True):
         """wiki: https://github.com/DRincs-Productions/Renpygame/wiki/Minigame-with-a-render-loop#start-a-game-between-a-sterted-menu"""
         print("Renpy Game Show")
@@ -239,10 +248,12 @@ class RenpyGameByTimer(renpy.Displayable):
 
     def game_end(self):
         print("Renpy Game End")
-        return self.hide()
+        self._exit()
+        return
 
-    def hide(self):
-        renpy.free_memory()
+    def _exit(self):
+        print("Renpy Game End")
+        self.is_game_end = True
 
     def render(self, width: int, height: int, st: float, at: float) -> renpy.Render:
         """this function will be started in the form of a loop.
@@ -274,6 +285,10 @@ class RenpyGameByTimer(renpy.Displayable):
         config.keymap: https://www.renpy.org/doc/html/config.html#var-config.keymap
         add a event: https://www.renpy.org/doc/html/other.html#renpy.queue_event
         """
+        if self.is_game_end:
+            renpy.free_memory()
+            return 0
+
         if hasattr(ev.dict, "key"):
             ev.key = None
 

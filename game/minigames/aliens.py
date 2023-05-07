@@ -256,9 +256,10 @@ def main():
     # * after show() the game will be running when the game is over
 
     # clean up the shared data
+    score = sh.score
     sh = None
     # return to renpy
-    return
+    return score
 
 
 def my_game_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
