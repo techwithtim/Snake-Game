@@ -1,9 +1,8 @@
 import renpy.exports as renpy
 
 import pythonpackages.renpygame_pygame as pygame
-from pythonpackages.renpygame_pygame.image import *
 from pythonpackages.renpygame.display import Surface
-from pythonpackages.utility import os_path_join
+from pythonpackages.renpygame_pygame.image import *
 
 
 # class Image(renpy.display.image.DynamicImage):
@@ -57,7 +56,7 @@ class Image(renpy.display.im.Image):
 
     @property
     def file(self):
-        path = os_path_join("images", self.imagename)
+        path = "images/" + self.imagename
         return renpy.open_file(path)
 
     @property
@@ -127,7 +126,7 @@ class Flip(renpy.display.im.Flip):
 
     @property
     def file(self):
-        path = os_path_join("images", self.imagename)
+        path = "images/" + self.imagename
         return renpy.open_file(path)
 
     @property
@@ -183,7 +182,7 @@ class Scale(renpy.display.im.Scale):
 
     @property
     def file(self):
-        path = os_path_join("images", self.imagename)
+        path = "images/" + self.imagename
         return renpy.open_file(path)
 
     @property
@@ -239,7 +238,7 @@ class Rotozoom(renpy.display.im.Rotozoom):
 
     @property
     def file(self):
-        path = os_path_join("images", self.imagename)
+        path = "images/" + self.imagename
         return renpy.open_file(path)
 
     @property
