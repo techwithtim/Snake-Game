@@ -4,5 +4,10 @@ define e = Character("Eileen", color="#c8ffc8", image="eileen")
 
 # The game starts here.
 label start:
-    call aliens_start
+    menu:
+        "Aliens":
+            call aliens_start
+        "Quit":
+            return
+        "An what do you want to play?"
     jump start

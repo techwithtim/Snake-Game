@@ -22,7 +22,7 @@ label aliens_retry:
     # This eats up any remaining keypresses.
     $ renpy.pause(.1)
     
-    e "You shot down %(score)d aliens."
+    e "You shot down [score] aliens."
 
     if score > 10:
 
@@ -36,7 +36,7 @@ label aliens_retry:
 
             "Okay, get ready..."
 
-            jump retry
+            jump aliens_retry
 
         "No thanks.":
 
