@@ -1,0 +1,5 @@
+files:
+  - source: /game/tl/crowdin/*.po
+    ignore:
+      - /game/tl/crowdin/common.*
+    translation: /game/tl/%language%/%original_file_name%
