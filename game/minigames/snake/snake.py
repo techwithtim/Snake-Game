@@ -159,7 +159,7 @@ class SnakeSharedData:
     def __init__(self):
         self.snake_player = snake((255, 0, 0), (10, 10))
         self.snake_player.addCube()
-        self.snack = cube(randomSnack(rows, sh.snake_player), color=(0, 255, 0))
+        self.snack = cube(randomSnack(rows, self.snake_player), color=(0, 255, 0))
         self.flag = True
         self.clock = pygame.time.Clock()
 
