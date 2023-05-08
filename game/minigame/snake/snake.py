@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 import pythonpackages.renpygame as pygame
 
 width = 500
@@ -156,15 +157,34 @@ def randomSnack(rows, item):
 
 
 def main():
-    global s, snack, win
+    minigame = pygame.RenpyGameByTimer(
+        first_step=snake_first_step,
+        update_process=snake_logic,
+        # event_lambda=game_event,
+        delay=0.07,
+    )
+    minigame.show(show_and_start = True)
+
+
+
+def snake_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
+    global s, snack, win, flag, clock
     win = pygame.display.set_mode((width, height))
     s = snake((255, 0, 0), (10, 10))
     s.addCube()
     snack = cube(randomSnack(rows, s), color=(0, 255, 0))
     flag = True
     clock = pygame.time.Clock()
+    return win
 
-    while flag:
+def snake_logic(
+    cur_screen: pygame.Surface,
+    st: float,
+    at: float,
+    next_frame_time: float,
+    current_frame_number: int,
+) -> Optional[float]:
+    if flag:
         pygame.time.delay(50)
         clock.tick(10)
         s.move()
@@ -184,6 +204,7 @@ def main():
                 break
 
         redrawWindow()
+        return next_frame_time
+    else:
+        return None
 
-
-main()
