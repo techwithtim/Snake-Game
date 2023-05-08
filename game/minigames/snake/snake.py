@@ -122,8 +122,8 @@ class snake:
 def redrawWindow(screen: pygame.Surface):
     screen.fill((0, 0, 0))
     drawGrid(width, rows, screen)
-    snake_player.draw(screen)
-    snack.draw(screen)
+    sh.snake_player.draw(screen)
+    sh.snack.draw(screen)
     pygame.display.update()
     pass
 
@@ -155,7 +155,25 @@ def randomSnack(rows, item):
     return (x, y)
 
 
+class SnakeSharedData:
+    def __init__(self):
+        self.snake_player = snake((255, 0, 0), (10, 10))
+        self.snake_player.addCube()
+        self.snack = cube(randomSnack(rows, sh.snake_player), color=(0, 255, 0))
+        self.flag = True
+        self.clock = pygame.time.Clock()
+
+
+sh = SnakeSharedData()
+
+
 def main():
+    # # Initialize a shared data
+    global sh
+
+    if not sh:
+        sh = SnakeSharedData()
+
     minigame = pygame.RenpyGameByTimer(
         first_step=snake_first_step,
         update_process=snake_logic,
@@ -166,13 +184,13 @@ def main():
 
 
 def snake_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
-    global snake_player, snack, screen, flag, clock
     screen = pygame.display.set_mode((width, height))
-    snake_player = snake((255, 0, 0), (10, 10))
-    snake_player.addCube()
-    snack = cube(randomSnack(rows, snake_player), color=(0, 255, 0))
-    flag = True
-    clock = pygame.time.Clock()
+    sh.snake_player = snake((255, 0, 0), (10, 10))
+    sh.snake_player.addCube()
+    sh.snack = cube(randomSnack(rows, sh.snake_player), color=(0, 255, 0))
+    sh.flag = True
+    sh.clock = pygame.time.Clock()
+    screen = pygame.display.set_mode((width, height))
     return screen
 
 
@@ -183,25 +201,25 @@ def snake_logic(
     next_frame_time: float,
     current_frame_number: int,
 ) -> Optional[float]:
-    if flag:
+    if sh.flag:
         # pygame.time.delay(50)
         # clock.tick(10)
-        snake_player.move()
-        headPos = snake_player.head.pos
+        sh.snake_player.move()
+        headPos = sh.snake_player.head.pos
         if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
-            print("Score:", len(snake_player.body))
-            snake_player.reset((10, 10))
+            print("Score:", len(sh.snake_player.body))
+            sh.snake_player.reset((10, 10))
 
-        if snake_player.body[0].pos == snack.pos:
-            snake_player.addCube()
-            snack = cube(randomSnack(rows, snake_player), color=(0, 255, 0))
+        if sh.snake_player.body[0].pos == sh.snack.pos:
+            sh.snake_player.addCube()
+            sh.snack = cube(randomSnack(rows, sh.snake_player), color=(0, 255, 0))
 
-        for x in range(len(snake_player.body)):
-            if snake_player.body[x].pos in list(
-                map(lambda z: z.pos, snake_player.body[x + 1 :])
+        for x in range(len(sh.snake_player.body)):
+            if sh.snake_player.body[x].pos in list(
+                map(lambda z: z.pos, sh.snake_player.body[x + 1 :])
             ):
-                print("Score:", len(snake_player.body))
-                snake_player.reset((10, 10))
+                print("Score:", len(sh.snake_player.body))
+                sh.snake_player.reset((10, 10))
                 break
 
         redrawWindow(cur_screen)
