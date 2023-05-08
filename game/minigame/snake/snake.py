@@ -1,9 +1,5 @@
-import math
 import random
-import pygame
-import random
-import tkinter as tk
-from tkinter import messagebox
+import pythonpackages.renpygame as pygame
 
 width = 500
 height = 500
