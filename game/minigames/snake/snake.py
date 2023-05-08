@@ -119,12 +119,11 @@ class snake:
                 c.draw(surface)
 
 
-def redrawWindow():
-    global win
-    win.fill((0, 0, 0))
-    drawGrid(width, rows, win)
-    s.draw(win)
-    snack.draw(win)
+def redrawWindow(screen: pygame.Surface):
+    screen.fill((0, 0, 0))
+    drawGrid(width, rows, screen)
+    snake_player.draw(screen)
+    snack.draw(screen)
     pygame.display.update()
     pass
 
@@ -163,19 +162,19 @@ def main():
         # event_lambda=game_event,
         delay=0.07,
     )
-    minigame.show(show_and_start = True)
-
+    minigame.show(show_and_start=True)
 
 
 def snake_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
-    global s, snack, win, flag, clock
-    win = pygame.display.set_mode((width, height))
-    s = snake((255, 0, 0), (10, 10))
-    s.addCube()
-    snack = cube(randomSnack(rows, s), color=(0, 255, 0))
+    global snake_player, snack, screen, flag, clock
+    screen = pygame.display.set_mode((width, height))
+    snake_player = snake((255, 0, 0), (10, 10))
+    snake_player.addCube()
+    snack = cube(randomSnack(rows, snake_player), color=(0, 255, 0))
     flag = True
     clock = pygame.time.Clock()
-    return win
+    return screen
+
 
 def snake_logic(
     cur_screen: pygame.Surface,
@@ -185,26 +184,27 @@ def snake_logic(
     current_frame_number: int,
 ) -> Optional[float]:
     if flag:
-        pygame.time.delay(50)
-        clock.tick(10)
-        s.move()
-        headPos = s.head.pos
+        # pygame.time.delay(50)
+        # clock.tick(10)
+        snake_player.move()
+        headPos = snake_player.head.pos
         if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
-            print("Score:", len(s.body))
-            s.reset((10, 10))
+            print("Score:", len(snake_player.body))
+            snake_player.reset((10, 10))
 
-        if s.body[0].pos == snack.pos:
-            s.addCube()
-            snack = cube(randomSnack(rows, s), color=(0, 255, 0))
+        if snake_player.body[0].pos == snack.pos:
+            snake_player.addCube()
+            snack = cube(randomSnack(rows, snake_player), color=(0, 255, 0))
 
-        for x in range(len(s.body)):
-            if s.body[x].pos in list(map(lambda z: z.pos, s.body[x + 1 :])):
-                print("Score:", len(s.body))
-                s.reset((10, 10))
+        for x in range(len(snake_player.body)):
+            if snake_player.body[x].pos in list(
+                map(lambda z: z.pos, snake_player.body[x + 1 :])
+            ):
+                print("Score:", len(snake_player.body))
+                snake_player.reset((10, 10))
                 break
 
-        redrawWindow()
+        redrawWindow(cur_screen)
         return next_frame_time
     else:
         return None
-
