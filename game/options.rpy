@@ -1,28 +1,27 @@
-﻿## Questo file contiene opzioni che possono venire cambiate per personalizzare
-## il gioco.
+﻿## This file contains options that can be changed to customize your game.
 ##
-## Le linee che cominciano con due '#' sono commenti e non dovresti modificarle.
-## Le linee con un solo '#' sono linee di codice opzionali, e potresti volerle
-## modificare se appropriato.
+## Lines beginning with two '#' marks are comments, and you shouldn't uncomment
+## them. Lines beginning with a single '#' mark are commented-out code, and you
+## may want to uncomment them when appropriate.
 
 
-## Fondamentali ################################################################
+## Basics ######################################################################
 
-## Il nome del gioco in forma leggibile. E' usato per il titolo nella finestra e
-## viene impiegato per i resoconti di errore e nell'interfaccia.
+## A human-readable name of the game. This is used to set the default window
+## title, and shows up in the interface and error reports.
 ##
-## La notazione _() che racchiude la stringa la segna come testo traducibile.
+## The _() surrounding the string marks it as eligible for translation.
 
 define config.name = _("Snake")
 
 
-## Determina se il titolo fornito più sopra è mostrato nel main menu. Imposta su
-## 'False' per nascondere il titolo.
+## Determines if the title given above is shown on the main menu screen. Set
+## this to False to hide the title.
 
 define gui.show_name = True
 
 
-## La versione del gioco.
+## The version of the game.
 
 define config.version = "1.0"
 
@@ -34,14 +33,14 @@ define gui.about = _p("""
 """)
 
 
-## Un nome abbreviato impiegato dagli eseguibili e dalle cartelle nelle
-## distribuzioni compilate. Deve contenere solo caratteri ASCII e non può
-## contenere spazi, due punti, o punti e virgole.
+## A short name for the game used for executables and directories in the built
+## distribution. This must be ASCII-only, and must not contain spaces, colons,
+## or semicolons.
 
 define build.name = "Snake"
 
 
-## Suoni e musica ##############################################################
+## Sounds and music ############################################################
 
 ## These three variables control, among other things, which mixers are shown
 ## to the player by default. Setting one of these to False will hide the
@@ -52,27 +51,27 @@ define config.has_music = True
 define config.has_voice = True
 
 
-## Per consentire al giocatore di eseguire un test sonoro sui canali Suono o
-## Voce, togli # dalla linea e usala per impostare un suono di esempio.
+## To allow the user to play a test sound on the sound or voice channel,
+## uncomment a line below and use it to set a sample sound to play.
 
 # define config.sample_sound = "sample-sound.ogg"
 # define config.sample_voice = "sample-voice.ogg"
 
 
-## Togli # dalla linea seguente per impostare un file audio che sarà riprodotto
-## durante il main menu. Continuerà a suonare fino a che non verrà interrotto o
-## un altro file audio verrà suonato.
+## Uncomment the following line to set an audio file that will be played while
+## the player is at the main menu. This file will continue playing into the
+## game, until it is stopped or another file is played.
 
 # define config.main_menu_music = "main-menu-theme.ogg"
 
 
-## Transizioni #################################################################
+## Transitions #################################################################
 ##
-## Queste variabili impostano le transizioni che sono usate quando avvengono
-## certi eventi. Ogni variabile deve essere impostata su una transizione, o su
-## None per indicare che nessuna transizione deve venire usata.
+## These variables set transitions that are used when certain events occur.
+## Each variable should be set to a transition, or None to indicate that no
+## transition should be used.
 
-## Entrare o uscire dal game menu.
+## Entering or exiting the game menu.
 
 define config.enter_transition = dissolve
 define config.exit_transition = dissolve
@@ -83,58 +82,57 @@ define config.exit_transition = dissolve
 define config.intra_transition = dissolve
 
 
-## Transizione usata dopo che una partita viene caricata.
+## A transition that is used after a game has been loaded.
 
 define config.after_load_transition = None
 
 
-## Usata quando si torna al main menu dopo che è finita una partita.
+## Used when entering the main menu after the game has ended.
 
 define config.end_game_transition = None
 
 
-## Non esiste una variabile per impostare la transizione da usare quando inizia
-## il gioco. Usa un comando 'with' subito dopo aver mostrato la prima 'scene'.
+## A variable to set the transition used when the game starts does not exist.
+## Instead, use a with statement after showing the initial scene.
 
 
-## Gestione finestra ###########################################################
+## Window management ###########################################################
 ##
-## Controlla come viene mostrata la finestra dei dialoghi. Con "show", viene
-## mostrata sempre. Con "hide", è mostrata solo quando ci sono linee di dialogo.
-## Con "auto", la finestra è nascosta prima di un comando 'scene' e mostrata di
-## nuovo al successivo dialogo.
+## This controls when the dialogue window is displayed. If "show", it is always
+## displayed. If "hide", it is only displayed when dialogue is present. If
+## "auto", the window is hidden before scene statements and shown again once
+## dialogue is displayed.
 ##
-## Dopo che il gioco ha avuto inizio, questo può essere cambiato coi comandi
-## "window show", "window hide", and "window auto".
+## After the game has started, this can be changed with the "window show",
+## "window hide", and "window auto" statements.
 
 define config.window = "auto"
 
 
-## Transizioni usate per mostrare e nascondere la finestra dei dialoghi
+## Transitions used to show and hide the dialogue window
 
 define config.window_show_transition = Dissolve(.2)
 define config.window_hide_transition = Dissolve(.2)
 
 
-## Opzioni predefinite #########################################################
+## Preference defaults #########################################################
 
-## Controlla la velocità del testo predefinita. Lo standard, 0, è infinito,
-## mentre qualunque altro numero indica il numero di caratteri al secondo da
-## mostrare.
+## Controls the default text speed. The default, 0, is infinite, while any other
+## number is the number of characters per second to type out.
 
 default preferences.text_cps = 0
 
 
-## Il ritardo predefinito dell'avanzamento automatico. Numeri alti portano ad
-## attese più lunghe, con un intervallo valido da 0 a 30.
+## The default auto-forward delay. Larger numbers lead to longer waits, with 0
+## to 30 being the valid range.
 
 default preferences.afm_time = 15
 
 
-## Percorso Salvataggi #########################################################
+## Save directory ##############################################################
 ##
-## Controlla dove ren'Py pone i file di salvataggio, secondo la piattaforma. I
-## file possono essere posti in:
+## Controls the platform-specific place Ren'Py will place the save files for
+## this game. The save files will be placed in:
 ##
 ## Windows: %APPDATA\RenPy\<config.save_directory>
 ##
@@ -142,44 +140,43 @@ default preferences.afm_time = 15
 ##
 ## Linux: $HOME/.renpy/<config.save_directory>
 ##
-## Di solito questo non dovrebbe venire cambiato, ma se lo fosse deve sempre
-## essere una stringa diretta e non un'espressione.
+## This generally should not be changed, and if it is, should always be a
+## literal string, not an expression.
 
-define config.save_directory = "Snake-1683539094"
+define config.save_directory = "Snake-1683543200"
 
 
-## Icona #######################################################################
+## Icon ########################################################################
 ##
-## L'icona mostrata sulla dock o sulla barra applicazioni.
+## The icon displayed on the taskbar or dock.
 
 define config.window_icon = "gui/window_icon.png"
 
 
-## Configura Compilazione ######################################################
+## Build configuration #########################################################
 ##
-## Questa sezione controlla come Ren'Py trasforma il tuo progetto in file di
-## distribuzione.
+## This section controls how Ren'Py turns your project into distribution files.
 
 init python:
 
-    ## Le funzioni seguenti richiedono schemi di nome. Questi schemi non
-    ## differenziano maiuscole e minuscole, e corrispondono al percorso relativo
-    ## alla cartella base, con e senza un segno / preposto. Se più schemi
-    ## corrispondono, viene usato il primo.
+    ## The following functions take file patterns. File patterns are case-
+    ## insensitive, and matched against the path relative to the base directory,
+    ## with and without a leading /. If multiple patterns match, the first is
+    ## used.
     ##
-    ## In uno schema:
+    ## In a pattern:
     ##
-    ## / è il separatore fra cartelle.
+    ## / is the directory separator.
     ##
-    ## * equivale a qualunque carattere tranne il separatore fra cartelle.
+    ## * matches all characters, except the directory separator.
     ##
-    ## ** equivale a qualunque carattere inclusi i separatori fra cartelle.
+    ## ** matches all characters, including the directory separator.
     ##
-    ## Per esempio, "*.txt" indica file .txt nella cartella base, "game/**.ogg"
-    ## indica file .ogg nella cartella base o qualunque sua sottocartella, e
-    ## "**.psd" indica file .psd ovunque nel progetto.
+    ## For example, "*.txt" matches txt files in the base directory, "game/
+    ## **.ogg" matches ogg files in the game directory or any of its
+    ## subdirectories, and "**.psd" matches psd files anywhere in the project.
 
-    ## Classifica file come 'None' per escluderli dalla compilazione.
+    ## Classify files as None to exclude them from the built distributions.
 
     build.classify('**~', None)
     build.classify('**.bak', None)
@@ -187,27 +184,26 @@ init python:
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
 
-    ## Per archiviare i file, classificali come 'archive'.
+    ## To archive files, classify them as 'archive'.
 
     # build.classify('game/**.png', 'archive')
     # build.classify('game/**.jpg', 'archive')
 
-    ## I file che corrispondono a schemi di documentazione sono duplicati nella
-    ## compilazione di app Macintosh, quindi appariranno sia nella app che nel
-    ## file zip.
+    ## Files matching documentation patterns are duplicated in a mac app build,
+    ## so they appear in both the app and the zip file.
 
     build.documentation('*.html')
     build.documentation('*.txt')
 
 
-## Una licenza Google Play è richiesta per scaricare file di espansione ed
-## eseguire acquisti in-app. La Chiave Licenza può essere trovata alla pagina
-## "Services & APIs" della console sviluppatori di Google Play.
+## A Google Play license key is required to download expansion files and perform
+## in-app purchases. It can be found on the "Services & APIs" page of the Google
+## Play developer console.
 
 # define build.google_play_key = "..."
 
 
-## L'username e project name associati a un progetto itch.io, separati da una
-## slash.
+## The username and project name associated with an itch.io project, separated
+## by a slash.
 
 # define build.itch_project = "renpytom/test-project"

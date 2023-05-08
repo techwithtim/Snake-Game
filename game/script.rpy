@@ -1,36 +1,33 @@
-﻿#  Lo script di gioco va in questo file.
+﻿# The script of the game goes in this file.
 
-#  Dichiara i personaggi usati in questo gioco. L'argomento 'color' colora il nome del personaggio.
+# Declare characters used by this game. The color argument colorizes the
+# name of the character.
 
-define e = Character("Eileen", color="#f44")
+define e = Character("Eileen")
 
 
-# Il gioco comincia qui.
+# The game starts here.
 
 label start:
 
-    # Mostra uno sfondo. Al momento mostra una sagoma generica, ma puoi
-    # aggiungere un file (chiamato "bg room.png" oppure "bg room.jpg")
-    # alla directory 'images' per cambiarla.
-
+    # Show a background. This uses a placeholder by default, but you can
+    # add a file (named either "bg room.png" or "bg room.jpg") to the
+    # images directory to show it.
 
     scene bg room
 
-    # Mostra lo sprite di un personaggio.
-    # Al momento mostra una sagoma generica, ma puoi aggiungere un file
-    # (chiamato "eileen_happy.png") alla directory 'images' per cambiarla.
+    # This shows a character sprite. A placeholder is used, but you can
+    # replace it by adding a file named "eileen happy.png" to the images
+    # directory.
 
     show eileen happy
 
-    # Questo mostra linee di dialogo.
+    # These display lines of dialogue.
 
-    "Funziona davvero!"
+    e "You've created a new Ren'Py game."
 
-    e "Hai creato un nuovo gioco Ren'py."
+    e "Once you add a story, pictures, and music, you can release it to the world!"
 
-    e "Quando aggiungerai una storia, immagini e musica, potrai distribuirlo nel mondo!"
-
-    # Questo finisce il gioco.
+    # This ends the game.
 
     return
-
