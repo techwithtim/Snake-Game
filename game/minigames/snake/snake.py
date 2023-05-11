@@ -185,12 +185,6 @@ def main():
 
 def snake_first_step(width: int, height: int, st: float, at: float) -> pygame.Surface:
     screen = pygame.display.set_mode((width, height))
-    sh.snake_player = snake((255, 0, 0), (10, 10))
-    sh.snake_player.addCube()
-    sh.snack = cube(randomSnack(rows, sh.snake_player), color=(0, 255, 0))
-    sh.flag = True
-    sh.clock = pygame.time.Clock()
-    screen = pygame.display.set_mode((width, height))
     return screen
 
 
