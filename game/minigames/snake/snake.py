@@ -161,7 +161,6 @@ class SnakeSharedData:
         self.snake_player.addCube()
         self.snack = cube(randomSnack(rows, self.snake_player), color=(0, 255, 0))
         self.flag = True
-        self.clock = pygame.time.Clock()
 
 
 sh = SnakeSharedData()
@@ -196,8 +195,6 @@ def snake_logic(
     current_frame_number: int,
 ) -> Optional[float]:
     if sh.flag:
-        # pygame.time.delay(50)
-        # clock.tick(10)
         sh.snake_player.move()
         headPos = sh.snake_player.head.pos
         if headPos[0] >= 20 or headPos[0] < 0 or headPos[1] >= 20 or headPos[1] < 0:
