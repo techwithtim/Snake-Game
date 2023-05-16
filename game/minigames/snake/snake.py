@@ -2,6 +2,8 @@ import random
 from typing import Optional
 import pythonpackages.renpygame as pygame
 
+import renpy.exports as renpy
+
 width = 500
 height = 500
 
@@ -121,7 +123,7 @@ class snake:
 
 def redrawWindow(screen: pygame.Surface):
     screen.fill((0, 0, 0))
-    drawGrid(width, rows, screen)
+    # drawGrid(width, rows, screen)
     sh.snake_player.draw(screen)
     sh.snack.draw(screen)
     pygame.display.update()
@@ -173,11 +175,11 @@ def main():
     if not sh:
         sh = SnakeSharedData()
 
-    minigame = pygame.RenpyGameByTimer(
-        first_step=snake_first_step,
+    minigame = pygame.RenpyGameByTimerOnlyDraw(
+        # first_step=snake_first_step,
         update_process=snake_logic,
         # event_lambda=game_event,
-        delay=0.07,
+        delay=0.7,
     )
     minigame.show(show_and_start=True)
 
@@ -188,9 +190,8 @@ def snake_first_step(width: int, height: int, st: float, at: float) -> pygame.Su
 
 
 def snake_logic(
-    cur_screen: pygame.Surface,
+    cur_screen: renpy.Render,
     st: float,
-    at: float,
     next_frame_time: Optional[float],
     current_frame_number: int,
 ) -> Optional[float]:
