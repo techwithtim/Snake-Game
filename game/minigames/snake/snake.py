@@ -175,8 +175,7 @@ def main():
     if not sh:
         sh = SnakeSharedData()
 
-    minigame = pygame.RenpyGameByTimerOnlyDraw(
-        first_step=snake_first_step,
+    minigame = pygame.RenpyGameByTimerForDraw(
         update_process=snake_logic,
         # event_lambda=game_event,
         delay=0.7,
