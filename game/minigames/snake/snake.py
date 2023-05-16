@@ -176,7 +176,7 @@ def main():
         sh = SnakeSharedData()
 
     minigame = pygame.RenpyGameByTimerOnlyDraw(
-        # first_step=snake_first_step,
+        first_step=snake_first_step,
         update_process=snake_logic,
         # event_lambda=game_event,
         delay=0.7,
