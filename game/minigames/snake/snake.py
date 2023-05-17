@@ -123,7 +123,7 @@ class snake:
 
 def redrawWindow(screen: pygame.Surface):
     screen.fill((0, 0, 0))
-    # drawGrid(width, rows, screen)
+    drawGrid(width, rows, screen)
     sh.snake_player.draw(screen)
     sh.snack.draw(screen)
     pygame.display.update()
